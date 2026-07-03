@@ -8,5 +8,10 @@ class ApplicationController < ActionController::Base
   def logged_in? 
     current_user.present?
   end
-end
 
+  def require_login
+    unless logged_in?
+      redirect_to login_path, alert: "ログインしてください"
+    end
+  end
+end

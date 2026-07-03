@@ -1,10 +1,19 @@
 <h1>新規登録</h1>
 
 <%= form_with model: @user, local: true do |f| %>
+
   <% if @user.errors.any? %>
     <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% if @user.errors[:name].any? %>
+        <li>ユーザー名 <%= @user.errors[:name].first %></li>
+      <% end %>
+
+      <% if @user.errors[:email].any? %>
+        <li>メールアドレス <%= @user.errors[:email].first %></li>
+      <% end %>
+
+      <% if @user.errors[:password].any? %>
+        <li>パスワード <%= @user.errors[:password].first %></li>
       <% end %>
     </ul>
   <% end %>

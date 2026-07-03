@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]   # ここに追加
-  before_action :require_owner, only: [:edit, :update, :destroy]     # ここに追加
+  before_action :require_login, only: [:new, :create, :edit, :update, :destroy, :show]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def new
     @post = Post.new

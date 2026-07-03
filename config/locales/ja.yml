@@ -5,3 +5,13 @@ ja:
         name: "ユーザー名"
         email: "メールアドレス"
         password: "パスワード"
+        password_confirmation: "パスワード（確認用）" 
+        
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              blank: "を入力してください"
+            email:
+              taken: "は既に使用されています"

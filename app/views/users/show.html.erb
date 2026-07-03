@@ -1,28 +1,40 @@
-<h1>マイページ</h1>
+<h1>
+  <% if @user.id == current_user.id %>
+    マイページ
+  <% else %>
+    <%= @user.name %> の投稿一覧
+  <% end %>
+</h1>
 
-<p>ユーザー名：<%= @user.name %></p>
-<p>メールアドレス：<%= @user.email %></p>
+<% if @user.id == current_user.id %>
+  <p>ユーザー名：<%= @user.name %></p>
+  <p>メールアドレス：<%= @user.email %></p>
+<% end %>
 
 <hr>
 
-<h2>あなたの投稿一覧</h2>
+<% if @user.id == current_user.id %>
+  <h2>あなたの投稿一覧</h2>
+<% end %>
 
 <% @posts.each do |post| %>
   <div>
-    <h3><%= link_to post.title, post_path(post) %></h3>   <!-- # 投稿詳細へ遷移 -->
+    <h3><%= link_to post.title, post_path(post) %></h3>
     <p><%= post.body.truncate(50) %></p>
   </div>
 <% end %>
 
 <hr>
 
-<%= link_to "ユーザー情報を編集する", edit_user_path(@user) %>   <!-- # 編集ボタン -->
+<% if @user.id == current_user.id %>   <!-- ★ ここから追加 -->
+  <%= link_to "ユーザー情報を編集する", edit_user_path(@user) %>
 
-<br><br>
+  <br><br>
 
-<%= link_to "退会する", user_path(@user),
-            method: :delete,
-            data: { confirm: "本当に退会しますか？" } %>   <!-- # 退会ボタン -->
+  <%= link_to "退会する", user_path(@user),
+              method: :delete,
+              data: { confirm: "本当に退会しますか？" } %>
+<% end %>                              <!-- ★ ここまで追加 -->
 
 <br><br>
 

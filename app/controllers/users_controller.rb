@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :require_owner, only: [:edit, :update, :destroy]
+  before_action :require_login, only: [:show, :edit, :update, :destroy]
 
   def new
     @user = User.new
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id 
-      redirect_to root_path, notice: "ログインしました"
+      redirect_to @user, notice: "ログインしました"
     else
       render :new, status: :unprocessable_entity 
     end
@@ -24,10 +24,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)        # ここに追加（更新処理）
-      redirect_to @user, notice: "ユーザー情報を更新しました"   # ここに追加（成功時）
+    if @user.update(user_params)        # 更新処理
+      redirect_to @user, notice: "ユーザー情報を更新しました"   # 更新成功時
     else
-      render :edit, status: :unprocessable_entity   # ここに追加（失敗時）
+      render :edit, status: :unprocessable_entity   # 更新失敗時
     end
   end
 
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
   def require_owner
     unless @user.id == current_user.id
-      redirect_to root_path, alert: "権限がありません"
+      redirect_to user_path(current_user), alert: "権限がありません"
     end
   end
 
