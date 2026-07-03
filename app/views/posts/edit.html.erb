@@ -1,0 +1,26 @@
+<h1>投稿を編集</h1>
+
+<%= form_with model: @post, local: true do |f| %>
+
+  <% if @post.errors.any? %>   <!-- # バリデーションエラー表示 -->
+    <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title %>   <!-- # 元の投稿データが自動で入る -->
+  </div>
+
+  <div>
+    <%= f.label :body, "本文" %>
+    <%= f.text_area :body %>     <!-- # 元の投稿データが自動で入る -->
+  </div>
+
+  <%= f.submit "更新する" %>     <!-- # 更新ボタン -->
+<% end %>
+
+<%= link_to "戻る", post_path(@post) %>
