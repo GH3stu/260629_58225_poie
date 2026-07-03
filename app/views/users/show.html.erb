@@ -3,4 +3,27 @@
 <p>ユーザー名：<%= @user.name %></p>
 <p>メールアドレス：<%= @user.email %></p>
 
+<hr>
+
+<h2>あなたの投稿一覧</h2>
+
+<% @posts.each do |post| %>
+  <div>
+    <h3><%= link_to post.title, post_path(post) %></h3>   <!-- # 投稿詳細へ遷移 -->
+    <p><%= post.body.truncate(50) %></p>
+  </div>
+<% end %>
+
+<hr>
+
+<%= link_to "ユーザー情報を編集する", edit_user_path(@user) %>   <!-- # 編集ボタン -->
+
+<br><br>
+
+<%= link_to "退会する", user_path(@user),
+            method: :delete,
+            data: { confirm: "本当に退会しますか？" } %>   <!-- # 退会ボタン -->
+
+<br><br>
+
 <%= link_to "トップへ戻る", root_path %>
