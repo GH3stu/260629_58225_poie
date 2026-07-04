@@ -15,4 +15,6 @@ Rails.application.routes.draw do
 
   get "up" => "rails/health#show", as: :rails_health_check
 
+  get "search", to: "posts#search"   # ★追加
+
 end
