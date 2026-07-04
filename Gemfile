@@ -64,6 +64,8 @@ group :test do
   gem "selenium-webdriver"
 end
 
+ruby "3.3.6"   # ★あなたのローカルと一致
+
 # 環境変数
 gem "dotenv-rails"
 

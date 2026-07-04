@@ -1,16 +1,36 @@
-<header>
-  <%= link_to "Poie", root_path, style: "font-weight: bold; font-size: 20px;" %>
+<header style="height: 70px; border-bottom: 1px solid #ddd;">
+  <div style="height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 40px;">
 
-  <%= link_to "About", about_path %> 
+    <!-- 左：ロゴ -->
+    <div style="font-size: 22px; font-weight: bold;">
+      <%= link_to "Poie", root_path %>
+    </div>
 
-  <% if logged_in? %>
-    <%= link_to "マイページ", user_path(current_user) %>
-    <%= link_to "新規投稿", new_post_path %>
-    <%= link_to "投稿一覧", posts_path %> 
-    <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %> 
-  <% else %> 
-    <%= link_to "ログイン", login_path %>
-    <%= link_to "新規登録", new_user_path %>
-  <% end %>
+    <!-- 中央ナビ（検索窓＋トップ＋About） -->
+    <nav style="display: flex; gap: 25px; font-size: 16px; align-items: center;">
 
+      <!-- 検索窓（ログイン前も表示） -->
+      <%= form_with url: search_path, method: :get, local: true, style: "display: flex; align-items: center; gap: 10px;" do |f| %>
+        <%= f.text_field :keyword, placeholder: "検索", style: "padding: 5px 10px; width: 180px;" %>
+        <%= f.submit "検索", style: "padding: 5px 10px;" %>
+      <% end %>
+
+      <span style="color: #aaa;">ー</span>
+      <%= link_to "トップ", root_path %>
+    </nav>
+
+    <!-- 右：ログイン前後で切り替え -->
+    <div style="display: flex; gap: 20px; font-size: 16px;">
+      <% if logged_in? %>
+        <%= link_to "マイページ", user_path(current_user) %>
+        <%= link_to "新規投稿", new_post_path %>
+        <%= link_to "投稿一覧", posts_path %>
+        <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %>
+      <% else %>
+        <%= link_to "ログイン", login_path %>
+        <%= link_to "新規登録", new_user_path %>
+      <% end %>
+    </div>
+
+  </div>
 </header>
