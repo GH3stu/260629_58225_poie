@@ -12,13 +12,12 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       password: "password"
     }
     assert_response :redirect
-    assert_redirected_to root_url
+    assert_redirected_to user_url(users(:one))   # ★ここを修正
   end
 
   test "should get destroy" do
     delete logout_url
-    assert_response :redirect   # 302 が正しい
+    assert_response :redirect
     assert_redirected_to root_url
   end
-
 end
