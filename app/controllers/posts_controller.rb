@@ -43,6 +43,10 @@ class PostsController < ApplicationController
     redirect_to posts_path, notice: "投稿を削除しました"
   end
 
+  def search
+  end
+
+
   private
 
   def set_post
