@@ -18,9 +18,21 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body style="min-height: 100vh; display: flex; flex-direction: column;">
+
     <%= render "layouts/header" %>
-    <%= yield %>
+
+    <div style="flex: 1; display: flex;">
+      <% unless controller_name == "static_pages" && action_name == "about" %>
+        <%= render "layouts/sidebar" %>
+      <% end %>
+
+      <div style="flex: 1; padding: 20px;">
+        <%= yield %>
+      </div>
+    </div>
+
     <%= render "layouts/footer" %>
+
   </body>
 </html>

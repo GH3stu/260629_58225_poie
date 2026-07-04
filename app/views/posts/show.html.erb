@@ -9,6 +9,6 @@
               data: { confirm: "本当に削除しますか？" } %> <!-- # 削除前にアラート -->
 <% end %>
 
-<p>投稿者：<%= link_to @post.user.name, user_path(@post.user) %></p>   # ここに追加
+<p>投稿者：<%= link_to @post.user.name, user_path(@post.user) %></p>
 
 <%= link_to "一覧へ戻る", posts_path %>
