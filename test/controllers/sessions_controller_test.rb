@@ -12,9 +12,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       password: "password"
     }
     assert_response :redirect
-    assert_redirected_to user_user_path(users(:one))   # 修正
+    assert_redirected_to user_url(users(:one))
   end
-
 
   test "should get destroy" do
     delete logout_url
