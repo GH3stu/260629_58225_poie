@@ -1,0 +1,13 @@
+<h1><%= @post.title %></h1>
+
+<p><%= simple_format(h(@post.body)) %></p>
+
+<p>投稿者：<%= @post.user.name %></p>
+<p>投稿日時：<%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+
+<% if @post.user_id == current_user.id %>
+  <%= link_to "編集", edit_user_post_path(@post) %>
+  <%= link_to "削除", user_post_path(@post), data: { turbo_method: :delete } %>
+<% end %>
+
+<%= link_to "投稿一覧へ戻る", user_posts_path %>
