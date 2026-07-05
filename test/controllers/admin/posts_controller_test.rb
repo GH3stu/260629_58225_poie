@@ -2,17 +2,20 @@ require "test_helper"
 
 class Admin::PostsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get admin_posts_index_url
+    get admin_posts_path
     assert_response :success
   end
 
   test "should get show" do
-    get admin_posts_show_url
+    post = posts(:one)
+    get admin_post_path(post)
     assert_response :success
   end
 
   test "should get destroy" do
-    get admin_posts_destroy_url
-    assert_response :success
+    post = posts(:one)
+    delete admin_post_path(post)
+    assert_response :redirect
   end
 end
+
