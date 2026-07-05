@@ -23,6 +23,16 @@ Rails.application.routes.draw do
     resources :relationships, only: [:create, :destroy]
   end
 
+  namespace :admin do
+  resources :posts, only: [:index, :show, :destroy]
+
+  get "login",  to: "sessions#new"
+  post "login", to: "sessions#create"
+  delete "logout", to: "sessions#destroy"
+
+  get "homes/admin", to: "homes#admin"
+  end
+
   # Rails 標準
   get "up" => "rails/health#show", as: :rails_health_check
 end
