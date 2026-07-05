@@ -24,13 +24,13 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+  root to: "homes#admin"
+
   resources :posts, only: [:index, :show, :destroy]
 
   get "login",  to: "sessions#new"
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
-
-  get "homes/admin", to: "homes#admin"
   end
 
   # Rails 標準

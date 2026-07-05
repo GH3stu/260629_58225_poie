@@ -1,4 +1,6 @@
-class Admin::PostsController < ApplicationController
+class Admin::PostsController < Admin::ApplicationController
+  layout "admin"
+  
   def index
     @posts = Post.all
   end
@@ -10,7 +12,7 @@ class Admin::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to admin_posts_path     # ここを追加
+    redirect_to admin_posts_path
   end
 end
 
