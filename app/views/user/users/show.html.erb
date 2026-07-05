@@ -15,11 +15,13 @@
 
 <% if @user.id == current_user.id %>
   <h2>あなたの投稿一覧</h2>
+<% else %>
+  <h2><%= @user.name %> の投稿一覧</h2>
 <% end %>
 
 <% @posts.each do |post| %>
   <div>
-    <h3><%= link_to post.title, post_path(post) %></h3>
+    <h3><%= link_to post.title, user_post_path(post) %></h3>
     <p><%= post.body.truncate(50) %></p>
   </div>
 <% end %>
@@ -27,17 +29,12 @@
 <hr>
 
 <% if @user.id == current_user.id %>
-  <%= link_to "新規投稿", new_post_path %>   <!-- # 新規投稿リンク（ここに追加） -->
+  <%= link_to "ユーザー情報を編集する", edit_user_user_path(@user) %>
 
   <br><br>
 
-  <%= link_to "ユーザー情報編集", edit_user_path(@user) %>   <!-- # 順番2 -->
-
-  <br><br>
-
-  <%= link_to "退会する", user_path(@user),
-              method: :delete,
-              data: { confirm: "本当に退会しますか？" } %>        <!-- # 順番3 -->
+  <%= link_to "退会する", user_user_path(@user),
+              data: { turbo_method: :delete, confirm: "本当に退会しますか？" } %>
 <% end %>
 
 <br><br>
