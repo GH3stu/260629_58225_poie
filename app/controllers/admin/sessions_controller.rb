@@ -3,7 +3,7 @@ class Admin::SessionsController < ApplicationController
   end
 
   def create
-    admin = Admin.find_by(email: params[:email])
+    admin = Admin.find_by(email_address: params[:email]) 
     if admin&.authenticate(params[:password])
       session[:admin_id] = admin.id
       redirect_to admin_posts_path   # ここを追加
