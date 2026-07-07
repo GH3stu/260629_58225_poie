@@ -71,3 +71,7 @@ gem "dotenv-rails"
 
 # ページネーション
 gem "kaminari"
+
+group :production do
+  gem 'mysql2'
+end

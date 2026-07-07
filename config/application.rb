@@ -11,5 +11,7 @@ module Poie
     # 日本語化設定（ここに追加）
     config.i18n.default_locale = :ja
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    # Solid Cacheを無効化
+    config.active_support.use_solid_cache = false
   end
 end
