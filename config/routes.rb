@@ -14,7 +14,6 @@ Rails.application.routes.draw do
 
   # 公開検索
   get "search", to: "posts#search"
-  resources :posts, only: [:index]   # 公開一覧
 
   # ログイン後ユーザー専用
   namespace :user do
@@ -24,13 +23,12 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-  root to: "homes#admin"
+    root to: "homes#admin"
+    resources :posts, only: [:index, :show, :destroy]
 
-  resources :posts, only: [:index, :show, :destroy]
-
-  get "login",  to: "sessions#new"
-  post "login", to: "sessions#create"
-  delete "logout", to: "sessions#destroy"
+    get "login",  to: "sessions#new"
+    post "login", to: "sessions#create"
+    delete "logout", to: "sessions#destroy"
   end
 
   # Rails 標準
