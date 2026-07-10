@@ -1,2 +1,34 @@
-<h1>Search#index</h1>
-<p>Find me in app/views/search/index.html.erb</p>
+<h2>検索結果</h2>
+
+<p>検索ワード：<%= @keyword %></p>
+<p>検索対象：<%= @target == "users" ? "ユーザー" : "投稿" %></p>
+
+<hr>
+
+<% if @results.present? %>
+  <% @results.each do |item| %>
+
+    <% if @target == "users" %>
+      <!-- ユーザー検索結果 -->
+      <div style="margin-bottom: 20px;">
+        <p>ユーザー名：<%= item.name %></p>
+        <%= link_to "ユーザー詳細", user_user_path(item) %>
+      </div>
+
+    <% else %>
+      <!-- 投稿検索結果 -->
+      <div style="margin-bottom: 20px;">
+        <p>タイトル：<%= item.title %></p>
+        <p><%= truncate(item.body, length: 100) %></p>
+        <%= link_to "投稿詳細", user_post_path(item) %>
+      </div>
+
+    <% end %>
+
+    <hr>
+
+  <% end %>
+<% else %>
+  <p>該当する結果はありません。</p>
+<% end %>
+
