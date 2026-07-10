@@ -11,14 +11,13 @@
 
       <!-- 検索窓（ログイン前も表示） -->
       <%= form_with url: search_path, method: :get, local: true, style: "display: flex; align-items: center; gap: 10px;" do |f| %>
+        <%= f.select :match,
+          [["部分一致", "partial"], ["完全一致", "exact"]],
+          {}, style: "padding: 5px 10px;" %>
 
-          <!--（検索対象プルダウン） -->
         <%= f.select :target,
           [["ユーザー", "users"], ["投稿", "posts"]],
           {}, style: "padding: 5px 10px;" %>
-
-        <%= f.text_field :keyword, placeholder: "検索", style: "padding: 5px 10px; width: 180px;" %>
-        <%= f.submit "検索", style: "padding: 5px 10px;" %>
 
         <%= f.text_field :keyword, placeholder: "検索", style: "padding: 5px 10px; width: 180px;" %>
         <%= f.submit "検索", style: "padding: 5px 10px;" %>
