@@ -10,4 +10,32 @@
   <%= link_to "削除", user_post_path(@post), data: { turbo_method: :delete } %>
 <% end %>
 
+<!-- コメント一覧 -->
+<h3>コメント一覧</h3>
+
+<% @post.comments.each do |comment| %>
+  <div style="margin-bottom: 15px;">
+
+    <p><strong><%= comment.user.name %></strong></p>
+    <p><%= comment.body %></p>
+
+    <p>コメント日時：<%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+
+    <% if comment.user_id == current_user.id %>
+      <%= link_to "削除", user_post_comment_path(@post, comment),
+          data: { turbo_method: :delete, confirm: "削除しますか？" } %>
+    <% end %>
+
+  </div>
+  <hr>
+<% end %>
+
+<!-- コメントフォーム -->
+<h3>コメントを書く</h3>
+
+<%= form_with url: user_post_comments_path(@post), model: Comment.new, local: true do |f| %>
+  <%= f.text_area :body, rows: 3, style: "width: 100%;" %>
+  <%= f.submit "コメント送信", style: "margin-top: 10px;" %>
+<% end %>
+
 <%= link_to "投稿一覧へ戻る", user_posts_path %>

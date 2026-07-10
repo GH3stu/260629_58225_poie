@@ -1,8 +1,7 @@
-# ・app/controllers/user/posts_controller.rb
 class User::PostsController < ApplicationController
   before_action :require_login
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :require_owner, only: [:edit, :update, :destroy]
+  before_action :set_post, only: [ :show, :edit, :update, :destroy ]
+  before_action :require_owner, only: [ :edit, :update, :destroy ]
 
   def new
     @post = Post.new
