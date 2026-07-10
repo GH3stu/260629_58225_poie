@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "search/index"
 
   # 公開ページ
   root "homes#top"
@@ -13,7 +14,7 @@ Rails.application.routes.draw do
   delete "logout", to: "sessions#destroy"
 
   # 公開検索
-  get "search", to: "posts#search"
+  get "search", to: "search#index"
 
   # ログイン後ユーザー専用
   namespace :user do
