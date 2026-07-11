@@ -4,8 +4,16 @@ class Admin::SessionsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @admin = Admin.create!(
       email_address: "admin@example.com",
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
+
+    post admin_login_path, params: {
+      email: @admin.email_address,   # ← email に修正
+      password: "password"
+    }
+
+    follow_redirect!
   end
 
   test "should get new" do
@@ -15,7 +23,7 @@ class Admin::SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get create" do
     post admin_login_url, params: {
-      email_address: @admin.email_address,
+      email: @admin.email_address,   # ← email に修正
       password: "password"
     }
     assert_response :redirect
@@ -23,9 +31,8 @@ class Admin::SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get destroy" do
-    # ログイン状態を作る
     post admin_login_url, params: {
-      email_address: @admin.email_address,
+      email: @admin.email_address,   # ← email に修正
       password: "password"
     }
 
