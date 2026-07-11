@@ -1,25 +1,21 @@
-class Admin::UsersController < Admin::BaseController
+class Admin::BaseController < Admin::ApplicationController
   before_action :require_admin
 
-  def index
-    @users = User.order(created_at: :desc)
-  end
-
-  def show
-    @user = User.find(params[:id])
-  end
-
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-    redirect_to admin_users_path, notice: "ユーザーを退会させました"
-  end
+  helper_method :current_admin, :admin_logged_in?
 
   private
 
+  def current_admin
+    @current_admin ||= Admin.find_by(id: session[:admin_id])
+  end
+
+  def admin_logged_in?
+    current_admin.present?
+  end
+
   def require_admin
     unless admin_logged_in?
-      redirect_to admin_login_path
+      redirect_to admin_login_path, alert: "ログインしてください"
     end
   end
 end
