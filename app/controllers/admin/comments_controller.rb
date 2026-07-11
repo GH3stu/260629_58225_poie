@@ -9,6 +9,18 @@ class Admin::CommentsController < Admin::BaseController
     @comment = Comment.find(params[:id])
   end
 
+  def create
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
+    @comment.admin_id = current_admin.id   # 管理者コメントとして保存
+
+    if @comment.save
+      redirect_to admin_post_path(@post), notice: "コメントを投稿しました"
+    else
+      redirect_to admin_post_path(@post), alert: "コメントを入力してください"
+    end
+  end
+
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
@@ -16,6 +28,10 @@ class Admin::CommentsController < Admin::BaseController
   end
 
   private
+
+  def comment_params
+    params.require(:comment).permit(:body)   # ここに追加
+  end
 
   def require_admin
     unless admin_logged_in?
