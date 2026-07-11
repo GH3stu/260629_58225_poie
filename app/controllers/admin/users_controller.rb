@@ -1,21 +1,15 @@
-class Admin::BaseController < Admin::ApplicationController
-  before_action :require_admin
-
-  helper_method :current_admin, :admin_logged_in?
-
-  private
-
-  def current_admin
-    @current_admin ||= Admin.find_by(id: session[:admin_id])
+class Admin::UsersController < Admin::BaseController
+  def index
+    @users = User.all
   end
 
-  def admin_logged_in?
-    current_admin.present?
+  def show
+    @user = User.find(params[:id])
   end
 
-  def require_admin
-    unless admin_logged_in?
-      redirect_to admin_login_path, alert: "ログインしてください"
-    end
+  def destroy
+    user = User.find(params[:id])
+    user.destroy
+    redirect_to admin_users_path, notice: "ユーザーを削除しました"
   end
 end

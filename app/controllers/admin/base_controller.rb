@@ -1,4 +1,6 @@
 class Admin::BaseController < Admin::ApplicationController
+  before_action :require_admin   # ← 必須
+
   helper_method :current_admin, :admin_logged_in?
 
   private
