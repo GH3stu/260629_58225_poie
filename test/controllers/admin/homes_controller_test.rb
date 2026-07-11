@@ -4,14 +4,16 @@ class Admin::HomesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @admin = Admin.create!(
       email_address: "admin@example.com",
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
 
-    # 管理者ログイン状態を作る
     post admin_login_path, params: {
-      email_address: @admin.email_address,
+      email: @admin.email_address,   # ← email に修正
       password: "password"
     }
+
+    follow_redirect!   # ← セッション維持に必須
   end
 
   test "should get admin" do

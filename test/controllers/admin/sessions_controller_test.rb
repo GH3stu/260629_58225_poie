@@ -9,11 +9,11 @@ class Admin::SessionsControllerTest < ActionDispatch::IntegrationTest
     )
 
     post admin_login_path, params: {
-      email: @admin.email_address,   # ← email に修正
+      email: @admin.email_address,
       password: "password"
     }
 
-    follow_redirect!   # ← セッション維持に必須
+    follow_redirect!
   end
 
   test "should get new" do
@@ -23,7 +23,7 @@ class Admin::SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get create" do
     post admin_login_url, params: {
-      email: @admin.email_address,   # ← email に修正
+      email: @admin.email_address,   # ← email に統一
       password: "password"
     }
     assert_response :redirect
@@ -32,7 +32,7 @@ class Admin::SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get destroy" do
     post admin_login_url, params: {
-      email: @admin.email_address,   # ← email に修正
+      email: @admin.email_address,   # ← email に統一
       password: "password"
     }
 

@@ -14,7 +14,7 @@ class Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     }
     follow_redirect!
 
-    @user = users(:one)   # ← fixtures がある前提
+    @user = users(:one)
   end
 
   test "should get index" do
