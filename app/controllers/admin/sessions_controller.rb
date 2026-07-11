@@ -5,7 +5,8 @@ class Admin::SessionsController < Admin::BaseController
   end
 
   def create
-    admin = Admin.find_by(email_address: params[:email_address])
+    admin = Admin.find_by(email_address: params[:email])   # email_address → email に変更
+    # ここに追加
 
     if admin&.authenticate(params[:password])
       session[:admin_id] = admin.id
