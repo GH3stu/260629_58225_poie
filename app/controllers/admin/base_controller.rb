@@ -1,4 +1,4 @@
-class Admin::BaseController < Admin::ApplicationController
+class UserSessionsController < ApplicationController
   helper_method :current_admin, :admin_logged_in?
 
   private

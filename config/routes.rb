@@ -9,9 +9,10 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create]
 
   # ログイン前ユーザー（ログイン）
-  get "login",  to: "sessions#new"
-  post "login", to: "sessions#create"
-  delete "logout", to: "sessions#destroy"
+  post "login", to: "user_sessions#create"
+  get "login", to: "user_sessions#new"
+  delete "logout", to: "user_sessions#destroy"
+
 
   # 公開検索
   get "search", to: "search#index"
