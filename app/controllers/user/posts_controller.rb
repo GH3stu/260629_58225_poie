@@ -21,6 +21,11 @@ class User::PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id])
+    # 非ログインユーザーは管理者投稿のみ閲覧可能
+    if !logged_in? && @post.admin_id.nil?
+      redirect_to login_path
+    end
   end
 
   def edit

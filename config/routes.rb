@@ -30,10 +30,15 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "homes#admin"
 
-    resources :users, only: [:index, :show, :destroy]
-    resources :posts, only: [:index, :show, :destroy]
-    resources :comments, only: [:index, :show, :destroy]
+    resource :admin, only: [:edit, :update]
 
+    resources :users, only: [:index, :show, :destroy]
+    resources :posts, only: [:index, :show, :new, :create, :destroy] do
+      resources :comments, only: [:create]   # ここに追加（管理者コメント作成）
+    end
+
+    resources :comments, only: [:index, :show, :destroy]
+    
     get "login",  to: "sessions#new"
     post "login", to: "sessions#create"
     delete "logout", to: "sessions#destroy"
