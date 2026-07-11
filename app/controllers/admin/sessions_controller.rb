@@ -1,23 +1,22 @@
-class Admin::SessionsController < ApplicationController
-  layout "admin"
+class Admin::SessionsController < Admin::BaseController
+  skip_before_action :require_admin, only: [:new, :create]
 
   def new
   end
 
   def create
-    admin = Admin.find_by(email_address: params[:email_address])
+    admin = Admin.find_by(email_address: params[:email])
 
     if admin&.authenticate(params[:password])
       session[:admin_id] = admin.id
       redirect_to admin_root_path
     else
-      flash.now[:alert] = "メールアドレスまたはパスワードが違います"
       render :new, status: :unprocessable_entity
     end
   end
 
   def destroy
-    reset_session
+    session.delete(:admin_id)
     redirect_to admin_login_path
   end
 end
