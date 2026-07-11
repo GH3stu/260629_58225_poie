@@ -1,4 +1,4 @@
-class Admin::ApplicationController < ActionController::Base
+class Admin::ApplicationController < ApplicationController
   helper_method :current_admin, :admin_logged_in?
 
   private
