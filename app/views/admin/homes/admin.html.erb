@@ -3,6 +3,7 @@
 <p>管理者ログインが成功しました。</p>
 
 <ul>
+  <li><%= link_to "ユーザー一覧（管理者専用）", admin_users_path %>
   <li><%= link_to "投稿一覧（管理者専用）", admin_posts_path %></li>
   <li><%= link_to "ログアウト", admin_logout_path, data: { turbo_method: :delete } %></li>
 </ul>

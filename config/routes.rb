@@ -28,8 +28,15 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    get "comments/index"
+    get "comments/show"
+    get "users/index"
+    get "users/show"
     root to: "homes#admin"
+
+    resources :users, only: [:index, :show, :destroy]
     resources :posts, only: [:index, :show, :destroy]
+    resources :comments, only: [:index, :show, :destroy]
 
     get "login",  to: "sessions#new"
     post "login", to: "sessions#create"
