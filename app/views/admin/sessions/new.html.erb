@@ -1,9 +1,9 @@
 <h1>管理者ログイン</h1>
 
-<%= form_with url: admin_login_path, method: :post do |f| %>
+<%= form_with url: admin_login_path, method: :post, scope: nil, local: true do |f| %>
   <p>
-    <%= f.label :email_address, "メールアドレス" %><br>
-    <%= f.text_field :email_address %>
+    <%= f.label :email, "メールアドレス" %><br>
+    <%= f.text_field :email %>
   </p>
 
   <p>
