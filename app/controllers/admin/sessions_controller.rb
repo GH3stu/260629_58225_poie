@@ -5,7 +5,7 @@ class Admin::SessionsController < Admin::BaseController
   end
 
   def create
-    admin = Admin.find_by(email_address: params[:email])
+    admin = Admin.find_by(email_address: params[:email_address])
 
     if admin&.authenticate(params[:password])
       session[:admin_id] = admin.id
