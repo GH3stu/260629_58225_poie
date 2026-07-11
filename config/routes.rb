@@ -9,9 +9,9 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create]
 
   # ログイン前ユーザー（ログイン）
-  get "login",  to: "sessions#new"
-  post "login", to: "sessions#create"
-  delete "logout", to: "sessions#destroy"
+  get "login",  to: "user_sessions#new",    as: :login
+  post "login", to: "user_sessions#create", as: :login_create
+  delete "logout", to: "user_sessions#destroy", as: :logout
 
   # 公開検索
   get "search", to: "search#index"
@@ -29,7 +29,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "homes#admin"
+
+    resources :users, only: [:index, :show, :destroy]
     resources :posts, only: [:index, :show, :destroy]
+    resources :comments, only: [:index, :show, :destroy]
 
     get "login",  to: "sessions#new"
     post "login", to: "sessions#create"

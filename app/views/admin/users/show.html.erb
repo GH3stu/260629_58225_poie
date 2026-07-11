@@ -1,0 +1,15 @@
+<h1>ユーザー詳細</h1>
+
+<p>ID：<%= @user.id %></p>
+<p>名前：<%= @user.name %></p>
+<p>メール：<%= @user.email %></p>
+<p>登録日：<%= @user.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+
+<hr>
+
+<%= link_to "強制退会する", admin_user_path(@user),
+    data: { turbo_method: :delete, confirm: "退会させますか？" } %>
+
+<br><br>
+
+<%= link_to "ユーザー一覧へ戻る", admin_users_path %>

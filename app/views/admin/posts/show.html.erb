@@ -1,2 +1,16 @@
-<h1>Admin::Posts#show</h1>
-<p>Find me in app/views/admin/posts/show.html.erb</p>
+<h1>投稿詳細</h1>
+
+<p>ID：<%= @post.id %></p>
+<p>タイトル：<%= @post.title %></p>
+<p>本文：<%= simple_format(h(@post.body)) %></p>
+<p>投稿者：<%= @post.user.name %></p>
+<p>日時：<%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+
+<hr>
+
+<%= link_to "削除する", admin_post_path(@post),
+    data: { turbo_method: :delete, confirm: "削除しますか？" } %>
+
+<br><br>
+
+<%= link_to "投稿一覧へ戻る", admin_posts_path %>

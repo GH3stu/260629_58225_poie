@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Admin::HomesControllerTest < ActionDispatch::IntegrationTest
+class Admin::UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @admin = Admin.create!(
       email_address: "admin@example.com",
@@ -9,15 +9,21 @@ class Admin::HomesControllerTest < ActionDispatch::IntegrationTest
     )
 
     post admin_login_path, params: {
-      email: @admin.email_address,   # ← email に修正
+      email: @admin.email_address,
       password: "password"
     }
+    follow_redirect!
 
-    follow_redirect!   # ← セッション維持に必須
+    @user = users(:one)
   end
 
-  test "should get admin" do
-    get admin_root_path
+  test "should get index" do
+    get admin_users_path
+    assert_response :success
+  end
+
+  test "should get show" do
+    get admin_user_path(@user)
     assert_response :success
   end
 end
