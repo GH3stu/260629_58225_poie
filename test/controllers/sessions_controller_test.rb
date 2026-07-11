@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SessionsControllerTest < ActionDispatch::IntegrationTest
+class UserSessionsControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
     get login_url
     assert_response :success
@@ -12,7 +12,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       password: "password"
     }
     assert_response :redirect
-    assert_redirected_to user_user_path(users(:one))
+    assert_redirected_to user_path(users(:one))
   end
 
   test "should get destroy" do
