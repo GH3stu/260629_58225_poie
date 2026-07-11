@@ -13,7 +13,7 @@ class Admin::SessionsControllerTest < ActionDispatch::IntegrationTest
       password: "password"
     }
 
-    follow_redirect!
+    follow_redirect!   # ← セッション維持に必須
   end
 
   test "should get new" do

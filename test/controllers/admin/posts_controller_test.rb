@@ -4,14 +4,15 @@ class Admin::PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @admin = Admin.create!(
       email_address: "admin@example.com",
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
 
-    # 管理者ログイン状態を作る
     post admin_login_path, params: {
-      email_address: @admin.email_address,
+      email: @admin.email_address,
       password: "password"
     }
+    follow_redirect!
 
     @post = posts(:one)
   end
@@ -32,5 +33,3 @@ class Admin::PostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_posts_path
   end
 end
-
-
