@@ -2,8 +2,9 @@ class Admin::CommentsController < Admin::BaseController
   before_action :require_admin
 
   def index
-    @comments = Comment.includes(:user, :post).order(created_at: :desc)
+    @comments = Comment.where.not(admin_id: nil).includes(:post).order(created_at: :desc)
   end
+
 
   def show
     @comment = Comment.find(params[:id])
@@ -12,12 +13,20 @@ class Admin::CommentsController < Admin::BaseController
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.build(comment_params)
-    @comment.admin_id = current_admin.id   # 管理者コメントとして保存
+    @comment.admin_id = current_admin.id
 
     if @comment.save
-      redirect_to admin_post_path(@post), notice: "コメントを投稿しました"
+      if @post.admin_id.present?
+        redirect_to admin_post_path(@post), notice: "コメントを投稿しました"
+      else
+        redirect_to admin_user_post_path(@post), notice: "コメントを投稿しました"
+      end
     else
-      redirect_to admin_post_path(@post), alert: "コメントを入力してください"
+      if @post.admin_id.present?
+        redirect_to admin_post_path(@post), alert: "コメントを入力してください"
+      else
+        redirect_to admin_user_post_path(@post), alert: "コメントを入力してください"
+      end
     end
   end
 

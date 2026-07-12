@@ -8,5 +8,20 @@
 
 <hr>
 
+<h2>ユーザーコメント一覧</h2>
+<% @post.comments.where(admin_id: nil).each do |comment| %>
+  <p><%= comment.body %></p>
+  <p><%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+  <hr>
+<% end %>
+
+<h2>管理者コメントを書く</h2>
+<%= form_with model: [:admin, @post, Comment.new], local: true do |f| %>
+  <%= f.text_area :body, rows: 3 %>
+  <%= f.submit "コメントする" %>
+<% end %>
+
+<hr>
+
 <%= link_to "ユーザー投稿一覧へ戻る", admin_user_posts_path %>
-<%= link_to "管理者トップへ戻る", admin_root_path %>
+<%= link_to "管理者マイページへ戻る", admin_root_path %>

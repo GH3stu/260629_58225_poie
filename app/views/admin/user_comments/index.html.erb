@@ -1,0 +1,25 @@
+<h1>ユーザーコメント一覧（管理者専用）</h1>
+
+<table border="1" cellpadding="8">
+  <tr>
+    <th>ID</th>
+    <th>コメント内容</th>
+    <th>投稿者</th>
+    <th>対象投稿</th>
+    <th>日時</th>
+    <th>詳細</th>
+  </tr>
+
+  <% @comments.each do |comment| %>
+    <tr>
+      <td><%= comment.id %></td>
+      <td><%= comment.body %></td>
+      <td><%= comment.user.name %></td>
+      <td><%= link_to comment.post.title, admin_user_post_path(comment.post) %></td>
+      <td><%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+      <td><%= link_to "詳細", admin_user_comment_path(comment) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "管理者マイページへ戻る", admin_root_path %>

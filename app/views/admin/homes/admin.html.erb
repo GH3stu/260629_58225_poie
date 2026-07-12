@@ -6,6 +6,9 @@
   <!-- ユーザー管理 -->
   <li><%= link_to "ユーザー一覧（管理者専用）", admin_users_path %></li>
 
+  <li><%= link_to "ユーザー投稿一覧（監視用）", admin_user_posts_path %></li> 
+  <li><%= link_to "ユーザーコメント一覧（監視用）", admin_user_comments_path %></li>
+
   <!-- 管理者投稿管理 -->
   <li><%= link_to "管理者投稿一覧", admin_posts_path %></li>
   <li><%= link_to "管理者新規投稿", new_admin_post_path %></li>

@@ -16,7 +16,15 @@
 <% @post.comments.each do |comment| %>
   <div style="margin-bottom: 15px;">
 
-    <p><strong><%= comment.user.name %></strong></p>
+    <!-- ★ 投稿者の分岐を追加（管理者コメント対応） -->
+    <p><strong>
+      <% if comment.user.present? %>
+        <%= comment.user.name %>
+      <% else %>
+        管理者：<%= comment.admin.name %> 
+      <% end %>
+    </strong></p>
+
     <p><%= comment.body %></p>
 
     <p>コメント日時：<%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
