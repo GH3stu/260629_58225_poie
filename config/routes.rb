@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :destroy]
 
     # 管理者投稿（管理者が投稿したもの）
-    resources :posts, only: [:index, :show, :new, :create, :destroy] do
+    resources :posts, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
       resources :comments, only: [:create]   # 管理者コメント作成（投稿詳細から）
     end
 
@@ -46,7 +46,7 @@ Rails.application.routes.draw do
     resources :user_posts, only: [:index, :show]
 
     # 管理者コメント一覧（管理者が書いたコメント）
-    resources :comments, only: [:index, :show, :destroy]
+    resources :comments, only: [:index, :show, :edit, :update, :destroy]
 
     # ユーザーコメント監視（ユーザーが書いたコメント）
     resources :user_comments, only: [:index, :show]

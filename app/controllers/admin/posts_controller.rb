@@ -24,6 +24,20 @@ class Admin::PostsController < Admin::BaseController
     end
   end
 
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to admin_post_path(@post), notice: "投稿を更新しました"
+    else
+      render :edit
+    end
+  end
+
+
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
@@ -33,7 +47,7 @@ class Admin::PostsController < Admin::BaseController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body)   # ここに追加
+    params.require(:post).permit(:title, :body)
   end
 
   def require_admin
