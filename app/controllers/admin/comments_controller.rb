@@ -30,6 +30,24 @@ class Admin::CommentsController < Admin::BaseController
     end
   end
 
+  def edit
+    @comment = Comment.find(params[:id])
+  end
+
+  def update
+    @comment = Comment.find(params[:id])
+    if @comment.update(comment_params)
+      if @comment.post.admin_id.present?
+        redirect_to admin_post_path(@comment.post), notice: "コメントを更新しました"
+      else
+        redirect_to admin_user_post_path(@comment.post), notice: "コメントを更新しました"
+      end
+    else
+      render :edit
+    end
+  end
+
+
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy

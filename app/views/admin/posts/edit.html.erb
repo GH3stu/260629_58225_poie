@@ -1,0 +1,13 @@
+<h1>管理者投稿編集</h1>
+
+<%= form_with model: [:admin, @post], local: true do |f| %>
+  <p>タイトル</p>
+  <%= f.text_field :title %>
+
+  <p>本文</p>
+  <%= f.text_area :body %>
+
+  <%= f.submit "更新する" %>
+<% end %>
+
+<%= link_to "投稿詳細へ戻る", admin_post_path(@post) %>

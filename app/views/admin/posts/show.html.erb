@@ -5,9 +5,9 @@
 <p>本文：<%= simple_format(h(@post.body)) %></p>
 <p>投稿者：
   <% if @post.user.present? %>
-    <%= @post.user.name %>   # ユーザー投稿
+    <%= @post.user.name %>
   <% else %>
-    管理者：<%= @post.admin.name %>   # 管理者投稿
+    管理者：<%= @post.admin.name %>
   <% end %>
 </p>
 <p>日時：<%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
@@ -28,6 +28,9 @@
 <% end %>
 
 <hr>
+
+<%= link_to "編集する", edit_admin_post_path(@post) %>
+<br><br>
 
 <%= link_to "削除する", admin_post_path(@post),
     data: { turbo_method: :delete, confirm: "削除しますか？" } %>
