@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:create]   # ここに追加（管理者コメント作成）
     end
 
+    resources :user_posts, only: [:index, :show]
     resources :comments, only: [:index, :show, :destroy]
     
     get "login",  to: "sessions#new"

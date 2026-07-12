@@ -2,7 +2,7 @@ class Admin::PostsController < Admin::BaseController
   before_action :require_admin
 
   def index
-    @posts = Post.all
+    @posts = Post.where.not(admin_id: nil)
   end
 
   def show
