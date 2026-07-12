@@ -27,19 +27,31 @@ Rails.application.routes.draw do
     resources :relationships, only: [:create, :destroy]
   end
 
+  # 管理者専用
   namespace :admin do
     root to: "homes#admin"
 
+    # 管理者自身のアカウント編集
     resource :admin, only: [:edit, :update]
 
+    # ユーザー管理
     resources :users, only: [:index, :show, :destroy]
+
+    # 管理者投稿（管理者が投稿したもの）
     resources :posts, only: [:index, :show, :new, :create, :destroy] do
-      resources :comments, only: [:create]   # ここに追加（管理者コメント作成）
+      resources :comments, only: [:create]   # 管理者コメント作成（投稿詳細から）
     end
 
+    # ユーザー投稿監視（ユーザーが投稿したもの）
     resources :user_posts, only: [:index, :show]
+
+    # 管理者コメント一覧（管理者が書いたコメント）
     resources :comments, only: [:index, :show, :destroy]
-    
+
+    # ユーザーコメント監視（ユーザーが書いたコメント）
+    resources :user_comments, only: [:index, :show]
+
+    # 管理者ログイン
     get "login",  to: "sessions#new"
     post "login", to: "sessions#create"
     delete "logout", to: "sessions#destroy"
