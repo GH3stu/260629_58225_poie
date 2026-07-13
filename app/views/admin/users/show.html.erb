@@ -7,9 +7,11 @@
 
 <hr>
 
-<%= link_to "強制退会する", admin_user_path(@user),
+<%= link_to "強制退会させちゃう", admin_user_path(@user),
     data: { turbo_method: :delete, confirm: "退会させますか？" } %>
 
 <br><br>
 
-<%= link_to "ユーザー一覧へ戻る", admin_users_path %>
+<%= link_to "ユーザー一覧へ戻る", admin_users_path %> 
+<br><br>
+<%= link_to "管理者マイページへ戻る", admin_root_path %>
