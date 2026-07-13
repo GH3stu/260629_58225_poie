@@ -16,6 +16,9 @@
   <!-- 管理者コメント管理 -->
   <li><%= link_to "管理者コメント一覧", admin_comments_path %></li>
 
+  <li><%= link_to "管理者カテゴリ新規作成", new_admin_category_path %></li>
+  <li><%= link_to "管理者カテゴリ一覧", admin_categories_path %></li>
+
   <!-- 管理者自身の情報編集 -->
   <li><%= link_to "管理者アカウント編集", edit_admin_admin_path(current_admin) %></li>
 
