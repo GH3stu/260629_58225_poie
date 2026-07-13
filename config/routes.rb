@@ -56,7 +56,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:index, :show, :edit, :update, :destroy]
 
     # ユーザーコメント監視
-    resources :user_comments, only: [:index, :show]
+    resources :user_comments, only: [:index, :show, :destroy]
 
     # Category を追加・削除
     resources :categories

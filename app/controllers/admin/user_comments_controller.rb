@@ -14,4 +14,10 @@ class Admin::UserCommentsController < Admin::BaseController
       redirect_to admin_user_comments_path, alert: "ユーザーコメントのみ閲覧できます"
     end
   end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+    redirect_to admin_user_comments_path
+  end
 end

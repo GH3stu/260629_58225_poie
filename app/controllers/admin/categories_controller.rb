@@ -10,7 +10,8 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def create
-    @category = Category.new(category_params)
+    @category = Category.new(category_params.merge(purpose_id: 1))
+
     if @category.save
       redirect_to admin_categories_path
     else

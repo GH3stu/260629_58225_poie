@@ -14,4 +14,10 @@ class Admin::UserPostsController < Admin::BaseController
       redirect_to admin_user_posts_path, alert: "ユーザー投稿のみ閲覧できます"
     end
   end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to admin_user_posts_path
+  end
 end
