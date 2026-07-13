@@ -1,0 +1,9 @@
+<h2><%= @purpose.name %></h2>
+
+<ul style="margin-top: 20px;">
+  <% @categories.each do |category| %>
+    <li style="margin-bottom: 10px;">
+      <%= link_to category.name, category_posts_path(category) %>
+    </li>
+  <% end %>
+</ul>

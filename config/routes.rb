@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "purpose_categories/index"
   # 公開ページ
   root "homes#top"
   get "about", to: "homes#about"
@@ -17,6 +18,10 @@ Rails.application.routes.draw do
   # カテゴリ別投稿一覧
   resources :categories, only: [] do
     resources :posts, only: [:index], controller: "category_posts"
+  end
+
+  resources :purposes, only: [:show] do
+    resources :categories, only: [:index], controller: "purpose_categories" 
   end
 
   # ログイン後ユーザー専用
