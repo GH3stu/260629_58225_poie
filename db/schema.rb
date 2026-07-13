@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_12_030645) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_13_074551) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -48,6 +48,13 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_12_030645) do
     t.string "email"
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "purpose_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
     t.integer "post_id", null: false
@@ -75,7 +82,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_12_030645) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "admin_id"
+    t.integer "category_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "purposes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "relationships", force: :cascade do |t|

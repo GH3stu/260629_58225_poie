@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get "search/index"
-
   # 公開ページ
   root "homes#top"
   get "about", to: "homes#about"
@@ -15,6 +13,11 @@ Rails.application.routes.draw do
 
   # 公開検索
   get "search", to: "search#index"
+
+  # カテゴリ別投稿一覧
+  resources :categories, only: [] do
+    resources :posts, only: [:index], controller: "category_posts"
+  end
 
   # ログイン後ユーザー専用
   namespace :user do
@@ -39,17 +42,20 @@ Rails.application.routes.draw do
 
     # 管理者投稿（管理者が投稿したもの）
     resources :posts, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
-      resources :comments, only: [:create]   # 管理者コメント作成（投稿詳細から）
+      resources :comments, only: [:create]
     end
 
-    # ユーザー投稿監視（ユーザーが投稿したもの）
+    # ユーザー投稿監視
     resources :user_posts, only: [:index, :show]
 
-    # 管理者コメント一覧（管理者が書いたコメント）
+    # 管理者コメント一覧
     resources :comments, only: [:index, :show, :edit, :update, :destroy]
 
-    # ユーザーコメント監視（ユーザーが書いたコメント）
+    # ユーザーコメント監視
     resources :user_comments, only: [:index, :show]
+
+    # Category を追加・削除
+    resources :categories
 
     # 管理者ログイン
     get "login",  to: "sessions#new"

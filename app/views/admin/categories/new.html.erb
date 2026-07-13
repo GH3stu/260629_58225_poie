@@ -1,0 +1,10 @@
+<h1>カテゴリ新規作成</h1>
+
+<%= form_with model: [:admin, @category], local: true do |f| %>
+  <div style="margin-bottom: 20px;">
+    <%= f.label :name, "カテゴリ名" %><br>
+    <%= f.text_field :name, style: "padding: 5px; width: 250px;" %>
+  </div>
+
+  <%= f.submit "登録する", style: "padding: 8px 20px;" %>
+<% end %>
