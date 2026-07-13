@@ -29,15 +29,25 @@
 
     <!-- 右：ログイン前後で切り替え -->
     <div style="display: flex; gap: 20px; font-size: 16px;">
-      <% if logged_in? %>
-        <%= link_to "マイページ", user_user_path(current_user) %>        <!-- 修正 -->
-        <%= link_to "新規投稿", new_user_post_path %>                   <!-- 修正 -->
-        <%= link_to "投稿一覧", user_posts_path %>                      <!-- 修正 -->
+
+      <% if current_admin.present? %>
+        <!-- ★ 管理者ログイン時 -->
+        <%= link_to "管理者マイページ", admin_root_path %>
+        <%= link_to "ログアウト", admin_logout_path, data: { turbo_method: :delete } %>
+
+      <% elsif logged_in? %>
+        <!-- ★ ユーザーログイン時 -->
+        <%= link_to "マイページ", user_user_path(current_user) %>
+        <%= link_to "新規投稿", new_user_post_path %>
+        <%= link_to "投稿一覧", user_posts_path %>
         <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %>
+
       <% else %>
+        <!-- ★ 非ログイン時 -->
         <%= link_to "ログイン", login_path %>
         <%= link_to "新規登録", new_user_path %>
       <% end %>
+
     </div>
 
   </div>
