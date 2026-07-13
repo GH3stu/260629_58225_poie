@@ -1,8 +1,17 @@
 <h1>Poie トップ</h1>
 <p>レビュー投稿型コミュニティへようこそ。</p>
 
+<h1>目的から探す</h1>
 
-<h1>投稿一覧</h1>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px;">
+  <% @purposes.each do |purpose| %>
+    <div style="border: 1px solid #ddd; padding: 20px; width: 250px; text-align: center;">
+      <%= link_to purpose.name, purpose_categories_path(purpose), style: "text-decoration: none; font-size: 18px;" %>
+    </div>
+  <% end %>
+</div>
+
+<h2>投稿一覧</h2>
 
 <% @admin_posts.each do |post| %>
   <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
