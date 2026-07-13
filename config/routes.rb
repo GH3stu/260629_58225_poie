@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get "purpose_categories/index"
   # 公開ページ
   root "homes#top"
   get "about", to: "homes#about"
@@ -21,7 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :purposes, only: [:show] do
-    resources :categories, only: [:index], controller: "purpose_categories" 
+    resources :categories, only: [:index], controller: "purpose_categories"
   end
 
   # ログイン後ユーザー専用
