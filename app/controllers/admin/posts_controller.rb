@@ -1,5 +1,5 @@
 class Admin::PostsController < Admin::BaseController
-  before_action :require_admin
+  before_action :require_admin, except: [:show]
 
   def index
     @posts = Post.where.not(admin_id: nil)
