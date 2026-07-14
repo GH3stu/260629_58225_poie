@@ -1,11 +1,5 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  title: MyString
-  body: MyText
+  id: 11
+  title: "テスト投稿"
+  body: "本文"
   user: one
-
-two:
-  title: MyString
-  body: MyText
-  user: two

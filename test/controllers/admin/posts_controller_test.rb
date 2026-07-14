@@ -2,18 +2,15 @@ require "test_helper"
 
 class Admin::PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @admin = Admin.create!(
-      email_address: "admin@example.com",
-      password: "password",
-      password_confirmation: "password"
-    )
+    # ★ create! を使わず、fixtures の admin を使う
+    @admin = admins(:one)
 
     post admin_login_path, params: {
-      email: @admin.email_address,
+      email: @admin.email,
       password: "password"
     }
-    follow_redirect!
 
+    # ★ follow_redirect! を削除（これが fixtures を壊していた）
     @post = posts(:one)
   end
 
