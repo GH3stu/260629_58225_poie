@@ -7,6 +7,9 @@
   <p>本文</p>
   <%= f.text_area :body %>
 
+  <p>ポイントカテゴリ</p>
+    <%= f.collection_select :category_id, Category.all, :id, :name, prompt: "選択してください" %>
+
   <%= f.submit "更新する" %>
 <% end %>
 

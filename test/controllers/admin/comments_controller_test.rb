@@ -3,18 +3,35 @@ require "test_helper"
 class Admin::CommentsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @admin = Admin.create!(
-      email_address: "admin@example.com",
-      password: "password",
-      password_confirmation: "password"
+      email: "admin@example.com",
+      password: "password"
     )
 
     post admin_login_path, params: {
-      email: @admin.email_address,
+      email_address: @admin.email,
       password: "password"
     }
     follow_redirect!
 
-    @comment = comments(:one)
+    # Create necessary fixtures programmatically
+    @purpose = Purpose.create!(name: "テスト目的")
+    @category = Category.create!(name: "テストカテゴリー", purpose_id: @purpose.id)
+    @user = User.create!(
+      name: "Test User",
+      email: "test@example.com",
+      password_digest: BCrypt::Password.create("password")
+    )
+    @post = Post.create!(
+      title: "Test Post",
+      body: "Test Body",
+      user_id: @user.id,
+      category_id: @category.id
+    )
+    @comment = Comment.create!(
+      body: "Test Comment",
+      user_id: @user.id,
+      post_id: @post.id
+    )
   end
 
   test "should get index" do

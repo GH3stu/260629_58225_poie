@@ -1,4 +1,3 @@
-# ・app/controllers/user/users_controller.rb
 class User::UsersController < ApplicationController
   before_action :require_login
   before_action :set_user, only: [:show, :edit, :update, :destroy]

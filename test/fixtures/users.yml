@@ -1,9 +1,11 @@
 one:
-  name: MyString
-  email: user1@example.com   # ★ユニークに変更
-  password_digest: <%= BCrypt::Password.create('password') %>   # ★本来の形式に修正
+  id: 1
+  name: "ユーザー1"
+  email: "user1@example.com"
+  password_digest: <%= BCrypt::Password.create('password') %>
 
 two:
-  name: MyString
-  email: user2@example.com   # ★ユニークに変更
-  password_digest: <%= BCrypt::Password.create('password') %>   # ★本来の形式に修正
+  id: 2
+  name: "ユーザー2"
+  email: "user2@example.com"
+  password_digest: <%= BCrypt::Password.create('password') %>
