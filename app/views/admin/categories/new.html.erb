@@ -3,10 +3,29 @@
 <%= form_with model: [:admin, @category], local: true do |f| %>
   <div style="margin-bottom: 20px;">
     <%= f.label :name, "カテゴリ名" %><br>
-    <%= f.text_field :name, style: "padding: 5px; width: 250px;" %>
+    <%= f.text_field :name, id: "category_name", style: "padding: 5px; width: 250px;" %>
+  </div>
+
+  <!-- ここに追加：その他ポイントの場合のみ表示 -->
+  <div id="sub_category_area" style="display:none; margin-bottom: 20px;">
+    <%= label_tag :sub_categories, "サブカテゴリ名（複数ある場合は改行で追加）" %><br>
+    <%= text_area_tag :sub_categories, "", rows: 4, style: "padding: 5px; width: 250px;" %>
   </div>
 
   <%= f.submit "登録する", style: "padding: 8px 20px;" %>
 <% end %>
 
 <%= link_to "管理者マイページへ戻る", admin_root_path %>
+
+<script>
+  document.addEventListener("input", function() {
+    const name = document.getElementById("category_name").value;
+    const area = document.getElementById("sub_category_area");
+
+    if (name === "その他ポイント") {
+      area.style.display = "block";
+    } else {
+      area.style.display = "none";
+    }
+  });
+</script>

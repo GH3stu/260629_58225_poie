@@ -2,7 +2,7 @@
 
 <% @posts.each do |post| %>
   <div style="margin-bottom: 20px;">
-    <h3><%= link_to post.title, user_post_path(post.user, post) %></h3>
+    <h3><%= link_to post.title, user_post_path(post) %></h3>
     <p><%= simple_format(post.body) %></p>
   </div>
 <% end %>

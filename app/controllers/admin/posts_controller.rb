@@ -2,7 +2,11 @@ class Admin::PostsController < Admin::BaseController
   before_action :require_admin, except: [:show]
 
   def index
-    @posts = Post.where.not(admin_id: nil)
+    if params[:category_id].present?
+      @posts = Post.where(category_id: params[:category_id]).order(created_at: :desc)
+    else
+      @posts = Post.order(created_at: :desc)
+    end
   end
 
   def show
