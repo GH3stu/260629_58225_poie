@@ -32,8 +32,8 @@ class User::PostsController < ApplicationController
   end
 
   def update
-    if @post.update(post_params)
-      redirect_to user_post_path(@post), notice: "投稿を更新しました"   # 修正
+    if @post.update(post_params)   # category_id を含む
+      redirect_to user_post_path(@post), notice: "投稿を更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -57,6 +57,6 @@ class User::PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :body, :category_id)
   end
 end
