@@ -1,9 +1,11 @@
-<header style="height: 70px; border-bottom: 1px solid #ddd;">
+<header style="height: 90px; border-bottom: 1px solid #ddd;">
   <div style="height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 40px;">
 
     <!-- 左：ロゴ -->
-    <div style="font-size: 22px; font-weight: bold;">
-      <%= link_to "Poie", root_path %>
+    <div>
+      <%= link_to about_path do %>
+        <%= image_tag "poie_logo.jpg", alt: "Poie", style: "height: 80px;" %>
+      <% end %>
     </div>
 
     <!-- 中央ナビ（検索窓＋トップ） -->
