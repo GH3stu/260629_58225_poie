@@ -2,16 +2,30 @@ require "test_helper"
 
 class Admin::PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    # ★ create! を使わず、fixtures の admin を使う
-    @admin = admins(:one)
+    @admin = Admin.create!(
+      email: "admin@example.com",
+      password: "password"
+    )
 
     post admin_login_path, params: {
-      email: @admin.email,
+      email_address: @admin.email,
       password: "password"
     }
 
-    # ★ follow_redirect! を削除（これが fixtures を壊していた）
-    @post = posts(:one)
+    # Create necessary fixtures programmatically
+    @purpose = Purpose.create!(name: "テスト目的")
+    @category = Category.create!(name: "テストカテゴリー", purpose_id: @purpose.id)
+    @user = User.create!(
+      name: "Test User",
+      email: "test@example.com",
+      password_digest: BCrypt::Password.create("password")
+    )
+    @post = Post.create!(
+      title: "テスト投稿",
+      body: "本文",
+      user_id: @user.id,
+      category_id: @category.id
+    )
   end
 
   test "should get index" do
