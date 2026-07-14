@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_14_040728) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_14_142541) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -99,6 +99,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_14_040728) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "sub_categories", force: :cascade do |t|
+    t.string "name"
+    t.integer "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_sub_categories_on_category_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -115,4 +123,5 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_14_040728) do
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "sub_categories", "categories"
 end

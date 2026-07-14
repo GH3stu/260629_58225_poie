@@ -7,7 +7,7 @@
     <tr>
       <th>ID</th>
       <th>カテゴリ名</th>
-      <th>操作</th>
+      <th>サブカテゴリ名</th>
     </tr>
   </thead>
 
@@ -16,6 +16,14 @@
       <tr>
         <td><%= category.id %></td>
         <td><%= category.name %></td>
+        <td>
+          <% if category.name == "その他ポイント" %>
+            <%= category.sub_categories.pluck(:name).join(", ") %>
+          <% else %>
+            -
+          <% end %>
+        </td>
+
         <td>
           <%= link_to "編集", edit_admin_category_path(category) %>
           <%= link_to "削除", admin_category_path(category),

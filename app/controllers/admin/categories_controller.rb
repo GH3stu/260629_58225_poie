@@ -1,5 +1,5 @@
 class Admin::CategoriesController < Admin::BaseController
-  before_action :set_category, only: [:edit, :update, :destroy]   # ここに追加
+  before_action :set_category, only: [:edit, :update, :destroy]
 
   def index
     @categories = Category.all
@@ -13,6 +13,14 @@ class Admin::CategoriesController < Admin::BaseController
     @category = Category.new(category_params.merge(purpose_id: 1))
 
     if @category.save
+
+      # その他ポイントの場合のみサブカテゴリを保存
+      if @category.name == "その他ポイント" && params[:sub_categories].present?
+        params[:sub_categories].split("\n").each do |name|
+          @category.sub_categories.create(name: name.strip)
+        end
+      end
+
       redirect_to admin_categories_path
     else
       render :new
@@ -24,7 +32,28 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def update
+    old_name = @category.name   # ここに追加：更新前のカテゴリ名を保持
+
     if @category.update(category_params)
+
+      # 更新後のカテゴリ名で判定する
+      if @category.name == "その他ポイント"
+
+        if params[:sub_categories]
+          @category.sub_categories.destroy_all   # ここに追加：既存サブカテゴリを削除
+
+          params[:sub_categories].split("\n").each do |name|
+            @category.sub_categories.create(name: name.strip)
+          end
+        end
+
+      else
+        # その他ポイント → 別カテゴリに変更した場合はサブカテゴリ削除
+        if old_name == "その他ポイント"
+          @category.sub_categories.destroy_all
+        end
+      end
+
       redirect_to admin_categories_path, notice: "カテゴリを更新しました"
     else
       render :edit
@@ -39,7 +68,7 @@ class Admin::CategoriesController < Admin::BaseController
   private
 
   def set_category
-    @category = Category.find(params[:id])   # 正しい
+    @category = Category.find(params[:id])
   end
 
   def category_params
