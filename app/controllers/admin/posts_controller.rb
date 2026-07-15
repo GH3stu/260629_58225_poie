@@ -4,11 +4,15 @@ class Admin::PostsController < Admin::BaseController
 
   def index
     if params[:category_id].present?
-      @posts = Post.where(category_id: params[:category_id]).order(created_at: :desc)
+      @posts = Post.where.not(admin_id: nil)
+                   .where(category_id: params[:category_id])
+                   .order(created_at: :desc)
     else
-      @posts = Post.order(created_at: :desc)
+      @posts = Post.where.not(admin_id: nil)
+                   .order(created_at: :desc)
     end
   end
+
 
   def show
     @post = Post.find(params[:id])
