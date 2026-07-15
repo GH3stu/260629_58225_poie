@@ -7,8 +7,30 @@
   <p>本文</p>
   <%= f.text_area :body %>
 
-  <p>ポイントカテゴリ</p>
-    <%= f.collection_select :category_id, Category.all, :id, :name, prompt: "選択してください" %>
+  <p>獲得できるポイント</p>
+    <%= f.collection_select :category_id,
+      Category.for_post_select, :id, :name,
+      prompt: "選択してください" %>
+
+  <div id="sub_category_area" style="<%= @post.category.name == 'その他ポイント' ? '' : 'display:none;' %>">
+  <%= f.label :sub_category_id, "サブカテゴリ" %>
+  <%= f.collection_select :sub_category_id,
+        SubCategory.all, :id, :name,
+        prompt: "選択してください" %>
+</div>
+
+  <script>
+    document.addEventListener("input", function() {
+      const categorySelect = document.getElementById("post_category_id");
+      const area = document.getElementById("sub_category_area");
+
+      if (categorySelect.selectedOptions[0].text === "その他ポイント") {
+        area.style.display = "block";
+      } else {
+        area.style.display = "none";
+      }
+    });
+  </script>
 
   <%= f.submit "更新する" %>
 <% end %>
