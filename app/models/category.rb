@@ -18,8 +18,8 @@ class Category < ApplicationRecord
       "ポイント運用"
     ]
 
-  categories = Category.where(name: order_names)
-  unique_categories = categories.uniq { |c| c.name }
-  unique_categories.sort_by { |c| order_names.index(c.name) }
+    categories = Category.where(name: order_names)
+    unique_categories = categories.uniq { |c| c.name }
+    unique_categories.sort_by { |c| order_names.index(c.name) }
   end
 end

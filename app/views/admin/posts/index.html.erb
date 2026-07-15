@@ -18,12 +18,7 @@
         <td><%= post.title %></td>
 
         <td>
-          <% if post.user.present? %>
-            <%= post.user.name %>
-            # ここに追加
-          <% else %>
-            管理者：<%= post.admin.name %>
-          <% end %>
+          管理者：<%= post.admin.name %>
         </td>
 
         <td><%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>

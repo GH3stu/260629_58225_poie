@@ -1,6 +1,6 @@
 class PurposeCategoriesController < ApplicationController
   def index
     @purpose = Purpose.find(params[:purpose_id])
-    @categories = @purpose.categories.order(:name)
+    @categories = Category.where(purpose_id: @purpose.id)
   end
 end
