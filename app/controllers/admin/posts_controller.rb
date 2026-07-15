@@ -1,4 +1,5 @@
 class Admin::PostsController < Admin::BaseController
+  layout "admin"
   before_action :require_admin, except: [:show]
 
   def index
@@ -53,7 +54,7 @@ class Admin::PostsController < Admin::BaseController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :category_id)
+    params.require(:post).permit(:title, :body, :category_id, :sub_category_id)
   end
 
   def require_admin
