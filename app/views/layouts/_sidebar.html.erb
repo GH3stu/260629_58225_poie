@@ -2,13 +2,9 @@
   <h3 style="font-size: 18px; margin-bottom: 15px;">Category</h3>
 
   <ul style="list-style: none; padding: 0; color: #555;">
-    <% Category.for_post_select.each do |category| %>   <!-- ★ここを修正 -->
+    <% Category.for_post_select.each do |category| %>
       <li style="margin-bottom: 10px;">
-        <% if defined?(current_admin) && current_admin.present? %>
-          <%= link_to category.name, admin_posts_path(category_id: category.id), style: "text-decoration: none;" %>
-        <% else %>
-          <%= link_to category.name, category_posts_path(category), style: "text-decoration: none;" %>
-        <% end %>
+        <%= link_to category.name, category_posts_path(category) %>
       </li>
     <% end %>
   </ul>

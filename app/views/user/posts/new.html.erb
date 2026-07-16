@@ -28,8 +28,11 @@
 
   <div id="sub_category_area" style="display:none;">
     <%= f.label :sub_category_id, "サブカテゴリ" %>
+
+    <% other_category = Category.find_by(name: "その他ポイント") %>
     <%= f.collection_select :sub_category_id,
-          SubCategory.all, :id, :name,
+          SubCategory.where(category_id: other_category.id, purpose_id: nil),
+          :id, :name,
           prompt: "選択してください" %>
   </div>
 
@@ -45,7 +48,6 @@
       }
     });
   </script>
-
 
   <%= f.submit "投稿する" %>
 <% end %>

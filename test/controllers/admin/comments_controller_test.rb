@@ -13,9 +13,7 @@ class Admin::CommentsControllerTest < ActionDispatch::IntegrationTest
     }
     follow_redirect!
 
-    # Create necessary fixtures programmatically
-    @purpose = Purpose.create!(name: "テスト目的")
-    @category = Category.create!(name: "テストカテゴリー", purpose_id: @purpose.id)
+    @category = Category.create!(name: "テストカテゴリー")
     @user = User.create!(
       name: "Test User",
       email: "test@example.com",

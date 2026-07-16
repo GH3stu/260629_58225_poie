@@ -65,6 +65,8 @@ Rails.application.routes.draw do
     # Category を追加・削除
     resources :categories
 
+    resources :sub_categories
+
     # 管理者ログイン
     get "login",  to: "sessions#new"
     post "login", to: "sessions#create"
