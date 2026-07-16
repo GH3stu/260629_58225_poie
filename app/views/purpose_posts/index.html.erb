@@ -1,0 +1,16 @@
+<h2><%= @purpose.name %> の投稿一覧</h2>
+
+<% if @posts.any? %>
+  <ul style="margin-top: 20px;">
+    <% @posts.each do |post| %>
+      <li style="margin-bottom: 20px;">
+        <strong><%= link_to post.title, user_post_path(post) %></strong><br>
+        <span>カテゴリ：<%= post.category.name %></span><br>
+        <span>投稿者：<%= post.user&.name || post.admin&.name %></span><br>
+        <span>投稿日時：<%= l(post.created_at, format: :long) %></span>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>投稿はまだありません。</p>
+<% end %>
