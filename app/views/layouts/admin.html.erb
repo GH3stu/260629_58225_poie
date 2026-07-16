@@ -10,6 +10,15 @@
   </head>
 
   <body>
-    <%= yield %>
+
+    <%= render "layouts/header" %>
+
+    <div style="display: flex;">
+      <%= render "layouts/sidebar" %>   <!-- ★ これを追加 -->
+      <div style="flex: 1; padding: 20px;">
+        <%= yield %>
+      </div>
+    </div>
+
   </body>
 </html>

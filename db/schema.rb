@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_05_063449) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_16_095352) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -44,14 +44,23 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_05_063449) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "email"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.integer "post_id", null: false
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "admin_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -68,10 +77,29 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_05_063449) do
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "body"
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "admin_id"
+    t.integer "category_id"
+    t.integer "sub_category_id"
+    t.integer "purpose_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "purpose_categories", force: :cascade do |t|
+    t.integer "purpose_id", null: false
+    t.integer "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_purpose_categories_on_category_id"
+    t.index ["purpose_id"], name: "index_purpose_categories_on_purpose_id"
+  end
+
+  create_table "purposes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -79,6 +107,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_05_063449) do
     t.integer "followed_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sub_categories", force: :cascade do |t|
+    t.string "name"
+    t.integer "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "purpose_id"
+    t.index ["category_id"], name: "index_sub_categories_on_category_id"
+    t.index ["purpose_id"], name: "index_sub_categories_on_purpose_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -97,4 +135,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_05_063449) do
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "purpose_categories", "categories"
+  add_foreign_key "purpose_categories", "purposes"
+  add_foreign_key "sub_categories", "categories"
 end

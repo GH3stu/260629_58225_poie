@@ -1,6 +1,14 @@
 require "test_helper"
 
-class SessionsControllerTest < ActionDispatch::IntegrationTest
+class UserSessionsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @user = User.create!(
+      name: "Test User",
+      email: "user@example.com",
+      password_digest: BCrypt::Password.create("password")
+    )
+  end
+
   test "should get new" do
     get login_url
     assert_response :success
@@ -8,11 +16,11 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get create" do
     post login_url, params: {
-      email: users(:one).email,
+      email: @user.email,
       password: "password"
     }
     assert_response :redirect
-    assert_redirected_to user_user_path(users(:one))
+    assert_redirected_to user_user_path(@user)
   end
 
   test "should get destroy" do

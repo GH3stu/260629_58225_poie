@@ -19,5 +19,42 @@
     <%= f.text_area :body %>
   </div>
 
+  <div>
+    <%= f.label :purpose_id, "目的" %>
+    <%= f.collection_select :purpose_id,
+      Purpose.all, :id, :name,
+      prompt: "目的を選択してください" %>
+  </div>
+
+  <div>
+    <%= f.label :category_id, "獲得できるポイント" %>
+    <%= f.collection_select :category_id,
+      Category.for_post_select, :id, :name,
+      prompt: "選択してください" %>
+  </div>
+
+  <div id="sub_category_area" style="display:none;">
+    <%= f.label :sub_category_id, "サブカテゴリ" %>
+
+    <% other_category = Category.find_by(name: "その他ポイント") %>
+    <%= f.collection_select :sub_category_id,
+          SubCategory.where(category_id: other_category.id, purpose_id: nil),
+          :id, :name,
+          prompt: "選択してください" %>
+  </div>
+
+  <script>
+    document.addEventListener("input", function() {
+      const categorySelect = document.getElementById("post_category_id");
+      const area = document.getElementById("sub_category_area");
+
+      if (categorySelect.selectedOptions[0].text === "その他ポイント") {
+        area.style.display = "block";
+      } else {
+        area.style.display = "none";
+      }
+    });
+  </script>
+
   <%= f.submit "投稿する" %>
 <% end %>

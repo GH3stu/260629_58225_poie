@@ -1,0 +1,22 @@
+<h1>管理者情報編集</h1>
+
+<%= form_with model: @admin, url: admin_admin_path(@admin), local: true do |f| %>
+
+  <p>管理者名</p>
+  <%= f.text_field :name %>
+
+  <p>メールアドレス</p>
+  <%= f.email_field :email %>
+
+  <p>パスワード（変更する場合のみ入力）</p>
+  <%= f.password_field :password %>
+
+  <p>パスワード確認</p>
+  <%= f.password_field :password_confirmation %>
+
+  <%= f.submit "更新する" %>
+<% end %>
+
+<br>
+
+<%= link_to "管理者マイページへ戻る", admin_root_path %>

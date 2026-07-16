@@ -1,9 +1,11 @@
-<header style="height: 70px; border-bottom: 1px solid #ddd;">
+<header style="height: 90px; border-bottom: 1px solid #ddd;">
   <div style="height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 40px;">
 
     <!-- 左：ロゴ -->
-    <div style="font-size: 22px; font-weight: bold;">
-      <%= link_to "Poie", root_path %>
+    <div>
+      <%= link_to about_path do %>
+        <%= image_tag "poie_logo.jpg", alt: "Poie", style: "height: 80px;" %>
+      <% end %>
     </div>
 
     <!-- 中央ナビ（検索窓＋トップ） -->
@@ -11,25 +13,57 @@
 
       <!-- 検索窓（ログイン前も表示） -->
       <%= form_with url: search_path, method: :get, local: true, style: "display: flex; align-items: center; gap: 10px;" do |f| %>
+        <%= f.select :match,
+          [["部分一致", "partial"], ["完全一致", "exact"]],
+          {}, style: "padding: 5px 10px;" %>
+
+        <%= f.select :target,
+          [["ユーザー", "users"], ["投稿", "posts"]],
+          {}, style: "padding: 5px 10px;" %>
+
         <%= f.text_field :keyword, placeholder: "検索", style: "padding: 5px 10px; width: 180px;" %>
         <%= f.submit "検索", style: "padding: 5px 10px;" %>
       <% end %>
 
-      <span style="color: #aaa;">ー</span>
-      <%= link_to "トップ", root_path %>
+      <% unless defined?(current_admin) && current_admin.present? %>
+        <span style="color: #aaa;">ー</span>
+        <%= link_to "トップ", root_path %>
+      <% end %>
     </nav>
 
-    <!-- 右：ログイン前後で切り替え -->
-    <div style="display: flex; gap: 20px; font-size: 16px;">
-      <% if logged_in? %>
-        <%= link_to "マイページ", user_user_path(current_user) %>        <!-- 修正 -->
-        <%= link_to "新規投稿", new_user_post_path %>                   <!-- 修正 -->
-        <%= link_to "投稿一覧", user_posts_path %>                      <!-- 修正 -->
-        <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %>
+    <!-- 右：ハンバーガーメニュー + ログイン前後切替 -->
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <% if logged_in? && !(defined?(current_admin) && current_admin.present?) %>
+        <div data-controller="hamburger" style="display: flex; align-items: center; gap: 20px;">
+          <div class="hamburger-icon" data-action="click->hamburger#toggle" role="button" aria-label="メニュー">
+            ☰
+          </div>
+
+          <div class="hamburger-menu" data-hamburger-target="menu">
+            <ul>
+              <li><%= link_to "マイページ", user_user_path(current_user) %></li>
+              <li><%= link_to "プロフィール", edit_user_user_path(current_user) %></li>
+              <li><%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %></li>
+              <li><%= link_to "退会", user_user_path(current_user), data: { turbo_method: :delete, confirm: "本当に退会しますか？" } %></li>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+
+      <% if defined?(current_admin) && current_admin.present? %>
+        <!-- ★ 管理者ログイン時 -->
+        <%= link_to "管理者マイページ", admin_root_path %>
+        <%= link_to "ログアウト", admin_logout_path, data: { turbo_method: :delete } %>
+
+      <% elsif logged_in? %>
+    <!-- ★ ユーザーログイン時（ハンバーガーで表示するのでここは空でOK） -->
+    <!-- 右側の通常メニューは非表示のままでOK -->
       <% else %>
+    <!-- ★ 非ログイン時（ここが復活する） -->
         <%= link_to "ログイン", login_path %>
         <%= link_to "新規登録", new_user_path %>
       <% end %>
+
     </div>
 
   </div>

@@ -1,0 +1,18 @@
+<h1>ユーザーコメント詳細（管理者専用）</h1>
+
+<p>ID：<%= @comment.id %></p>
+<p>コメント内容：<%= @comment.body %></p>
+<p>投稿者：<%= @comment.user.name %></p>
+<p>対象投稿：<%= link_to @comment.post.title, admin_user_post_path(@comment.post) %></p>
+<p>日時：<%= @comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+
+<%= button_to "このコメントを強制削除する",
+              admin_user_comment_path(@comment),
+              method: :delete,
+              data: { confirm: "本当に削除しますか？" } %>
+
+<hr>
+
+<%= link_to "ユーザーコメント一覧へ戻る", admin_user_comments_path %>
+<br><br>
+<%= link_to "管理者マイページへ戻る", admin_root_path %>

@@ -1,8 +1,11 @@
 <div style="width: 200px; min-height: calc(100vh - 70px - 60px); border-right: 1px solid #ddd; padding: 20px;">
   <h3 style="font-size: 18px; margin-bottom: 15px;">Category</h3>
 
-  <!-- カテゴリは後で admin 作成時に追加 -->
   <ul style="list-style: none; padding: 0; color: #555;">
-    <li>（カテゴリを追加予定）</li>
+    <% Category.for_post_select.each do |category| %>
+      <li style="margin-bottom: 10px;">
+        <%= link_to category.name, category_posts_path(category) %>
+      </li>
+    <% end %>
   </ul>
 </div>

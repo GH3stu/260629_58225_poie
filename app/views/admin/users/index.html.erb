@@ -1,0 +1,23 @@
+<h1>ユーザー一覧</h1>
+
+<table border="1" cellpadding="8">
+  <tr>
+    <th>ID</th>
+    <th>名前</th>
+    <th>メール</th>
+    <th>登録日</th>
+    <th>詳細</th>
+  </tr>
+
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.created_at.strftime("%Y-%m-%d") %></td>
+      <td><%= link_to "詳細", admin_user_path(user) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "管理者マイページへ戻る", admin_root_path %>

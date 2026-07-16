@@ -1,8 +1,7 @@
-# ・app/controllers/user/posts_controller.rb
 class User::PostsController < ApplicationController
   before_action :require_login
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :require_owner, only: [:edit, :update, :destroy]
+  before_action :set_post, only: [ :show, :edit, :update, :destroy ]
+  before_action :require_owner, only: [ :edit, :update, :destroy ]
 
   def new
     @post = Post.new
@@ -22,14 +21,19 @@ class User::PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id])
+    # 非ログインユーザーは管理者投稿のみ閲覧可能
+    if !logged_in? && @post.admin_id.nil?
+      redirect_to login_path
+    end
   end
 
   def edit
   end
 
   def update
-    if @post.update(post_params)
-      redirect_to user_post_path(@post), notice: "投稿を更新しました"   # 修正
+    if @post.update(post_params)   # category_id を含む
+      redirect_to user_post_path(@post), notice: "投稿を更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -53,6 +57,6 @@ class User::PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :body, :category_id, :sub_category_id)
   end
 end

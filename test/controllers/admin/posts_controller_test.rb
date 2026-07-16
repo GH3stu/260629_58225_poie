@@ -3,17 +3,27 @@ require "test_helper"
 class Admin::PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @admin = Admin.create!(
-      email_address: "admin@example.com",
+      email: "admin@example.com",
       password: "password"
     )
 
-    # 管理者ログイン状態を作る
     post admin_login_path, params: {
-      email_address: @admin.email_address,
+      email_address: @admin.email,
       password: "password"
     }
 
-    @post = posts(:one)
+    @category = Category.create!(name: "テストカテゴリー")
+    @user = User.create!(
+      name: "Test User",
+      email: "test@example.com",
+      password_digest: BCrypt::Password.create("password")
+    )
+    @post = Post.create!(
+      title: "テスト投稿",
+      body: "本文",
+      user_id: @user.id,
+      category_id: @category.id
+    )
   end
 
   test "should get index" do
@@ -32,5 +42,3 @@ class Admin::PostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_posts_path
   end
 end
-
-

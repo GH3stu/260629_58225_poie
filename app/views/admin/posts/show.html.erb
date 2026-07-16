@@ -1,2 +1,43 @@
-<h1>Admin::Posts#show</h1>
-<p>Find me in app/views/admin/posts/show.html.erb</p>
+<h1>管理者投稿詳細</h1>
+
+<p>ID：<%= @post.id %></p>
+<p>タイトル：<%= @post.title %></p>
+<p>本文：<%= simple_format(h(@post.body)) %></p>
+<p>獲得できるポイント：<%= @post.category.name %></p>
+<p>投稿者：
+  <% if @post.user.present? %>
+    <%= @post.user.name %>
+  <% else %>
+    管理者：<%= @post.admin.name %>
+  <% end %>
+</p>
+<p>日時：<%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+
+<hr>
+
+<h2>管理者コメント一覧</h2>
+<% @post.comments.where.not(admin_id: nil).each do |comment| %>
+  <p><%= comment.body %></p>
+  <p><%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+  <hr>
+<% end %>
+
+<h2>管理者コメントを書く</h2>
+<%= form_with model: [:admin, @post, Comment.new], local: true do |f| %>
+  <%= f.text_area :body, rows: 3 %>
+  <%= f.submit "コメントする" %>
+<% end %>
+
+<hr>
+
+<%= link_to "編集する", edit_admin_post_path(@post) %>
+<br><br>
+
+<%= link_to "削除する", admin_post_path(@post),
+    data: { turbo_method: :delete, confirm: "削除しますか？" } %>
+
+<br><br>
+
+<%= link_to "投稿一覧へ戻る", admin_posts_path %>
+<br><br>
+<%= link_to "管理者マイページへ戻る", admin_root_path %>

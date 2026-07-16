@@ -1,0 +1,54 @@
+<h1>ユーザー投稿詳細（管理者専用）</h1>
+
+<p>ID：<%= @post.id %></p>
+<p>タイトル：<%= @post.title %></p>
+<p>本文：<%= simple_format(h(@post.body)) %></p>
+<p>獲得できるポイント：
+  <% if @post.category.present? %>
+    <%= @post.category.name %>
+  <% else %>
+    未設定
+  <% end %>
+</p>
+<p>投稿者：<%= @post.user.name %></p>
+<p>日時：<%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+
+<%= button_to "この投稿を強制削除する",
+              admin_user_post_path(@post),
+              method: :delete,
+              data: { confirm: "本当に削除しますか？" } %>
+
+<hr>
+
+<h2>ユーザーコメント一覧</h2>
+<% @post.comments.where(admin_id: nil).each do |comment| %>
+  <p><%= comment.body %></p>
+  <p><%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+
+  <%= button_to "このコメントを強制削除する",
+                admin_user_comment_path(comment),
+                method: :delete,
+                data: { confirm: "本当に削除しますか？" } %>
+
+  <hr>
+<% end %>
+
+<h2>管理者コメント一覧</h2>
+<% @post.comments.where.not(admin_id: nil).each do |comment| %>
+  <p><%= comment.body %></p>
+  <p>管理者：<%= comment.admin.name %></p>
+  <p><%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+  <hr>
+<% end %>
+
+<h2>管理者コメントを書く</h2>
+<%= form_with model: [:admin, @post, Comment.new], local: true do |f| %>
+  <%= f.text_area :body, rows: 3 %>
+  <%= f.submit "コメントする" %>
+<% end %>
+
+<hr>
+
+<%= link_to "ユーザー投稿一覧へ戻る", admin_user_posts_path %>
+<br><br>
+<%= link_to "管理者マイページへ戻る", admin_root_path %>

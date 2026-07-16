@@ -1,0 +1,27 @@
+<h1>コメント詳細</h1>
+
+<p>ID：<%= @comment.id %></p>
+<p>内容：<%= @comment.body %></p>
+<p>
+  投稿者：
+  <% if @comment.user.present? %>
+    <%= @comment.user.name %>
+  <% else %>
+    管理者：<%= @comment.admin.name %>
+  <% end %>
+</p>
+<p>対象投稿：<%= link_to @comment.post.title, admin_post_path(@comment.post) %></p>
+<p>日時：<%= @comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+
+<hr>
+
+<%= link_to "編集する", edit_admin_comment_path(@comment) %>
+<br><br>
+
+<%= link_to "削除する", admin_comment_path(@comment),
+    data: { turbo_method: :delete, confirm: "削除しますか？" } %>
+
+<br><br>
+
+<%= link_to "コメント一覧へ戻る", admin_comments_path %>
+<%= link_to "管理者マイページへ戻る", admin_root_path %>

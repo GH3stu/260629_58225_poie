@@ -1,0 +1,14 @@
+<h1>カテゴリ新規作成(触らない)</h1>
+
+<%= form_with model: [:admin, @category], local: true do |f| %>
+  <div style="margin-bottom: 20px;">
+    <%= f.label :name, "カテゴリ名" %><br>
+    <%= f.text_field :name, id: "category_name", style: "padding: 5px; width: 250px;" %>
+  </div>
+
+  <%= f.submit "登録する", style: "padding: 8px 20px;" %>
+<% end %>
+
+＜br><br>
+
+<%= link_to "管理者マイページへ戻る", admin_root_path %>

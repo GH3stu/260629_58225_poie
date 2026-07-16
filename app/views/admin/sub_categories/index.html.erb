@@ -1,0 +1,29 @@
+<h1>サブカテゴリ一覧（その他ポイント）</h1>
+
+<%= link_to "サブカテゴリ新規作成", new_admin_sub_category_path %>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>名前</th>
+    <th>操作</th>
+  </tr>
+
+  <% @sub_categories.each do |sc| %>
+    <tr>
+      <td><%= sc.id %></td>
+      <td><%= sc.name %></td>
+      <td>
+        <%= link_to "編集", edit_admin_sub_category_path(sc) %> |
+        <%= link_to "削除", admin_sub_category_path(sc),
+              method: :delete,
+              data: { confirm: "削除しますか？" } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<br><br>
+
+<%= link_to "管理者マイページへ戻る", admin_root_path %>
+

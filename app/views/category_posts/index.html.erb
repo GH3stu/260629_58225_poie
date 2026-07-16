@@ -1,0 +1,16 @@
+<h2><%= @category.name %></h2>
+
+<% if @category.name == "その他ポイント" %>
+  <h3>サブカテゴリ一覧</h3>
+  <% @sub_categories.each do |sc| %>
+    <p><%= link_to sc.name, sub_category_posts_path(sc.id) %></p>
+  <% end %>
+<% else %>
+  <h3>投稿一覧</h3>
+  <% @posts.each do |post| %>
+    <div style="margin-bottom: 20px;">
+      <h3><%= link_to post.title, user_post_path(post) %></h3>
+      <p><%= simple_format(post.body) %></p>
+    </div>
+  <% end %>
+<% end %>

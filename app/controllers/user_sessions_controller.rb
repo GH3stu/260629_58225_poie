@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class UserSessionsController < ApplicationController
   def new
   end
 
@@ -21,5 +21,3 @@ class SessionsController < ApplicationController
     redirect_to root_path, notice: "ログアウトしました"
   end
 end
-
-

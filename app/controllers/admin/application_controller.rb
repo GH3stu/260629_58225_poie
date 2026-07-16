@@ -1,11 +1,19 @@
-class Admin::ApplicationController < ActionController::Base
-  before_action :require_admin_login
+class Admin::ApplicationController < ApplicationController
+  helper_method :current_admin, :admin_logged_in?
 
   private
 
-  def require_admin_login
-    unless session[:admin_id]
-      redirect_to admin_login_path, alert: "管理者ログインが必要です"
+  def current_admin
+    @current_admin ||= Admin.find_by(id: session[:admin_id])
+  end
+
+  def admin_logged_in?
+    current_admin.present?
+  end
+
+  def require_admin
+    unless admin_logged_in?
+      redirect_to admin_login_path, alert: "ログインしてください"
     end
   end
 end
