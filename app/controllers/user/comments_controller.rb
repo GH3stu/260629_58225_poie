@@ -13,6 +13,10 @@ class User::CommentsController < ApplicationController
     end
   end
 
+  def index
+    @comments = current_user.comments.order(created_at: :desc)
+  end
+
   def destroy
     # ここに追加
     @post = Post.find(params[:post_id])
