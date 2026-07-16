@@ -31,22 +31,32 @@
       <% end %>
     </nav>
 
-    <!-- 右：ログイン前後で切り替え -->
-    <div style="display: flex; gap: 20px; font-size: 16px;">
+    <!-- 右：ハンバーガーメニュー + ログイン前後切替 -->
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <% if logged_in? && !(defined?(current_admin) && current_admin.present?) %>
+        <div data-controller="hamburger" style="display: flex; align-items: center; gap: 20px;">
+          <div class="hamburger-icon" data-action="click->hamburger#toggle" role="button" aria-label="メニュー">
+            ☰
+          </div>
+
+          <div class="hamburger-menu" data-hamburger-target="menu">
+            <ul>
+              <li><%= link_to "マイページ", user_user_path(current_user) %></li>
+              <li><%= link_to "プロフィール", edit_user_user_path(current_user) %></li>
+              <li><%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %></li>
+              <li><%= link_to "退会", user_user_path(current_user), data: { turbo_method: :delete, confirm: "本当に退会しますか？" } %></li>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+
+      <div style="display: flex; gap: 20px; font-size: 16px; align-items: center;">
 
       <% if defined?(current_admin) && current_admin.present? %>
         <!-- ★ 管理者ログイン時 -->
         <%= link_to "管理者マイページ", admin_root_path %>
         <%= link_to "ログアウト", admin_logout_path, data: { turbo_method: :delete } %>
 
-      <% elsif logged_in? %>
-        <!-- ★ ユーザーログイン時 -->
-        <%= link_to "マイページ", user_user_path(current_user) %>
-        <%= link_to "新規投稿", new_user_post_path %>
-        <%= link_to "投稿一覧", user_posts_path %>
-        <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %>
-
-      <% else %>
         <!-- ★ 非ログイン時 -->
         <%= link_to "ログイン", login_path %>
         <%= link_to "新規登録", new_user_path %>

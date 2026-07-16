@@ -1,0 +1,36 @@
+/* ハンバーガーアイコン */
+.hamburger-icon {
+  font-size: 28px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1000;
+}
+
+/* メニュー本体（初期状態は画面外） */
+.hamburger-menu {
+  position: fixed;
+  top: 0;
+  right: -260px; /* ← 初期状態で完全に隠す */
+  width: 260px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+  transition: right 0.3s ease;
+  padding: 40px 20px;
+  z-index: 999;
+}
+
+/* 開いた状態 */
+.hamburger-menu.open {
+  right: 0; /* ← ここで初めて表示 */
+}
+
+/* メニュー内のリスト */
+.hamburger-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.hamburger-menu li {
+  margin: 20px 0;
+}
