@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   # ログイン後ユーザー専用
   namespace :user do
     resources :users, only: [:show, :edit, :update, :destroy]
+    resources :comments, only: [:index]
 
     resources :posts do
       resources :comments, only: [:create, :destroy]

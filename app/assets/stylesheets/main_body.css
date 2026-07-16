@@ -1,0 +1,11 @@
+.my-page-container {
+  margin-top: 30px;
+}
+
+.my-page-box {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
