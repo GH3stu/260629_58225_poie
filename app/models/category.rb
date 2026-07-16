@@ -1,4 +1,7 @@
 class Category < ApplicationRecord
+  has_many :purpose_categories, dependent: :destroy
+  has_many :purposes, through: :purpose_categories
+
   has_many :posts
   has_many :sub_categories, dependent: :destroy
 
