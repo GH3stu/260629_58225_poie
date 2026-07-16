@@ -7,6 +7,13 @@
   <p>本文</p>
   <%= f.text_area :body %>
 
+  <div>
+    <%= f.label :purpose_id, "目的" %>
+    <%= f.collection_select :purpose_id,
+      Purpose.all, :id, :name,
+      prompt: "目的を選択してください" %>
+  </div>
+
   <p>獲得できるポイント</p>
   <%= f.collection_select :category_id,
       Category.for_post_select, :id, :name,

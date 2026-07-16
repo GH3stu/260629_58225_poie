@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   belongs_to :admin, optional: true
   belongs_to :category, optional: true
   belongs_to :sub_category, optional: true
+  belongs_to :purpose, optional: true
 
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
