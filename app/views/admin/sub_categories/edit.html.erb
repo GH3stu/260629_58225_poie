@@ -1,0 +1,12 @@
+<h1>サブカテゴリ編集</h1>
+
+<%= form_with model: @sub_category, url: admin_sub_category_path(@sub_category), local: true do |f| %>
+  <p>サブカテゴリ名</p>
+  <%= f.text_field :name %>
+
+  <%= f.submit "更新する" %>
+<% end %>
+
+<br><br>
+
+<%= link_to "管理者マイページへ戻る", admin_root_path %>

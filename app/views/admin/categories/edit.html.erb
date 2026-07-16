@@ -6,24 +6,13 @@
     <%= f.text_field :name, id: "category_name" %>
   </div>
 
-  <% if @category.name == "その他ポイント" %>
-    <div style="margin-top: 20px;">
-      <%= label_tag :sub_categories, "サブカテゴリ名（改行で複数）" %><br>
-
-      <% existing = @category.sub_categories.pluck(:name).join("\n") %>
-
-      <textarea name="sub_categories"
-                rows="4"
-                style="padding: 5px; width: 250px;"><%= existing %></textarea>
-    </div>
-  <% end %>
-
   <div style="margin-top: 10px;">
     <%= f.submit "更新する" %>
   </div>
 <% end %>
 
 <%= link_to "カテゴリ一覧へ戻る", admin_categories_path %>
-<br><br>
-<%= link_to "管理者マイページへ戻る", admin_root_path %>
 
+<br><br>
+
+<%= link_to "管理者マイページへ戻る", admin_root_path %>

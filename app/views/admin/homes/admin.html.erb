@@ -1,25 +1,25 @@
 <h1>管理者マイページ</h1>
 
-<p>管理者ログインが成功しました。</p>
-
 <ul>
   <!-- ユーザー管理 -->
   <li><%= link_to "ユーザー一覧（管理者専用）", admin_users_path %></li>
-
-  <li><%= link_to "ユーザー投稿一覧（監視用）", admin_user_posts_path %></li> 
+  <li><%= link_to "ユーザー投稿一覧（監視用）", admin_user_posts_path %></li>
   <li><%= link_to "ユーザーコメント一覧（監視用）", admin_user_comments_path %></li>
 
   <!-- 管理者投稿管理 -->
-  <li><%= link_to "管理者投稿一覧", admin_posts_path %></li>
   <li><%= link_to "管理者新規投稿", new_admin_post_path %></li>
+  <li><%= link_to "管理者投稿一覧", admin_posts_path %></li>
 
   <!-- 管理者コメント管理 -->
   <li><%= link_to "管理者コメント一覧", admin_comments_path %></li>
 
-  <li><%= link_to "管理者カテゴリ新規作成", new_admin_category_path %></li>
+  <!-- 管理者サブカテゴリ管理 -->
+  <li><%= link_to "管理者サブカテゴリ新規作成", new_admin_sub_category_path %></li>
+  <li><%= link_to "管理者サブカテゴリ一覧", admin_sub_categories_path %></li>
+
+  <!-- 管理者カテゴリ管理（触らない運用） -->
   <li><%= link_to "管理者カテゴリ一覧", admin_categories_path %></li>
 
-  <!-- 管理者自身の情報編集 -->
+  <!-- 管理者の情報編集 -->
   <li><%= link_to "管理者アカウント編集", edit_admin_admin_path(current_admin) %></li>
-
 </ul>
