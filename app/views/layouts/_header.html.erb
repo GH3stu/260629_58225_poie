@@ -57,7 +57,11 @@
         <%= link_to "管理者マイページ", admin_root_path %>
         <%= link_to "ログアウト", admin_logout_path, data: { turbo_method: :delete } %>
 
-        <!-- ★ 非ログイン時 -->
+      <% elsif logged_in? %>
+    <!-- ★ ユーザーログイン時（ハンバーガーで表示するのでここは空でOK） -->
+    <!-- 右側の通常メニューは非表示のままでOK -->
+      <% else %>
+    <!-- ★ 非ログイン時（ここが復活する） -->
         <%= link_to "ログイン", login_path %>
         <%= link_to "新規登録", new_user_path %>
       <% end %>
