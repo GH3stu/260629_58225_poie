@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   resources :purposes, only: [:show] do
     resources :posts, only: [:index], controller: "purpose_posts"
+    resources :categories, only: [:index], controller: "purpose_categories"
   end
 
   # ログイン後ユーザー専用
