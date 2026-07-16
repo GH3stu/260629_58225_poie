@@ -10,19 +10,23 @@
 .hamburger-menu {
   position: fixed;
   top: 0;
-  right: -260px; /* ← 初期状態で完全に隠す */
+  right: 0; /* 常に右端に合わせておく */
   width: 260px;
   height: 100%;
   background: #fff;
-  box-shadow: -2px 0 5px rgba(0,0,0,0.2);
-  transition: right 0.3s ease;
+  /* デフォルトでは影を消し、要素は画面外へ変換で隠す */
+  box-shadow: none;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(.2,.8,.2,1);
   padding: 40px 20px;
   z-index: 999;
+  will-change: transform;
 }
 
 /* 開いた状態 */
 .hamburger-menu.open {
-  right: 0; /* ← ここで初めて表示 */
+  transform: translateX(0); /* 右端にスライドして表示 */
+  box-shadow: -2px 0 5px rgba(0,0,0,0.2);
 }
 
 /* メニュー内のリスト */
