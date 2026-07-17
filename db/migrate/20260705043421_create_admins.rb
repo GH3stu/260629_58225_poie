@@ -1,16 +1,10 @@
-class Admin::SessionsController < ApplicationController
-  def create
-    admin = Admin.find_by(email_address: params[:email])   # 修正ポイント
-    if admin&.authenticate(params[:password])
-      session[:admin_id] = admin.id
-      redirect_to admin_posts_path
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
+class CreateAdmins < ActiveRecord::Migration[8.0]
+  def change
+    create_table :admins do |t|
+      t.string :email_address, null: false
+      t.string :password_digest, null: false
 
-  def destroy
-    reset_session
-    redirect_to admin_login_path
+      t.timestamps
+    end
   end
 end
