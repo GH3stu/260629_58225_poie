@@ -1,6 +1,8 @@
 <h1>サブカテゴリ新規作成</h1>
 
 <%= form_with model: @sub_category, url: admin_sub_categories_path, local: true do |f| %>
+  <%= f.hidden_field :category_id, value: 20 %>
+
   <p>サブカテゴリ名</p>
   <%= f.text_field :name %>
 
