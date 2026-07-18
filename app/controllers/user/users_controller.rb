@@ -5,6 +5,12 @@ class User::UsersController < ApplicationController
 
   def show
     @posts = @user.posts
+
+    if @user.goal.present? && @user.goal > 0
+      @progress = (@user.points.to_f / @user.goal.to_f * 100).round(1)   # ここに追加
+    else
+      @progress = nil                                                    # ここに追加
+    end
   end
 
   def edit
@@ -37,6 +43,6 @@ class User::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :goal, :points)
   end
 end
