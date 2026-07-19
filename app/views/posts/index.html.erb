@@ -1,8 +1,8 @@
-<h1>投稿一覧</h1>
+<h2>投稿一覧</h2>
 
 <% @posts.each do |post| %>
   <div>
-    <h3><%= link_to post.title, post_path(post) %></h3>
+    <h4><%= link_to post.title, post_path(post) %></h4>
 
     <p><%= simple_format(h(post.body).truncate(50)) %></p>
 

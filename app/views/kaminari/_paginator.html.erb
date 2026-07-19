@@ -1,0 +1,13 @@
+<%= paginator.render do -%>
+  <nav class="pagination" role="navigation" aria-label="pager">
+
+    <% each_page do |page| -%>
+      <% if page.current? -%>
+        <span class="current"><%= page %></span>
+      <% else -%>
+        <%= link_to page, url_for(page: page) %>
+      <% end -%>
+    <% end -%>
+
+  </nav>
+<% end -%>

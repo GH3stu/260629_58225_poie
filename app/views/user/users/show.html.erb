@@ -9,7 +9,7 @@
 
     <div class="row gy-4">
       <div class="col-lg-4">
-        <div class="card h-100 shadow-sm">
+        <div class="card h-100 shadow-sm" style="background-color: #F7FBEF;">
           <div class="card-body d-flex flex-column gap-3">
             <div>
               <p class="mb-2 fw-semibold">新規投稿</p>
@@ -30,17 +30,17 @@
       </div>
 
       <div class="col-lg-8">
-        <div class="card h-100 shadow-sm">
+        <div class="card h-100 shadow-sm" style="background-color: #F7FBEF;">
           <div class="card-body">
             <div class="row gy-3 mb-4">
               <div class="col-md-6">
-                <div class="border rounded-3 p-3 h-100">
+                <div class="border rounded-3 p-3 h-100" style="background-color: #FFFFFF;">
                   <h5 class="mb-3">目標</h5>
                   <p class="fs-4 fw-bold mb-0"><%= @user.goal %> pt</p>
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="border rounded-3 p-3 h-100">
+                <div class="border rounded-3 p-3 h-100" style="background-color: #FFFFFF;">
                   <h5 class="mb-3">ポイント残高</h5>
                   <p class="mb-3"><%= @user.points %> pt</p>
                   <h6 class="mb-2">進捗</h6>
@@ -53,7 +53,7 @@
               </div>
             </div>
 
-            <div class="border rounded-3 p-3">
+            <div class="border rounded-3 p-3" style="background-color: #FFFFFF;">
               <h5 class="mb-3">ポイント設定</h5>
               <%= form_with model: @user, url: user_user_path(@user), method: :patch do |f| %>
                 <div class="row g-3">
@@ -94,5 +94,6 @@
 
 <% end %>
 
-<%= link_to "トップへ戻る", root_path %>
+<br>
 
+<%= link_to "トップへ戻る", root_path %>

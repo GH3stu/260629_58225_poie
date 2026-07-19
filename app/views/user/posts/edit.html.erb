@@ -1,57 +1,82 @@
-<h1>投稿編集</h1>
+<h2>投稿編集</h2>
 
-<%= form_with model: @post, url: user_post_path(@post), method: :patch, local: true do |f| %>
-  <% if @post.errors.any? %>
-    <ul>
-      <% @post.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
+<br>
+
+<div style="width: 60%; height: 70vh; border: 1px solid #FFF; padding: 30px; background-color: #F7FBEF;">
+
+  <%= form_with model: @post, url: user_post_path(@post), method: :patch, local: true do |f| %>
+
+    <% if @post.errors.any? %>
+      <ul>
+        <% @post.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <div>
+      <%= f.label :title, "タイトル" %><br>
+      <%= f.text_field :title, style: "width: 100%;" %>
+    </div>
+
+    <br>
+
+    <div>
+      <%= f.label :body, "本文" %><br>
+      <%= f.text_area :body, style: "width: 100%; height: 120px;" %>
+    </div>
+
+    <br>
+
+    <div>
+      <%= f.label :purpose_id, "目的" %><br>
+      <%= f.collection_select :purpose_id,
+            Purpose.all, :id, :name,
+            prompt: "目的を選択してください",
+            style: "width: 100%;" %>
+    </div>
+
+    <br>
+
+    <div>
+      <%= f.label :category_id, "獲得できるポイント" %><br>
+      <%= f.collection_select :category_id,
+            Category.for_post_select, :id, :name,
+            prompt: "選択してください",
+            style: "width: 100%;" %>
+    </div>
+
+    <br>
+
+    <div id="sub_category_area" style="<%= @post.category.name == 'その他ポイント' ? '' : 'display:none;' %>">
+      <%= f.label :sub_category_id, "サブカテゴリ" %><br>
+      <%= f.collection_select :sub_category_id,
+            SubCategory.all, :id, :name,
+            prompt: "選択してください",
+            style: "width: 100%;" %>
+    </div>
+
+    <script>
+      document.addEventListener("input", function() {
+        const categorySelect = document.getElementById("post_category_id");
+        const area = document.getElementById("sub_category_area");
+
+        if (categorySelect.selectedOptions[0].text === "その他ポイント") {
+          area.style.display = "block";
+        } else {
+          area.style.display = "none";
+        }
+      });
+    </script>
+
+    <br>
+
+    <%= f.submit "更新する", style: "padding: 8px 20px;" %>
+
   <% end %>
 
-  <div>
-    <%= f.label :title, "タイトル" %>
-    <%= f.text_field :title %>
-  </div>
+</div>
 
-  <div>
-    <%= f.label :body, "本文" %>
-    <%= f.text_area :body %>
-  </div>
+<br>
 
-  <div>
-    <%= f.label :purpose_id, "目的" %>
-    <%= f.collection_select :purpose_id,
-          Purpose.all, :id, :name,
-          prompt: "目的を選択してください" %>
-  </div>
-
-  <div>
-    <%= f.label :category_id, "獲得できるポイント" %>
-    <%= f.collection_select :category_id,
-      Category.for_post_select, :id, :name,
-      prompt: "選択してください" %>
-  </div>
-
-  <div id="sub_category_area" style="<%= @post.category.name == 'その他ポイント' ? '' : 'display:none;' %>">
-    <%= f.label :sub_category_id, "サブカテゴリ" %>
-    <%= f.collection_select :sub_category_id,
-          SubCategory.all, :id, :name,
-          prompt: "選択してください" %>
-  </div>
-
-  <script>
-    document.addEventListener("input", function() {
-      const categorySelect = document.getElementById("post_category_id");
-      const area = document.getElementById("sub_category_area");
-
-      if (categorySelect.selectedOptions[0].text === "その他ポイント") {
-        area.style.display = "block";
-      } else {
-        area.style.display = "none";
-      }
-    });
-  </script>
-
-  <%= f.submit "更新する" %>
-<% end %>
+<%= link_to "マイページへ戻る", user_user_path(current_user) %>
