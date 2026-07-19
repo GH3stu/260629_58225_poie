@@ -8,7 +8,19 @@
   <ul style="list-style: none; padding: 8px; color: #555;">
     <% Category.for_post_select.each do |category| %>
       <li style="margin-bottom: 15px;">
-        <%= link_to category.name, category_posts_path(category) %>
+        <% if defined?(current_admin) && current_admin.present? %>
+          <!-- 管理者：管理者投稿一覧へ -->
+          <%= link_to category.name, admin_posts_path(category_id: category.id) %>
+
+        <% elsif logged_in? %>
+          <!-- ログインユーザー：ユーザー側カテゴリ投稿一覧へ -->
+          <%= link_to category.name, category_posts_path(category) %>
+
+        <% else %>
+          <!-- 非ログインユーザー：管理者投稿一覧へ -->
+          <%= link_to category.name, category_posts_path(category) %>
+        <% end %>
+
       </li>
     <% end %>
   </ul>

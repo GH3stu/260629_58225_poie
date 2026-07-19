@@ -4,7 +4,7 @@ class Admin::SubCategoriesController < Admin::BaseController
   before_action :set_sub_category, only: [:edit, :update, :destroy]
 
   def index
-    @sub_categories = SubCategory.where(category_id: 20).order(:id)
+    @sub_categories = SubCategory.where(category_id: 9).order(:id)
   end
 
   def new
@@ -13,7 +13,7 @@ class Admin::SubCategoriesController < Admin::BaseController
 
   def create
     @sub_category = SubCategory.new(sub_category_params)
-    @sub_category.category_id = 20   # その他ポイント固定
+    @sub_category.category_id = 9   # その他ポイント固定
 
     if @sub_category.save
       redirect_to admin_sub_categories_path, notice: "サブカテゴリを作成しました"
