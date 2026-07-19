@@ -19,5 +19,5 @@ class User < ApplicationRecord
 
   validates :password, presence: { message: "を入力してください" },
                        length: { minimum: 6, message: "は6文字以上で入力してください" },
-                       allow_blank: true
+                       unless: -> { persisted? && password.blank? }
 end
