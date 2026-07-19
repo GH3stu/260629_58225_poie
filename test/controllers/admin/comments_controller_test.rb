@@ -17,7 +17,7 @@ class Admin::CommentsControllerTest < ActionDispatch::IntegrationTest
     @user = User.create!(
       name: "Test User",
       email: "test@example.com",
-      password_digest: BCrypt::Password.create("password")
+      password: "password"
     )
     @post = Post.create!(
       title: "Test Post",

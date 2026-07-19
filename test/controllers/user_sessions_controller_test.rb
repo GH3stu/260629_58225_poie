@@ -5,7 +5,7 @@ class UserSessionsControllerTest < ActionDispatch::IntegrationTest
     @user = User.create!(
       name: "Test User",
       email: "user@example.com",
-      password_digest: BCrypt::Password.create("password")
+      password: "password"
     )
   end
 
