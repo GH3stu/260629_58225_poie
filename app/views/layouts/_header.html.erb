@@ -1,34 +1,20 @@
-<header style="height: 90px; border-bottom: 1px solid #ddd;">
+<header style="height: 90px; border-bottom: 1px solid #ddd; background-color: #F7FBEF;">
   <div style="height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 40px;">
 
-    <!-- 左：ロゴ -->
-    <div>
+    <!-- 左：ロゴ + 検索窓 -->
+    <div style="display: flex; align-items: center; gap: 80px;">
       <%= link_to about_path do %>
         <%= image_tag "poie_logo.jpg", alt: "Poie", style: "height: 80px;" %>
       <% end %>
-    </div>
 
-    <!-- 中央ナビ（検索窓＋トップ） -->
-    <nav style="display: flex; gap: 25px; font-size: 16px; align-items: center;">
-
-      <!-- 検索窓（ログイン前も表示） -->
+      <!-- ★ ロゴ右に移動した検索窓（簡素化版） -->
       <%= form_with url: search_path, method: :get, local: true, style: "display: flex; align-items: center; gap: 10px;" do |f| %>
-        <%= f.select :match,
-          [["部分一致", "partial"], ["完全一致", "exact"]],
-          {}, style: "padding: 5px 10px;" %>
-
-        <%= f.select :target,
-          [["ユーザー", "users"], ["投稿", "posts"]],
-          {}, style: "padding: 5px 10px;" %>
-
-        <%= f.text_field :keyword, placeholder: "検索", style: "padding: 5px 10px; width: 180px;" %>
+        <%= f.text_field :keyword, placeholder: "投稿を検索", style: "padding: 5px 10px; width: 200px;" %>
         <%= f.submit "検索", style: "padding: 5px 10px;" %>
       <% end %>
+    </div>
 
-      <% unless defined?(current_admin) && current_admin.present? %>
-        <span style="color: #aaa;">ー</span>
-        <%= link_to "トップ", root_path %>
-      <% end %>
+    <nav style="display: flex; gap: 25px; font-size: 16px; align-items: center;">
     </nav>
 
     <!-- 右：ハンバーガーメニュー + ログイン前後切替 -->

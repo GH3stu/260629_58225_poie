@@ -1,42 +1,63 @@
-<h1>新規登録</h1>
+<h2>poieユーザー 新規登録</h2>
 
-<%= form_with model: @user, local: true do |f| %>
+<br>
 
-  <% if @user.errors.any? %>
-    <ul>
-      <% if @user.errors[:name].any? %>
-        <li>ユーザー名 <%= @user.errors[:name].first %></li>
-      <% end %>
+<!-- ★ 左端に配置する入力ボックス（統一レイアウト） -->
+<div style="width: 30%; height: 60vh; border: 1px solid #FFF; padding: 30px; background-color: #F7FBEF;">
 
-      <% if @user.errors[:email].any? %>
-        <li>メールアドレス <%= @user.errors[:email].first %></li>
-      <% end %>
+  <%= form_with model: @user, local: true do |f| %>
 
-      <% if @user.errors[:password].any? %>
-        <li>パスワード <%= @user.errors[:password].first %></li>
-      <% end %>
-    </ul>
+    <% if @user.errors.any? %>
+      <ul>
+        <% if @user.errors[:name].any? %>
+          <li>ユーザー名 <%= @user.errors[:name].first %></li>
+        <% end %>
+
+        <% if @user.errors[:email].any? %>
+          <li>メールアドレス <%= @user.errors[:email].first %></li>
+        <% end %>
+
+        <% if @user.errors[:password].any? %>
+          <li>パスワード <%= @user.errors[:password].first %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <div>
+      <%= f.label :name, "ユーザー名" %><br>
+      <%= f.text_field :name, style: "width: 100%;" %>
+    </div>
+
+    <br>
+
+    <div>
+      <%= f.label :email, "メールアドレス" %><br>
+      <%= f.email_field :email, style: "width: 100%;" %>
+    </div>
+
+    <br>
+
+    <div>
+      <%= f.label :password, "パスワード" %><br>
+      <%= f.password_field :password, style: "width: 100%;" %>
+    </div>
+
+    <br>
+
+    <div>
+      <%= f.label :password_confirmation, "パスワード確認" %><br>
+      <%= f.password_field :password_confirmation, style: "width: 100%;" %>
+    </div>
+
+    <br>
+
+    <%= f.submit "新規登録", style: "padding: 8px 20px;" %>
+
   <% end %>
 
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+</div>
 
-  <div>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
+<br>
 
-  <div>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
+<%= link_to "トップページへ戻る", root_path %>
 
-  <div>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-
-  <%= f.submit "新規登録" %>
-<% end %>

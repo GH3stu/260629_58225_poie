@@ -20,22 +20,35 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body style="min-height: 100vh; display: flex; flex-direction: column;">
+  <body style="min-height: 100vh; display: flex; flex-direction: column; margin: 0;">
 
-    <%= render "layouts/header" %>
+    <% unless controller_name == "homes" && action_name == "about" %>
+      <%= render "layouts/header" %>
+    <% end %>
 
     <div style="flex: 1; display: flex;">
       <% unless controller_name == "homes" && action_name == "about" %>
         <%= render "layouts/sidebar" %>
       <% end %>
 
-      <!-- mainbody -->
-      <main style="flex: 1; padding: 40px 60px;">
-        <%= yield %>
-      </main>
+  <!-- mainbody -->
+      <% if controller_name == "homes" && action_name == "top" %>
+        <main style="flex: 1; padding: 40px 60px; background-color: #FCFEFB;">
+          <%= yield %>
+        </main>
+      <% elsif controller_name == "homes" && action_name == "about" %>
+        <main style="flex: 1; padding: 0;">
+          <%= yield %>
+        </main>
+      <% else %>
+        <main style="flex: 1; padding: 40px 60px;">
+          <%= yield %>
+        </main>
+      <% end %>
     </div>
-
-    <%= render "layouts/footer" %>
+    <% unless controller_name == "homes" && action_name == "about" %>
+      <%= render "layouts/footer" %>
+    <% end %>
 
   </body>
 </html>

@@ -1,4 +1,4 @@
-<h1><%= @post.title %></h1>
+<h2><%= @post.title %></h2>
 
 <p><%= simple_format(h(@post.body)) %></p>
 <p>獲得できるポイント：<%= @post.category.present? ? @post.category.name : "未設定" %></p>
@@ -10,8 +10,9 @@
   <%= link_to "削除", user_post_path(@post), data: { turbo_method: :delete } %>
 <% end %>
 
-<!-- コメント一覧 -->
-<h3>コメント一覧</h3>
+<br><br>
+
+<h4>コメント一覧</h4>
 
 <% @post.comments.each do |comment| %>
   <div style="margin-bottom: 15px;">
@@ -38,12 +39,15 @@
   <hr>
 <% end %>
 
-<!-- コメントフォーム -->
-<h3>コメントを書く</h3>
+<br>
+
+<h4>コメントを書く</h4>
 
 <%= form_with url: user_post_comments_path(@post), model: Comment.new, local: true do |f| %>
   <%= f.text_area :body, rows: 3, style: "width: 100%;" %>
   <%= f.submit "コメント送信", style: "margin-top: 10px;" %>
 <% end %>
+
+<br>
 
 <%= link_to "投稿一覧へ戻る", user_posts_path %>
