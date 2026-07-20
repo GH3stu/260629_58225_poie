@@ -10,4 +10,13 @@ class Post < ApplicationRecord
 
   validates :title, presence: { message: "を入力してください" }
   validates :body,  presence: { message: "を入力してください" }
+
+  def author_name
+    if admin_id.present?
+      "poier"
+    else
+      user&.name || "不明"
+    end
+  end
+
 end
