@@ -18,14 +18,30 @@
 
 <h5>最新の投稿</h5>
 
+<br>
+
 <% @admin_posts.each do |post| %>
   <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-    <p><%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
-    <p>タイトル：<%= post.title %></p>
-    <p>本文：<%= simple_format(url_to_link(post.body.delete('"'))) %></p>
 
-    <%= link_to "投稿詳細を見る", admin_post_path(post) %>
+    <div style="
+      font-size:18px;
+      font-weight:bold;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    ">
+      <!-- 日時（リンク化しない） -->
+      <span style="color:#666; font-size:14px;">
+        <%= post.created_at.strftime("%Y-%m-%d %H:%M") %>
+      </span>
+
+      <!-- 題名（リンク化する） -->
+      <%= link_to post.title, admin_post_path(post),
+        style: "margin-left: 8px; color:#000; text-decoration:none;" %>
+    </div>
+
   </div>
+
 <% end %>
 
 <%= paginate @admin_posts %> 
