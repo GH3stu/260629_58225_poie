@@ -30,18 +30,22 @@
       overflow: hidden;
       text-overflow: ellipsis;
     ">
+      
       <!-- 日時（リンク化しない） -->
       <span style="color:#666; font-size:14px;">
         <%= post.created_at.strftime("%Y-%m-%d %H:%M") %>
       </span>
 
-      <!-- 題名（リンク化する） -->
-      <%= link_to post.title, admin_post_path(post),
-        style: "margin-left: 8px; color:#000; text-decoration:none;" %>
+      <!-- 題名（リンク化する：ログイン状態で分岐） -->
+      <% if current_user.present? && post.user_id.present? %>
+        <%= link_to post.title, user_post_path(post),
+          style: "margin-left: 8px; color:#000; text-decoration:none;" %>
+      <% else %>
+        <%= link_to post.title, admin_post_path(post),
+          style: "margin-left: 8px; color:#000; text-decoration:none;" %>
+      <% end %>
     </div>
-
   </div>
-
 <% end %>
 
-<%= paginate @admin_posts %> 
+<%= paginate @admin_posts %>

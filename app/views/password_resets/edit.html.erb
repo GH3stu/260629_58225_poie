@@ -1,0 +1,31 @@
+<h2>パスワード再設定</h2>
+
+<br>
+
+<div style="width: 30%; border: 1px solid #FFF; padding: 30px; background-color: #F7FBEF;">
+
+  <%= form_with model: @user, url: password_reset_path(params[:id]), local: true do |f| %>
+
+    <div>
+      <%= f.label :password, "新しいパスワード" %><br>
+      <%= f.password_field :password, style: "width: 100%;" %>
+    </div>
+
+    <br>
+
+    <div>
+      <%= f.label :password_confirmation, "パスワード（確認用）" %><br>
+      <%= f.password_field :password_confirmation, style: "width: 100%;" %>
+    </div>
+
+    <br>
+
+    <%= f.submit "パスワードを更新する", style: "padding: 8px 20px;" %>
+
+  <% end %>
+
+</div>
+
+<br>
+
+<%= link_to "ログイン画面へ戻る", login_path %>
