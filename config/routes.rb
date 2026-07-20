@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   post "login", to: "user_sessions#create", as: :login_create
   delete "logout", to: "user_sessions#destroy", as: :logout
 
+  resources :password_resets, only: [:new, :create, :edit, :update]
+
   # 公開検索
   get "search", to: "search#index"
 
