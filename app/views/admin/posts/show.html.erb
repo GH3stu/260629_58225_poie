@@ -7,6 +7,8 @@
 <p>投稿者：<%= @post.author_name %></p>
 <p>日時：<%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
 
+<p>お気に入り数：<%= @post.favorites.count %></p>
+
 <hr>
 
 <h2>管理者コメント一覧</h2>
