@@ -58,7 +58,7 @@ class Admin::PostsController < Admin::BaseController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :category_id, :sub_category_id)
+    params.require(:post).permit(:title, :body, :category_id, :sub_category_id, :purpose_id)
   end
 
   def require_admin
