@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:index], controller: "sub_category_posts"
   end
 
-  resources :purposes, only: [:show] do
+  resources :purposes, only: [:show, :index] do
     resources :posts, only: [:index], controller: "purpose_posts"
     resources :categories, only: [:index], controller: "purpose_categories"
   end
