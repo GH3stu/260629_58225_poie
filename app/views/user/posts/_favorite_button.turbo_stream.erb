@@ -1,0 +1,13 @@
+<% if current_user && post.user_id != current_user.id %>
+  <% if favorite %>
+    <%= link_to user_post_favorite_path(post, favorite),
+        data: { turbo_method: :delete } do %>
+      ★ お気に入り解除
+    <% end %>
+  <% else %>
+    <%= link_to user_post_favorites_path(post),
+        data: { turbo_method: :post } do %>
+      ☆ お気に入り
+    <% end %>
+  <% end %>
+<% end %>
