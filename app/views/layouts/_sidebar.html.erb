@@ -1,5 +1,5 @@
 <div style="width: 200px; min-height: calc(100vh - 70px - 60px); 
-            border-right: 1px solid #ddd; padding: 20px;
+            border-right: 1px solid #fff; padding: 20px;
             background-color: #E6FFE9; color: #008000;">
   <h2 style="font-size: 24px; margin-top: 30px; margin-bottom: 36px;">
     Category
@@ -8,17 +8,25 @@
   <ul style="list-style: none; padding: 8px; color: #555;">
     <% Category.for_post_select.each do |category| %>
       <li style="margin-bottom: 15px;">
-        <% if defined?(current_admin) && current_admin.present? %>
-          <!-- 管理者：管理者投稿一覧へ -->
-          <%= link_to category.name, admin_posts_path(category_id: category.id) %>
 
-        <% elsif logged_in? %>
-          <!-- ログインユーザー：ユーザー側カテゴリ投稿一覧へ -->
-          <%= link_to category.name, category_posts_path(category) %>
+        <% if category.name == "ポイント運用" %>
+          <!-- ★ ポイント運用だけアイコン表示 -->
+          <% if defined?(current_admin) && current_admin.present? %>
+            <%= link_to image_tag("investment.png", alt: "ポイント運用", style: "width: 60px; height: auto;"), admin_posts_path(category_id: category.id) %>
+          <% elsif logged_in? %>
+            <%= link_to image_tag("investment.png", alt: "ポイント運用", style: "width: 60px; height: auto;"), category_posts_path(category) %>
+          <% else %>
+          <% end %>
 
         <% else %>
-          <!-- 非ログインユーザー：管理者投稿一覧へ -->
-          <%= link_to category.name, category_posts_path(category) %>
+          <!-- ★ 通常カテゴリ：文字リンクを #65b844 に統一 -->
+          <% if defined?(current_admin) && current_admin.present? %>
+            <%= link_to category.name, admin_posts_path(category_id: category.id), style: "color: #65b844;" %>
+          <% elsif logged_in? %>
+            <%= link_to category.name, category_posts_path(category), style: "color: #65b844;" %>
+          <% else %>
+            <%= link_to category.name, category_posts_path(category), style: "color: #65b844;" %>
+          <% end %>
         <% end %>
 
       </li>
