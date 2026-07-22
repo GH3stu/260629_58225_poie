@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   namespace :user do
     resources :users, only: [:show, :edit, :update, :destroy]
     resources :comments, only: [:index]
+    resources :tags, only: [:show]
 
     resources :posts do
       resources :comments, only: [:create, :destroy]
@@ -71,6 +72,8 @@ Rails.application.routes.draw do
     resources :categories
 
     resources :sub_categories
+
+    resources :tags, only: [:index, :destroy]
 
     # 管理者ログイン
     get "login",  to: "sessions#new"
