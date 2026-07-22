@@ -1,0 +1,32 @@
+<h2>タグ：<%= @tag.name %></h2>
+
+<p>このタグが付いた投稿一覧（<%= @posts.count %>件）</p>
+
+<hr>
+
+<% @posts.each do |post| %>
+  <div style="margin-bottom: 20px;">
+
+    <h3><%= link_to post.title, user_post_path(post) %></h3>
+
+    <p><%= truncate(post.body, length: 120) %></p>
+
+    <p>投稿者：<%= post.author_name %></p>
+    <p>投稿日時：<%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+
+    <p>
+      タグ：
+      <% post.tags.each do |tag| %>
+        <%= link_to tag.name, user_tag_path(tag),
+            style: "margin-right: 6px; padding: 3px 6px; background: #eef; border-radius: 4px;" %>
+      <% end %>
+    </p>
+
+    <hr>
+  </div>
+<% end %>
+
+<br>
+
+<%= link_to "投稿一覧へ戻る", user_posts_path %>
+
