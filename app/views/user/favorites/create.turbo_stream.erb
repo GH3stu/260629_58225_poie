@@ -1,0 +1,9 @@
+<%= turbo_stream.replace "favorite_button" do %>
+  <% favorite = @post.favorites.find_by(user_id: current_user.id) %>
+  <%= render partial: "user/posts/favorite_button",
+             locals: { post: @post, favorite: favorite } %>
+<% end %>
+
+<%= turbo_stream.replace "favorite_count" do %>
+  <%= @post.favorites.count %>
+<% end %>

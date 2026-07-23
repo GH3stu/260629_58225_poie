@@ -4,6 +4,32 @@
 <p>獲得できるポイント：<%= @post.category.present? ? @post.category.name : "未設定" %></p>
 <p>投稿者：<%= @post.author_name %></p>
 <p>投稿日時：<%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+<p>タグ：
+  <% @post.tags.each do |tag| %>
+    <%= link_to tag.name, user_tag_path(tag),
+        style: "margin-right: 8px; padding: 3px 6px; background: #eef; border-radius: 4px;" %>
+  <% end %>
+</p>
+
+<div id="favorite_button">
+  <% if current_user && @post.user_id != current_user.id %>
+    <% favorite = @post.favorites.find_by(user_id: current_user.id) %>
+
+    <% if favorite %>
+      <%= link_to user_post_favorite_path(@post, favorite),
+          data: { turbo_method: :delete } do %>
+        ★ お気に入り解除
+      <% end %>
+    <% else %>
+      <%= link_to user_post_favorites_path(@post),
+          data: { turbo_method: :post } do %>
+        ☆ お気に入り
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<p>お気に入り数：<%= @post.favorites.count %></p>
 
 <% if @post.user_id == current_user.id %>
   <%= link_to "編集", edit_user_post_path(@post) %>
