@@ -63,6 +63,19 @@
     <br>
 
     <div>
+      <%= f.label :tag_ids, "タグを選択（複数選択可）" %><br>
+
+      <% Tag.all.each do |tag| %>
+        <label style="display: block;">
+          <%= check_box_tag "post[tag_ids][]", tag.id, @post.tags.include?(tag) %>
+          <%= tag.name %>
+        </label>
+      <% end %>
+    </div>
+
+    <br>
+
+    <div>
       <%= f.label :tag_names, "タグ（カンマ区切り）" %><br>
       <%= f.text_field :tag_names, style: "width: 100%;" %>
     </div>
