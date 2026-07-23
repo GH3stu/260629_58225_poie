@@ -10,3 +10,102 @@
  */
 @import "main_body.css";
 @import "hamburger.css";
+
+@media (max-width: 767px) {
+  .header-icons {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-content {
+    padding: 10px 15px !important;
+  }
+}
+
+/* PC（1024px〜） */
+.search-input {
+  width: 300px !important;
+}
+
+/* タブレット（768〜1023px） */
+@media (max-width: 1023px) {
+  .search-input {
+    width: 220px !important;
+  }
+}
+
+/* スマホ（〜767px） */
+@media (max-width: 767px) {
+  .search-input {
+    width: 140px !important;
+  }
+}
+
+/* PC（1024px〜） → 現状維持 */
+.sidebar {
+  width: 200px !important;
+}
+
+/* タブレット（768〜1023px） → 幅を縮小 */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .sidebar {
+    width: 150px !important;
+    padding: 15px !important; /* 少し縮めると綺麗 */
+  }
+
+  .sidebar h2 {
+    font-size: 20px !important;
+  }
+
+  .sidebar li {
+    margin-bottom: 10px !important;
+  }
+}
+
+/* スマホ（〜767px） → 非表示（Step2で実装済） */
+@media (max-width: 767px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+/* PC（1024px〜） */
+.main-content {
+  font-size: 16px;
+}
+
+/* タブレット（768〜1023px） */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .main-content {
+    font-size: 15px;
+  }
+}
+
+/* スマホ（〜767px） */
+@media (max-width: 767px) {
+  .main-content {
+    font-size: 14px;
+    line-height: 1.6; /* スマホ時は行間を少し広げると読みやすい */
+  }
+}
+
+/* PC・タブレットでは非表示 */
+.sidebar-toggle-icon {
+  display: none;
+}
+
+/* スマホ（〜767px）だけ表示 */
+@media (max-width: 767px) {
+  .sidebar-toggle-icon {
+    display: block;
+  }
+}
