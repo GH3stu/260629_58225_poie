@@ -28,9 +28,10 @@ jobs:
 
             git pull origin main
 
-            ~/.rbenv/shims/bundle install --without development test
-            RAILS_ENV=production ~/.rbenv/shims/bundle exec rails db:create
+            ~/.rbenv/shims/bundle config set without "development test"
+            ~/.rbenv/shims/bundle install
 
+            RAILS_ENV=production ~/.rbenv/shims/bundle exec rails db:create
             RAILS_ENV=production ~/.rbenv/shims/bundle exec rails assets:precompile
             RAILS_ENV=production ~/.rbenv/shims/bundle exec rails db:migrate
           '
