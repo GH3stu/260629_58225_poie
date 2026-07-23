@@ -70,11 +70,11 @@
       </span>
 
       <!-- 題名（リンク化する：ログイン状態で分岐） -->
-      <% if current_user.present? && post.user_id.present? %>
+      <% if current_user.present? %>
         <%= link_to post.title, user_post_path(post),
           style: "margin-left: 8px; color:#000; text-decoration:none;" %>
       <% else %>
-        <%= link_to post.title, admin_post_path(post),
+        <%= link_to post.title, login_path,
           style: "margin-left: 8px; color:#000; text-decoration:none;" %>
       <% end %>
     </div>

@@ -9,6 +9,7 @@ class User::PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
+
     if @post.save
       save_tags(@post)
       redirect_to user_post_path(@post), notice: "投稿しました"
@@ -22,10 +23,7 @@ class User::PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
-    if !logged_in? && @post.admin_id.nil?
-      redirect_to login_path
-    end
+    # before_actionのset_postで取得済み
   end
 
   def edit
@@ -42,6 +40,7 @@ class User::PostsController < ApplicationController
 
   def destroy
     @post.destroy
+    # namespace :user 内の users resources のため user_user_path になります
     redirect_to user_user_path(current_user), notice: "投稿を削除しました" 
   end
 
@@ -57,17 +56,30 @@ class User::PostsController < ApplicationController
     end
   end
 
+  # -----------------------------
+  # タグ保存処理（チェックボックス + 自由入力）
+  # -----------------------------
   def save_tags(post)
-    return unless params[:post][:tag_names]
+    if params[:post][:tag_ids].present?
+      post.tag_ids = params[:post][:tag_ids]
+    end
 
-    tag_names = params[:post][:tag_names].split(",").map(&:strip).reject(&:empty?)
-    tags = tag_names.map { |name| Tag.find_or_create_by(name: name) }
+    if params[:post][:tag_names].present?
+      tag_names = params[:post][:tag_names].split(",").map(&:strip).reject(&:empty?)
 
-    post.tags = tags
+      tag_names.each do |name|
+        formatted_name = name.start_with?("#") ? name : "##{name}"
+
+        tag = Tag.find_or_create_by(name: formatted_name)
+        post.tags << tag unless post.tags.include?(tag)
+      end
+    end
   end
 
   def post_params
     params.require(:post).permit(
-      :title, :body, :category_id, :sub_category_id, :purpose_id)
+      :title, :body, :category_id, :sub_category_id, :purpose_id,
+      tag_ids: []
+    )
   end
 end

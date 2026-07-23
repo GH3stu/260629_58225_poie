@@ -14,6 +14,7 @@
       <!-- ★ 検索窓（枠色 #65b844、placeholder色 ） -->
         <%= f.text_field :keyword,
               placeholder: "投稿を検索",
+              class: "search-input", 
               style: "padding: 5px 10px; width: 200px; border: 2px solid #65b844; color: #65b844;" %>
 
         <!-- ★ placeholder の色を変えるための CSS -->
@@ -26,7 +27,7 @@
         <!-- ★ 検索ボタンをアイコン化 -->
         <%= button_tag type: "submit",
               style: "background: none; border: none; padding: 0; cursor: pointer;" do %>
-          <%= image_tag "search.png", alt: "検索", style: "width: 30px; height: auto;  margin-left: 10px;" %>
+          <%= image_tag "search.png", alt: "検索", class: "header-icon", style: "width: 30px; height: auto; margin-left: 10px;" %>
         <% end %>
 
       <% end %>
@@ -37,12 +38,41 @@
 
     <!-- 右：ハンバーガーメニュー + ログイン前後切替 -->
     <div style="display: flex; align-items: center; gap: 20px;">
+
       <% if logged_in? && !(defined?(current_admin) && current_admin.present?) %>
+
+          <!-- ★ カテゴリ用ハンバーガー（sidebar toggle） -->
+          <div class="sidebar-toggle-icon" data-action="click->hamburger#toggleSidebar">
+            <%= image_tag "hamburger_left.png",
+                alt: "カテゴリ",
+                class: "header-icon",
+                style: "width: 30px; height: auto;" %>
+          </div>
+
+        <!-- ★ ユーザーメニュー（右上ハンバーガー） -->
         <div data-controller="hamburger" style="display: flex; align-items: center; gap: 20px;">
-          <%= link_to image_tag("post_new.png", alt: "新規投稿", style: "width: 30px; height: auto; margin-right: 10px;"), new_user_post_path %>
-          <%= link_to image_tag("home_top.png", alt: "トップへ戻る", style: "width: 40px; height: auto; margin-right: 30px;"), root_path %>
+
+          <%= link_to image_tag(
+                "post_new.png",
+                alt: "新規投稿",
+                class: "header-icon",
+                style: "width: 30px; height: auto; margin-right: 10px;"
+              ), new_user_post_path %>
+
+          <%= link_to image_tag(
+                "home_top.png",
+                alt: "トップへ戻る",
+                class: "header-icon",
+                style: "width: 40px; height: auto; margin-right: 30px;"
+              ), root_path %>
+
           <div class="hamburger-icon" data-action="click->hamburger#toggle" role="button" aria-label="メニュー">
-           <%= image_tag "hamburger.png", alt: "メニュー", style: "width: 30px; height: auto;" %>
+            <%= image_tag(
+                  "hamburger.png",
+                  alt: "メニュー",
+                  class: "header-icon",
+                  style: "width: 30px; height: auto;"
+                ) %>
           </div>
 
           <div class="hamburger-menu" data-hamburger-target="menu">

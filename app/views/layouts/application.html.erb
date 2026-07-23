@@ -33,15 +33,15 @@
 
   <!-- mainbody -->
       <% if controller_name == "homes" && action_name == "top" %>
-        <main style="flex: 1; padding: 40px 60px; background-color: #FCFEFB;">
+        <main class="main-content" style="flex: 1; padding: 40px 60px; background-color: #FCFEFB;">
           <%= yield %>
         </main>
       <% elsif controller_name == "homes" && action_name == "about" %>
-        <main style="flex: 1; padding: 0;">
+        <main class="main-content" style="flex: 1; padding: 0;">
           <%= yield %>
         </main>
       <% else %>
-        <main style="flex: 1; padding: 40px 60px;">
+        <main class="main-content" style="flex: 1; padding: 40px 60px;">
           <%= yield %>
         </main>
       <% end %>

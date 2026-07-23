@@ -71,6 +71,31 @@
 
     <br>
 
+    <!-- ここからタグ編集欄 -->
+    <div>
+      <%= f.label :tag_ids, "タグを選択（複数選択可）" %><br>
+
+      <% Tag.all.each do |tag| %>
+        <label style="display: block;">
+          <%= check_box_tag "post[tag_ids][]", tag.id, @post.tags.include?(tag) %>
+          <%= tag.name %>
+        </label>
+      <% end %>
+    </div>
+
+    <br>
+
+    <div>
+      <%= f.label :tag_names, "タグを追加（カンマ区切り）" %><br>
+      <%= f.text_field :tag_names, style: "width: 100%;" %>
+      <p style="font-size: 12px; color: #555;">
+        ※「#」は自動で付与されます。例：ポイント交換 → #ポイント交換
+      </p>
+    </div>
+    <!-- タグ編集欄ここまで -->
+
+    <br>
+
     <%= f.submit "更新する", style: "padding: 8px 20px;" %>
 
   <% end %>
