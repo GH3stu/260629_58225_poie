@@ -10,6 +10,7 @@
  */
 @import "main_body.css";
 @import "hamburger.css";
+@import "tags.css";
 
 @media (max-width: 767px) {
   .header-icons {
@@ -108,4 +109,46 @@
   .sidebar-toggle-icon {
     display: block;
   }
+}
+
+/* 認証ボタン共通 */
+.auth-btn {
+  display: inline-block;
+  width: 100%;
+  padding: 10px 0;
+  background-color: #65b844;
+  border: none;
+  border-radius: 999px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 新規登録ボタン：文字色 #65b844 */
+.auth-btn--signup {
+  color: #65b844;
+}
+
+/* ログインボタン：文字色 #fff */
+.auth-btn--login {
+  color: #fff;
+}
+
+div.tag-list label.tag-item {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+
+div.tag-list {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 12px;
+  margin-top: 12px;
 }
