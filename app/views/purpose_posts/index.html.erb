@@ -7,15 +7,9 @@
 
         <!-- タイトルリンク（ログイン状態で分岐） -->
         <% if logged_in? %>
-          <!-- ログイン後：ユーザー投稿 or 管理者投稿に応じてリンクを分岐 -->
-          <% if post.user_id.present? %>
-            <strong><%= link_to post.title, user_post_path(post) %></strong>
-          <% else %>
-            <strong><%= link_to post.title, admin_post_path(post) %></strong>
-          <% end %>
+          <strong><%= link_to post.title, user_post_path(post) %></strong>
         <% else %>
-          <!-- 非ログイン時：管理者投稿のみ表示されているので admin_post_path -->
-          <strong><%= link_to post.title, admin_post_path(post) %></strong>
+          <strong><%= link_to post.title, login_path %></strong>
         <% end %>
 
         <br>

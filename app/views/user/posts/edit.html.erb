@@ -2,20 +2,19 @@
 
 <br>
 
+<%= form_with model: @post, url: user_post_path(@post), method: :patch, local: true do |f| %>
+
 <div style="display:flex; gap:30px;">
 
   <!-- 左側：フォーム -->
   <div style="
     flex:0 0 45%;
     height: 70vh;
-    border: 1px solid #65b844;
     padding: 30px;
     background-color: #F7FBEF;
-    color:#65b844;
+    color: #65b844;
     overflow-y:auto;
   ">
-
-    <%= form_with model: @post, url: user_post_path(@post), method: :patch, local: true do |f| %>
 
       <% if @post.errors.any? %>
         <ul style="color:red;">
@@ -114,8 +113,6 @@
           cursor:pointer;
         "
       %>
-
-    <% end %>
   </div>
 
   <!-- 右側：タグ一覧 -->
@@ -145,6 +142,8 @@
   </div>
 
 </div>
+
+<% end %>
 
 <br>
 

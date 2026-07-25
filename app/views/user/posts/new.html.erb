@@ -2,13 +2,13 @@
 
 <br>
 
+<%= form_with model: @post, url: user_posts_path, local: true do |f| %>
+
 <!-- ★ 左右レイアウト化 -->
 <div style="display:flex; gap:30px;">
 
   <!-- ★ 左側：投稿フォーム（比率：45%） -->
   <div style="flex:0 0 45%; height: 70vh; border: 1px solid #FFF; padding: 30px; background-color: #F7FBEF; overflow-y:auto;">
-
-    <%= form_with model: @post, url: user_posts_path, local: true do |f| %>
 
       <% if @post.errors.any? %>
         <ul style="color:#65b844;">
@@ -96,8 +96,6 @@
         "
       %>
 
-    <% end %>
-
   </div>
 
   <!-- ★ 右側：タグ専用BOX（比率：55%） -->
@@ -123,6 +121,8 @@
   </div>
 
 </div>
+
+<% end %>
 
 <br>
 
