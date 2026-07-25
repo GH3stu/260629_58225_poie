@@ -1,15 +1,22 @@
-<h2>投稿一覧</h2>
+<h2 style="color:#65b844;">投稿一覧</h2>
 
 <br><br>
 
 <% @posts.each do |post| %>
-  <div style="margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+  <div style="
+    border:1px solid #65b844;
+    padding:15px;
+    margin-bottom:20px;
+    background-color: #F7FBEF;
+    color:#65b844;
+  ">
 
-    <h3><%= link_to post.title, user_post_path(post) %></h3>
+    <h3>
+      <%= link_to post.title, user_post_path(post), style:"color: #008000;" %>
+    </h3>
 
     <p><%= simple_format(h(post.body).truncate(50)) %></p>
 
-    <!-- ★ 投稿者の分岐（ここに追加） -->
     <p>
       投稿者：
       <% if post.user.present? %>
@@ -23,3 +30,5 @@
 
   </div>
 <% end %>
+
+<%= link_to "マイページへ戻る", user_user_path(current_user), style:"color: #65b844;" %>

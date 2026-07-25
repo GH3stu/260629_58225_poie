@@ -110,7 +110,7 @@
                       padding: 10px;
                       border-radius: 6px;
                     ">
-                      <h6 style="color:#65b844;">買えるイメージ</h6>
+                      <h6 style="color:#65b844;">買えるイメージ（土地は借地）</h6>
                       <% if @progress.present? %>
                         <% if @progress <= 30 %>
                           <%= image_tag "land.png", style: "width:100%; height:auto;" %>
@@ -122,7 +122,7 @@
                           <%= image_tag "RC_house.png", style: "width:100%; height:auto;" %>
                         <% end %>
                       <% else %>
-                        <p style="color:#65b844;">進捗データなし</p>
+                        <p style="color:#65b844;">買えない</p>
                       <% end %>
                     </div>
 
