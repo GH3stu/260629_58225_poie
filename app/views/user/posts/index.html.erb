@@ -1,33 +1,50 @@
-<h3 style="color:#65b844;">投稿一覧</h3>
+<h3 style="color: #65b844;">投稿一覧</h3>
 
-<br><br>
+<br>
 
-<% @posts.each do |post| %>
-  <div style="
-    padding:15px;
-    margin-bottom:20px;
-    background-color: #F7FBEF;
-    color: #65b844;
-  ">
+<table style="width:100%; border-collapse: collapse; color: #65b844; margin-top:20px;">
+  <thead>
+    <tr style="border-bottom: 2px solid #65b844;">
+      <th>日時</th>
+      <th>投稿</th>
+      <th>投稿者</th>
+      <th>詳細</th>
+    </tr>
+  </thead>
 
-    <h3>
-      <%= link_to post.title, user_post_path(post), style:"color: #008000;" %>
-    </h3>
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr style="border-bottom: 1px solid #65b844;">
 
-    <p><%= simple_format(h(post.body).truncate(100)) %></p>
+        <!-- 日時 -->
+        <td><%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
 
-    <p>
-      投稿者：
-      <% if post.user.present? %>
-        <%= post.user.name %>
-      <% else %>
-        管理者：<%= post.admin.name %>
-      <% end %>
-    </p>
+        <!-- タイトル -->
+        <td><%= post.title %></td>
 
-    <p>投稿日時：<%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+        <!-- 投稿者（ユーザー or 管理者） -->
+        <td>
+          <% if post.user.present? %>
+            <%= post.user.name %>
+          <% else %>
+            管理者：<%= post.admin.name %>
+          <% end %>
+        </td>
 
-  </div>
-<% end %>
+        <!-- 詳細ボタン -->
+        <td>
+          <%= link_to "詳細", user_post_path(post),
+            style: "
+              display:inline-block;
+              padding:6px 12px;
+              background-color: #65b844;
+              color:#fff;
+              border-radius:999px;
+              text-decoration:none;
+            " %>
+        </td>
 
-<%= link_to "マイページへ戻る", user_user_path(current_user), style:"color: #65b844;" %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

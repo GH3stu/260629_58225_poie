@@ -1,33 +1,40 @@
-<h2 style="color:#65b844;">あなたのコメント一覧</h2>
+<h2 style="color: #65b844;">あなたのコメント一覧</h2>
 
-<br><br>
+<table style="width:100%; border-collapse: collapse; color: #65b844; margin-top:20px;">
+  <thead>
+    <tr style="border-bottom: 2px solid #65b844;">
+      <th>日時</th>
+      <th>内容</th>
+      <th>対象投稿</th>
+    </tr>
+  </thead>
 
-<% @comments.each do |comment| %>
-  <div style="
-    background-color:#F7FBEF;
-    padding:15px;
-    margin-bottom:20px;
-    color:#65b844;
-  ">
-    <p><%= comment.body %></p>
-    <small><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></small>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr style="border-bottom: 1px solid #65b844;">
 
-    <br>
+        <!-- コメント日時 -->
+        <td><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></td>
 
-    <%= link_to "削除",
-        user_post_comment_path(comment.post, comment),
-        data: { turbo_method: :delete, turbo_confirm: "削除しますか？" },
-        style:"
-          display:inline-block;
-          margin-top:10px;
-          padding:8px 16px;
-          background:#65b844;
-          color:#fff;
-          border-radius:999px;
-          text-decoration:none;
-        "
-    %>
-  </div>
-<% end %>
+        <!-- コメント本文 -->
+        <td><%= comment.body %></td>
+
+        <!-- 対象投稿（リンク） -->
+        <td>
+          <%= link_to comment.post.title, user_post_path(comment.post),
+            style: "
+              display:inline-block;
+              padding:6px 12px;
+              color: #65b844;
+              text-decoration:none;
+            " %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
 
 <%= link_to "マイページへ戻る", user_user_path(current_user), style:"color: #65b844;" %>

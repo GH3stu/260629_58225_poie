@@ -136,7 +136,7 @@
 
             <!-- ポイント設定フォーム -->
             <div class="border rounded-3 p-3" style="background-color:#fff; border:1px solid #65b844;">
-              <h5 class="mb-3" style="color:#65b844;">ポイント設定</h5>
+              <h5 class="mb-3" style="color:#65b844;">ポイント設定 （自分で設定）</h5>
 
               <%= form_with model: @user, url: user_user_path(@user), method: :patch do |f| %>
                 <div class="row g-3">
@@ -151,7 +151,7 @@
 
                   <div class="col-md-6">
                     <div class="mb-3">
-                      <%= f.label :points, "現在ポイント", style:"color:#65b844;" %>
+                      <%= f.label :points, "現在の総保有ポイント", style:"color:#65b844;" %>
                       <%= f.number_field :points,
                         style:"width:100%; border:1px solid #65b844; padding:6px;" %>
                     </div>

@@ -64,7 +64,7 @@
 
         <% other_category = Category.find_by(name: "その他ポイント") %>
         <%= f.collection_select :sub_category_id,
-              SubCategory.where(category_id: other_category.id, purpose_id: nil),
+              SubCategory.where(category_id: other_category.id),
               :id, :name,
               prompt: "選択してください",
               style: "width: 100%; color:#65b844; border:1px solid #65b844; appearance:none; -webkit-appearance:none;" %>
