@@ -1,8 +1,34 @@
-<h2>あなたのコメント一覧</h2>
+<h2 style="color:#65b844;">あなたのコメント一覧</h2>
+
+<br><br>
 
 <% @comments.each do |comment| %>
-  <div class="mb-3 p-3 border rounded">
+  <div style="
+    border:1px solid #65b844;
+    background-color:#F7FBEF;
+    padding:15px;
+    margin-bottom:20px;
+    color:#65b844;
+  ">
     <p><%= comment.body %></p>
-    <small class="text-muted"><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></small>
+    <small><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></small>
+
+    <br>
+
+    <%= link_to "削除",
+        user_post_comment_path(comment.post, comment),
+        data: { turbo_method: :delete, turbo_confirm: "削除しますか？" },
+        style:"
+          display:inline-block;
+          margin-top:10px;
+          padding:8px 16px;
+          background:#65b844;
+          color:#fff;
+          border-radius:999px;
+          text-decoration:none;
+        "
+    %>
   </div>
 <% end %>
+
+<%= link_to "マイページへ戻る", user_user_path(current_user), style:"color: #65b844;" %>

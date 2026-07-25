@@ -1,54 +1,120 @@
-<h2><%= @post.title %></h2>
+<h2 style="color: #65b844;">投稿詳細</h2>
 
-<p><%= simple_format(h(@post.body)) %></p>
-<p>獲得できるポイント：<%= @post.category.present? ? @post.category.name : "未設定" %></p>
-<p>投稿者：<%= @post.author_name %></p>
-<p>投稿日時：<%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
-<p>タグ：
-  <% @post.tags.each do |tag| %>
-    <%= link_to tag.name, user_tag_path(tag),
-        style: "margin-right: 8px; padding: 3px 6px; background: #eef; border-radius: 4px;" %>
-  <% end %>
-</p>
+<br>
 
-<div id="favorite_button">
-  <% if current_user && @post.user_id != current_user.id %>
-    <% favorite = @post.favorites.find_by(user_id: current_user.id) %>
+<div style="
+  border:1px solid #65b844;
+  padding:20px;
+  background-color: #F7FBEF;
+  color: #65b844;
+  margin-bottom:20px;
+">
 
-    <% if favorite %>
-      <%= link_to user_post_favorite_path(@post, favorite),
-          data: { turbo_method: :delete } do %>
-        ★ お気に入り解除
-      <% end %>
-    <% else %>
-      <%= link_to user_post_favorites_path(@post),
-          data: { turbo_method: :post } do %>
-        ☆ お気に入り
+  <h2 style="color: #008000;"><%= @post.title %></h2>
+
+  <p><%= simple_format(h(@post.body)) %></p>
+
+  <p>獲得できるポイント：
+    <%= @post.category.present? ? @post.category.name : "未設定" %>
+  </p>
+
+  <p>投稿者：<%= @post.author_name %></p>
+  <p>投稿日時：<%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+
+  <p>
+    タグ：
+    <% @post.tags.each do |tag| %>
+      <%= link_to tag.name, user_tag_path(tag), style: "color: #65b844;" %>
+    <% end %>
+  </p>
+
+  <!-- お気に入りボタン -->
+  <div id="favorite_button" style="margin-top:15px;">
+    <% if current_user && @post.user_id != current_user.id %>
+      <% favorite = @post.favorites.find_by(user_id: current_user.id) %>
+
+      <% if favorite %>
+        <%= link_to user_post_favorite_path(@post, favorite),
+            data: { turbo_method: :delete },
+            style:"
+              display:inline-block;
+              padding:10px 20px;
+              background:#65b844;
+              color:#fff;
+              border-radius:999px;
+              text-decoration:none;
+            " do %>
+          ★ お気に入り解除
+        <% end %>
+      <% else %>
+        <%= link_to user_post_favorites_path(@post),
+            data: { turbo_method: :post },
+            style:"
+              display:inline-block;
+              padding:10px 20px;
+              background:#65b844;
+              color:#fff;
+              border-radius:999px;
+              text-decoration:none;
+            " do %>
+          ☆ お気に入り
+        <% end %>
       <% end %>
     <% end %>
+  </div>
+
+  <p style="margin-top:10px;">お気に入り数：<%= @post.favorites.count %></p>
+
+  <br>
+
+  <!-- 編集・削除 -->
+  <% if @post.user_id == current_user.id %>
+    <div style="margin-top:15px;">
+      <%= link_to "編集", edit_user_post_path(@post),
+          style:"
+            margin-right:10px;
+            padding:10px 20px;
+            background:#65b844;
+            color:#fff;
+            border-radius:999px;
+            text-decoration:none;
+          "
+      %>
+
+      <%= link_to "削除", user_post_path(@post),
+          data: { turbo_method: :delete, turbo_confirm: "削除しますか？" },
+          style:"
+            padding:10px 20px;
+            background:#65b844;
+            color:#fff;
+            border-radius:999px;
+            text-decoration:none;
+          "
+      %>
+    </div>
   <% end %>
+
 </div>
 
-<p>お気に入り数：<%= @post.favorites.count %></p>
+<br>
 
-<% if @post.user_id == current_user.id %>
-  <%= link_to "編集", edit_user_post_path(@post) %>
-  <%= link_to "削除", user_post_path(@post), data: { turbo_method: :delete } %>
-<% end %>
-
-<br><br>
-
-<h4>コメント一覧</h4>
+<!-- コメント一覧 -->
+<h4 style="color:#65b844;">コメント一覧</h4>
 
 <% @post.comments.each do |comment| %>
-  <div style="margin-bottom: 15px;">
+  <div style="
+    border:1px solid #65b844;
+    padding:15px;
+    background:#fff;
+    color:#65b844;
+    margin-bottom:15px;
+  ">
 
-    <!-- ★ 投稿者の分岐を追加（管理者コメント対応） -->
     <p><strong>
       <% if comment.user.present? %>
         <%= comment.user.name %>
       <% else %>
-        管理者：<%= comment.admin.name %> 
+        管理者：<%= comment.admin.name %>
       <% end %>
     </strong></p>
 
@@ -58,22 +124,51 @@
 
     <% if comment.user_id == current_user.id %>
       <%= link_to "削除", user_post_comment_path(@post, comment),
-          data: { turbo_method: :delete, confirm: "削除しますか？" } %>
+          data: { turbo_method: :delete, turbo_confirm: "削除しますか？" },
+          style:"
+            padding:8px 16px;
+            background:#65b844;
+            color:#fff;
+            border-radius:999px;
+            text-decoration:none;
+          "
+      %>
     <% end %>
 
   </div>
-  <hr>
 <% end %>
 
 <br>
 
-<h4>コメントを書く</h4>
+<!-- コメント投稿 -->
+<h4 style="color:#65b844;">コメントを書く</h4>
 
-<%= form_with url: user_post_comments_path(@post), model: Comment.new, local: true do |f| %>
-  <%= f.text_area :body, rows: 3, style: "width: 100%;" %>
-  <%= f.submit "コメント送信", style: "margin-top: 10px;" %>
-<% end %>
+<div style="
+  border:1px solid #65b844;
+  padding:15px;
+  background:#fff;
+  color:#65b844;
+  margin-bottom:20px;
+">
 
-<br>
+  <%= form_with url: user_post_comments_path(@post), model: Comment.new, local: true do |f| %>
+    <%= f.text_area :body, rows: 3,
+          style:"width:100%; border:1px solid #65b844; padding:6px;" %>
 
-<%= link_to "投稿一覧へ戻る", user_posts_path %>
+    <%= f.submit "コメント送信",
+      style:"
+        margin-top:10px;
+        width:100%;
+        padding:10px 0;
+        background:#65b844;
+        color:#fff;
+        border:none;
+        border-radius:999px;
+        cursor:pointer;
+      "
+    %>
+  <% end %>
+
+</div>
+
+<%= link_to "投稿一覧へ戻る", user_posts_path, style: "color: #65b844;" %>

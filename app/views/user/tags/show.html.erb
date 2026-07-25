@@ -1,15 +1,25 @@
-<h2>タグ：<%= @tag.name %></h2>
+<h2 style="color: #65b844;">タグ：<%= @tag.name %></h2>
 
-<p>このタグが付いた投稿一覧（<%= @posts.count %>件）</p>
+<p style="color:#65b844;">
+  このタグが付いた投稿一覧（<%= @posts.count %>件）
+</p>
 
-<hr>
+<hr style="border-color: #65b844;">
 
 <% @posts.each do |post| %>
-  <div style="margin-bottom: 20px;">
+  <div style="
+    border:1px solid #65b844;
+    background-color: #F7FBEF;
+    padding:15px;
+    margin-bottom:20px;
+    color:#65b844;
+  ">
 
-    <h3><%= link_to post.title, user_post_path(post) %></h3>
+    <h3>
+      <%= link_to post.title, user_post_path(post), style:"color: #008000;" %>
+    </h3>
 
-    <p><%= truncate(post.body, length: 120) %></p>
+    <p><%= truncate(post.body, length:120) %></p>
 
     <p>投稿者：<%= post.author_name %></p>
     <p>投稿日時：<%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
@@ -18,15 +28,20 @@
       タグ：
       <% post.tags.each do |tag| %>
         <%= link_to tag.name, user_tag_path(tag),
-            style: "margin-right: 6px; padding: 3px 6px; background: #eef; border-radius: 4px;" %>
+            style:"
+              margin-right:6px;
+              padding:3px 6px;
+              background: #65b844;
+              color:#fff;
+              border-radius:999px;
+            "
+        %>
       <% end %>
     </p>
 
-    <hr>
   </div>
 <% end %>
 
 <br>
 
-<%= link_to "投稿一覧へ戻る", user_posts_path %>
-
+<%= link_to "投稿一覧へ戻る", user_posts_path, style: "color: #65b844;" %>

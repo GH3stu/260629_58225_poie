@@ -1,8 +1,16 @@
-<h2>投稿一覧</h2>
+<h2 style="color:#65b844;">投稿一覧</h2>
 
 <% @posts.each do |post| %>
-  <div>
-    <h4><%= link_to post.title, post_path(post) %></h4>
+  <div style="
+    border:1px solid #65b844;
+    padding:15px;
+    margin-bottom:20px;
+    background-color:#F7FBEF;
+    color:#65b844;
+  ">
+    <h4>
+      <%= link_to post.title, post_path(post), style:"color: #65b844;" %>
+    </h4>
 
     <p><%= simple_format(h(post.body).truncate(50)) %></p>
 

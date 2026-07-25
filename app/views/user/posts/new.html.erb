@@ -105,9 +105,17 @@
     <div class="row">
       <% @tags.each do |tag| %>
         <div class="col-4 mb-2">
-          <label class="tag-item d-flex align-items-center border p-2">
+          <label style="
+            display:flex;
+            align-items:center;
+            background:#F7FBEF;
+            border:none;
+            padding:8px;
+            border-radius:6px;
+            color:#65b844;
+           ">
             <%= check_box_tag "post[tag_ids][]", tag.id, @post.tags.include?(tag) %>
-            <span class="ms-2"><%= tag.name %></span>
+            <span style="margin-left:8px; color:#65b844;"><%= tag.name %></span>
           </label>
         </div>
       <% end %>
@@ -118,7 +126,7 @@
 
 <br>
 
-<%= link_to "マイページへ戻る", user_user_path(current_user), style:"color:#65b844;" %>
+<%= link_to "マイページへ戻る", user_user_path(current_user), style:"color: #65b844;" %>
 
 <!-- ★ サブカテゴリ表示制御 -->
 <% other_category = Category.find_by(name: "その他ポイント") %>
