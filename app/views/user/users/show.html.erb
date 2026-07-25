@@ -1,94 +1,198 @@
 <% if @user.id == current_user.id %>
 
-  <div class="container mt-4">
+  <div class="container mt-4" style="color:#65b844;">
     <div class="row mb-4">
       <div class="col-12">
-        <h3 class="mb-0"><%= @user.name %> さんのお部屋</h3>
+        <h3 class="mb-0" style="color:#65b844;"><%= @user.name %> さんのお部屋</h3>
       </div>
     </div>
 
     <div class="row gy-4">
+
+      <!-- 左：操作メニュー -->
       <div class="col-lg-4">
-        <div class="card h-100 shadow-sm" style="background-color: #F7FBEF;">
+        <div class="card h-100 shadow-sm" style="background-color: #F7FBEF; border:1px solid #65b844;">
           <div class="card-body d-flex flex-column gap-3">
+
             <div>
-              <p class="mb-2 fw-semibold">新規投稿</p>
-              <%= link_to "投稿する", new_user_post_path, class: "btn btn-primary w-100" %>
+              <p class="mb-2 fw-semibold" style="color:#65b844;">新規投稿</p>
+              <%= link_to "投稿する", new_user_post_path,
+                style: "
+                  width: 100%;
+                  padding: 10px 0;
+                  background-color: #65b844;
+                  color: #fff;
+                  border: none;
+                  border-radius: 999px;
+                  text-align: center;
+                  display: block;
+                "
+              %>
             </div>
 
             <div>
-              <p class="mb-2 fw-semibold">投稿一覧</p>
-              <%= link_to "確認する", user_posts_path, class: "btn btn-outline-primary w-100" %>
+              <p class="mb-2 fw-semibold" style="color:#65b844;">投稿一覧</p>
+              <%= link_to "確認する", user_posts_path,
+                style: "
+                  width: 100%;
+                  padding: 10px 0;
+                  background-color: #65b844;
+                  color: #fff;
+                  border: none;
+                  border-radius: 999px;
+                  text-align: center;
+                  display: block;
+                "
+              %>
             </div>
 
             <div>
-              <p class="mb-2 fw-semibold">コメント一覧</p>
-              <%= link_to "確認する", user_comments_path, class: "btn btn-outline-secondary w-100" %>
+              <p class="mb-2 fw-semibold" style="color:#65b844;">コメント一覧</p>
+              <%= link_to "確認する", user_comments_path,
+                style: "
+                  width: 100%;
+                  padding: 10px 0;
+                  background-color: #65b844;
+                  color: #fff;
+                  border: none;
+                  border-radius: 999px;
+                  text-align: center;
+                  display: block;
+                "
+              %>
             </div>
+
           </div>
         </div>
       </div>
 
+      <!-- 右：ポイント・目標・進捗 -->
       <div class="col-lg-8">
-        <div class="card h-100 shadow-sm" style="background-color: #F7FBEF;">
+        <div class="card h-100 shadow-sm" style="background-color: #F7FBEF; border:1px solid #65b844;">
           <div class="card-body">
+
             <div class="row gy-3 mb-4">
-              <div class="col-md-6">
-                <div class="border rounded-3 p-3 h-100" style="background-color: #FFFFFF;">
-                  <h5 class="mb-3">目標</h5>
-                  <p class="fs-4 fw-bold mb-0"><%= @user.goal %> pt</p>
+
+              <div class="col-md-4">
+                <div class="border rounded-3 p-3 h-100" style="background-color:#fff; border:1px solid #65b844;">
+                  <h5 class="mb-3" style="color:#65b844;">目標</h5>
+                  <p class="fs-4 fw-bold mb-0" style="color:#65b844;"><%= number_with_delimiter(@user.goal) %> pt</p>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="border rounded-3 p-3 h-100" style="background-color: #FFFFFF;">
-                  <h5 class="mb-3">ポイント残高</h5>
-                  <p class="mb-3"><%= @user.points %> pt</p>
-                  <h6 class="mb-2">進捗</h6>
-                  <% if @progress.present? %>
-                    <p class="mb-0"><%= @progress %> %</p>
-                  <% else %>
-                    <p class="mb-0">-</p>
-                  <% end %>
+
+              <div class="col-md-8">
+                <div class="border rounded-3 p-3 h-100"
+                      style="background-color:#fff; border:1px solid #65b844;">
+
+    <!-- 2カラム化（左：既存、右：新フィールド） -->
+                  <div style="display: flex; gap: 20px;">
+
+      <!-- 左側：既存のポイント残高・進捗 -->
+                    <div style="width: 35%;">
+                      <h5 class="mb-3" style="color:#65b844;">ポイント残高</h5>
+                      <p class="mb-3" style="color:#65b844;">
+                        <%= number_with_delimiter(@user.points) %> pt
+                      </p>
+
+                      <h6 class="mb-2" style="color:#65b844;">進捗</h6>
+                      <% if @progress.present? %>
+                        <p class="mb-0" style="color:#65b844;"><%= @progress %> %</p>
+                      <% else %>
+                        <p class="mb-0" style="color:#65b844;">-</p>
+                      <% end %>
+                    </div>
+
+                    <!-- 右側：新フィールド -->
+                    <div style="
+                      width: 65%;
+                      background-color: #F7FBEF;
+                      border: 1px solid #fff;
+                      padding: 10px;
+                      border-radius: 6px;
+                    ">
+                      <h6 style="color:#65b844;">買えるイメージ</h6>
+                      <% if @progress.present? %>
+                        <% if @progress <= 30 %>
+                          <%= image_tag "land.png", style: "width:100%; height:auto;" %>
+                        <% elsif @progress <= 50 %>
+                          <%= image_tag "wood_house.png", style: "width:100%; height:auto;" %>
+                        <% elsif @progress <= 80 %>
+                          <%= image_tag "steel_house.png", style: "width:100%; height:auto;" %>
+                        <% else %>
+                          <%= image_tag "RC_house.png", style: "width:100%; height:auto;" %>
+                        <% end %>
+                      <% else %>
+                        <p style="color:#65b844;">進捗データなし</p>
+                      <% end %>
+                    </div>
+
+                  </div>
+
                 </div>
-              </div>
             </div>
 
-            <div class="border rounded-3 p-3" style="background-color: #FFFFFF;">
-              <h5 class="mb-3">ポイント設定</h5>
+
+            </div>
+
+            <!-- ポイント設定フォーム -->
+            <div class="border rounded-3 p-3" style="background-color:#fff; border:1px solid #65b844;">
+              <h5 class="mb-3" style="color:#65b844;">ポイント設定</h5>
+
               <%= form_with model: @user, url: user_user_path(@user), method: :patch do |f| %>
                 <div class="row g-3">
+
                   <div class="col-md-6">
                     <div class="mb-3">
-                      <%= f.label :goal, "目標ポイント", class: "form-label" %>
-                      <%= f.number_field :goal, class: "form-control" %>
+                      <%= f.label :goal, "目標ポイント", style:"color:#65b844;" %>
+                      <%= f.number_field :goal,
+                        style:"width:100%; border:1px solid #65b844; padding:6px;" %>
                     </div>
                   </div>
+
                   <div class="col-md-6">
                     <div class="mb-3">
-                      <%= f.label :points, "現在ポイント", class: "form-label" %>
-                      <%= f.number_field :points, class: "form-control" %>
+                      <%= f.label :points, "現在ポイント", style:"color:#65b844;" %>
+                      <%= f.number_field :points,
+                        style:"width:100%; border:1px solid #65b844; padding:6px;" %>
                     </div>
                   </div>
+
                 </div>
 
-                <%= f.submit "更新する", class: "btn btn-primary w-100" %>
+                <%= f.submit "更新する",
+                  style: "
+                    width: 100%;
+                    padding: 10px 0;
+                    background-color: #65b844;
+                    color: #fff;
+                    border: none;
+                    border-radius: 999px;
+                    font-size: 16px;
+                    text-align: center;
+                    cursor: pointer;
+                  "
+                %>
+
               <% end %>
+
             </div>
+
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
 <% else %>
 
   <!-- 他ユーザーの投稿一覧（元コード維持） -->
-  <h1><%= @user.name %> の投稿一覧</h1>
+  <h1 style="color:#65b844;"><%= @user.name %> の投稿一覧</h1>
 
   <% @posts.each do |post| %>
-    <div>
-      <h3><%= link_to post.title, user_post_path(post) %></h3>
-      <p><%= post.body.truncate(50) %></p>
+    <div style="border:1px solid #65b844; padding:10px; margin-bottom:10px;">
+      <h3><%= link_to post.title, user_post_path(post), style:"color:#65b844;" %></h3>
+      <p style="color:#65b844;"><%= post.body.truncate(50) %></p>
     </div>
   <% end %>
 
