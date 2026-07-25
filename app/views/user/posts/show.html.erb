@@ -28,39 +28,9 @@
   </p>
 
   <!-- お気に入りボタン -->
-  <div id="favorite_button" style="margin-top:15px;">
-    <% if current_user && @post.user_id != current_user.id %>
-      <% favorite = @post.favorites.find_by(user_id: current_user.id) %>
-
-      <% if favorite %>
-        <%= link_to user_post_favorite_path(@post, favorite),
-            data: { turbo_method: :delete },
-            style:"
-              display:inline-block;
-              padding:10px 20px;
-              background:#65b844;
-              color:#fff;
-              border-radius:999px;
-              text-decoration:none;
-            " do %>
-          ★ お気に入り解除
-        <% end %>
-      <% else %>
-        <%= link_to user_post_favorites_path(@post),
-            data: { turbo_method: :post },
-            style:"
-              display:inline-block;
-              padding:10px 20px;
-              background:#65b844;
-              color:#fff;
-              border-radius:999px;
-              text-decoration:none;
-            " do %>
-          ☆ お気に入り
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
+  <% favorite = @post.favorites.find_by(user_id: current_user.id) if current_user.present? %>
+  <%= render partial: "user/posts/favorite_button",
+             locals: { post: @post, favorite: favorite } %>
 
   <p style="margin-top:10px;">お気に入り数：<%= @post.favorites.count %></p>
 
@@ -98,54 +68,66 @@
 <br>
 
 <!-- コメント一覧 -->
-<h4 style="color:#65b844;">コメント一覧</h4>
+<h4 style="color: #65b844;">コメント一覧</h4>
 
-<% @post.comments.each do |comment| %>
-  <div style="
-    border:1px solid #65b844;
-    padding:15px;
-    background:#fff;
-    color:#65b844;
-    margin-bottom:15px;
-  ">
+<table style="width:100%; border-collapse: collapse; color: #65b844; margin-top:20px;">
+  <thead>
+    <tr style="border-bottom: 2px solid #65b844;">
+      <th>投稿者</th>
+      <th>内容</th>
+      <th>日時</th>
+      <th>削除</th>
+    </tr>
+  </thead>
 
-    <p><strong>
-      <% if comment.user.present? %>
-        <%= comment.user.name %>
-      <% else %>
-        管理者：<%= comment.admin.name %>
-      <% end %>
-    </strong></p>
+  <tbody>
+    <% @post.comments.each do |comment| %>
+      <tr style="border-bottom: 1px solid #65b844;">
 
-    <p><%= comment.body %></p>
+        <!-- 投稿者（ユーザー or 管理者） -->
+        <td>
+          <% if comment.user.present? %>
+            <%= comment.user.name %>
+          <% else %>
+            管理者：<%= comment.admin.name %>
+          <% end %>
+        </td>
 
-    <p>コメント日時：<%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+        <!-- コメント本文 -->
+        <td><%= comment.body %></td>
 
-    <% if comment.user_id == current_user.id %>
-      <%= link_to "削除", user_post_comment_path(@post, comment),
-          data: { turbo_method: :delete, turbo_confirm: "削除しますか？" },
-          style:"
-            padding:8px 16px;
-            background:#65b844;
-            color:#fff;
-            border-radius:999px;
-            text-decoration:none;
-          "
-      %>
+        <!-- コメント日時 -->
+        <td><%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+
+        <!-- 削除ボタン（本人のみ） -->
+        <td>
+          <% if comment.user_id == current_user.id %>
+            <%= link_to "削除", user_post_comment_path(@post, comment),
+              data: { turbo_method: :delete, confirm: "削除しますか？" },
+              style: "
+                display:inline-block;
+                padding:6px 12px;
+                background-color:#65b844;
+                color:#fff;
+                border-radius:999px;
+                text-decoration:none;
+              " %>
+          <% end %>
+        </td>
+
+      </tr>
     <% end %>
-
-  </div>
-<% end %>
+  </tbody>
+</table>
 
 <br>
 
 <!-- コメント投稿 -->
-<h4 style="color:#65b844;">コメントを書く</h4>
+<h4 style="color:#65b844;">コメントする</h4>
 
 <div style="
-  border:1px solid #65b844;
   padding:15px;
-  background:#fff;
+  background-color: #F7FBEF;
   color:#65b844;
   margin-bottom:20px;
 ">
@@ -157,13 +139,13 @@
     <%= f.submit "コメント送信",
       style:"
         margin-top:10px;
-        width:100%;
-        padding:10px 0;
-        background:#65b844;
-        color:#fff;
-        border:none;
-        border-radius:999px;
-        cursor:pointer;
+        width: 140px;
+        padding: 10px 0;
+        background: #65b844;
+        color: #fff;
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
       "
     %>
   <% end %>

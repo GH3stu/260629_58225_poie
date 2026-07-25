@@ -1,8 +1,8 @@
-<h5>poieへようこそ!</h5>
+<h5 style="color: #65b844;">poieへようこそ!</h5>
 
 <br>
 
-<h3>目的から探す</h3>
+<h3 style="color: #008000;">目的から探す</h3>
 
 <br>
 
@@ -49,36 +49,67 @@
 
 <br><br>
 
-<h5>最新の投稿</h5>
+<h5 style="color: #65b844;">最新の投稿</h5>
+
+<table style="width:100%; border-collapse: collapse; color: #65b844; margin-top:20px;">
+  <thead>
+    <tr style="border-bottom: 2px solid #65b844;">
+      <th>日時</th>
+      <th>タイトル</th>
+      <th>投稿者</th>
+      <th>詳細</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_posts.each do |post| %>
+      <tr style="border-bottom: 1px solid #65b844;">
+        
+        <!-- 日時 -->
+        <td><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+
+        <!-- タイトル -->
+        <td><%= post.title %></td>
+
+        <!-- 投稿者 -->
+        <td>
+          <% if post.user.present? %>
+            <%= post.user.name %>
+          <% else %>
+            管理者：<%= post.admin.name %>
+          <% end %>
+        </td>
+
+        <!-- 詳細リンク（ログイン状態で分岐） -->
+        <td>
+          <% if current_user.present? %>
+            <%= link_to "詳細", user_post_path(post),
+              style: "
+                display:inline-block;
+                padding:6px 12px;
+                background-color: #65b844;
+                color:#fff;
+                border-radius:999px;
+                text-decoration:none;
+              " %>
+          <% else %>
+            <%= link_to "詳細", login_path,
+              style: "
+                display:inline-block;
+                padding:6px 12px;
+                background-color: #65b844;
+                color:#fff;
+                border-radius:999px;
+                text-decoration:none;
+              " %>
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <br>
-
-<% @admin_posts.each do |post| %>
-  <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-
-    <div style="
-      font-size:18px;
-      font-weight:bold;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    ">
-      
-      <!-- 日時（リンク化しない） -->
-      <span style="color:#666; font-size:14px;">
-        <%= post.created_at.strftime("%Y-%m-%d %H:%M") %>
-      </span>
-
-      <!-- 題名（リンク化する：ログイン状態で分岐） -->
-      <% if current_user.present? %>
-        <%= link_to post.title, user_post_path(post),
-          style: "margin-left: 8px; color:#000; text-decoration:none;" %>
-      <% else %>
-        <%= link_to post.title, login_path,
-          style: "margin-left: 8px; color:#000; text-decoration:none;" %>
-      <% end %>
-    </div>
-  </div>
-<% end %>
 
 <%= paginate @admin_posts %>
