@@ -1,21 +1,20 @@
-<h2 style="color:#65b844;">投稿一覧</h2>
+<h3 style="color:#65b844;">投稿一覧</h3>
 
 <br><br>
 
 <% @posts.each do |post| %>
   <div style="
-    border:1px solid #65b844;
     padding:15px;
     margin-bottom:20px;
     background-color: #F7FBEF;
-    color:#65b844;
+    color: #65b844;
   ">
 
     <h3>
       <%= link_to post.title, user_post_path(post), style:"color: #008000;" %>
     </h3>
 
-    <p><%= simple_format(h(post.body).truncate(50)) %></p>
+    <p><%= simple_format(h(post.body).truncate(100)) %></p>
 
     <p>
       投稿者：
