@@ -1,9 +1,9 @@
 <% if @user.id == current_user.id %>
 
-  <div class="container mt-4" style="color:#65b844;">
+  <div class="container mt-4" style="color: #65b844;">
     <div class="row mb-4">
       <div class="col-12">
-        <h3 class="mb-0" style="color:#65b844;"><%= @user.name %> さんのお部屋</h3>
+        <h3 class="mb-0" style="color: #65b844;"><%= @user.name %> さんのお部屋</h3>
       </div>
     </div>
 
@@ -15,7 +15,7 @@
           <div class="card-body d-flex flex-column gap-3">
 
             <div>
-              <p class="mb-2 fw-semibold" style="color:#65b844;">新規投稿</p>
+              <p class="mb-3 fw-semibold" style="color: #65b844;">新規投稿</p>
               <%= link_to "投稿する", new_user_post_path,
                 style: "
                   width: 100%;
@@ -31,7 +31,7 @@
             </div>
 
             <div>
-              <p class="mb-2 fw-semibold" style="color:#65b844;">投稿一覧</p>
+              <p class="mb-3 fw-semibold" style="color: #65b844;">投稿一覧</p>
               <%= link_to "確認する", user_posts_path,
                 style: "
                   width: 100%;
@@ -47,7 +47,7 @@
             </div>
 
             <div>
-              <p class="mb-2 fw-semibold" style="color:#65b844;">コメント一覧</p>
+              <p class="mb-3 fw-semibold" style="color:#65b844;">コメント一覧</p>
               <%= link_to "確認する", user_comments_path,
                 style: "
                   width: 100%;
@@ -76,63 +76,82 @@
               <div class="col-md-4">
                 <div class="border rounded-3 p-3 h-100" style="background-color:#fff; border:1px solid #65b844;">
                   <h5 class="mb-3" style="color:#65b844;">目標</h5>
-                  <p class="fs-4 fw-bold mb-0" style="color:#65b844;"><%= number_with_delimiter(@user.goal_point) %> pt</p>
+                  <p class="mb-0" style="color:#65b844;">※300万以上にしてみよう！</p>
+                  <br>
+                  <p class="fs-4 fw-bold mb-0" style="color: #65b844; font-size: 1.5rem; font-weight: bold;"><%= number_with_delimiter(@user.goal_point) %> pt</p>
                 </div>
               </div>
 
               <div class="col-md-8">
                 <div class="border rounded-3 p-3 h-100"
-                      style="background-color:#fff; border:1px solid #65b844;">
+                      style="background-color: #fff; border:1px solid #65b844;">
 
     <!-- 2カラム化（左：既存、右：新フィールド） -->
                   <div style="display: flex; gap: 20px;">
 
       <!-- 左側：既存のポイント残高・進捗 -->
-                    <div style="width: 35%;">
-                      <h5 class="mb-3" style="color:#65b844;">ポイント残高</h5>
-                      <p class="mb-3" style="color:#65b844;">
+                    <div style="width: 30%;">
+                      <h5 class="mb-3" style="color: #65b844;">ポイント残高</h5>
+                      <p class="mb-3" style="color: #65b844; font-size: 1.5rem; font-weight: bold;">
                         <%= number_with_delimiter(@user.points) %> pt
                       </p>
 
-                      <h6 class="mb-2" style="color:#65b844;">進捗</h6>
+                      <br>
+
+                      <h5 class="mb-2" style="color: #65b844;">進捗</h5>
                       <% if @progress.present? %>
-                        <p class="mb-0" style="color:#65b844;"><%= @progress %> %</p>
+                        <p class="mb-0" style="color: #65b844; font-size: 1.5rem; font-weight: bold;">
+                          <%= @progress %> %
+                        </p>
                       <% else %>
-                        <p class="mb-0" style="color:#65b844;">-</p>
+                        <p class="mb-0" style="color: #65b844; font-size: 1.5rem; font-weight: bold;">
+                          -
+                        </p>
                       <% end %>
                     </div>
 
                     <!-- 右側：新フィールド -->
                     <div style="
-                      width: 65%;
+                      width: 70%;
                       background-color: #F7FBEF;
                       border: 1px solid #fff;
                       padding: 10px;
                       border-radius: 6px;
                     ">
-                      <h6 style="color:#65b844;">「ぽいえ」イメージ（土地は借地）</h6>
-                      <% if @progress.present? %>
-                        <% if @progress <= 30 %>
-                          <%= image_tag "land.png", style: "width:100%; height:auto;" %>
-                        <% elsif @progress <= 50 %>
-                          <%= image_tag "wood_house.png", style: "width:100%; height:auto;" %>
-                        <% elsif @progress <= 80 %>
-                          <%= image_tag "steel_house.png", style: "width:100%; height:auto;" %>
-                        <% else %>
-                          <%= image_tag "RC_house.png", style: "width:100%; height:auto;" %>
+                      <h6 style="color: #65b844;">「ぽいえ」イメージ（土地は借地）</h6>
+                      <% building = nil %>
+
+                      <% if @user.goal_point.present? && @user.goal_point >= 3_000_000 %>
+
+                        <% case @user.points %>
+                        <% when 0..999_999 %>
+                          <% building = nil %>
+
+                        <% when 1_000_000..3_000_000 %>
+                          <% building = "wood_house.png" %>
+
+                        <% when 3_000_000..4_999_999 %>
+                          <% building = "steel_house.png" %>
+
+                        <% when 5_000_000..9_999_999 %>
+                          <% building = "RC_house.png" %>
+
+                        <% when 10_000_000..Float::INFINITY %>
+                          <% building = "SRC_mansion.png" %>
                         <% end %>
+                      <% end %>
+
+                      <% if building.present? %>
+                        <%= image_tag building, style: "width:100%; height:auto;" %>
+
                       <% else %>
-                        <p style="color:#65b844;">買えない</p>
+                        <%= image_tag "land.png", style: "width:100%; height:auto;" %>
+                        <p style="color:#65b844; text-align: center;">家は建てるには目標を300万以上<br/>ポイント残高100万以上</p>
                       <% end %>
                     </div>
-
                   </div>
-
                 </div>
-            </div>
-
-
-            </div>
+              </div>
 
             <!-- ポイント設定フォーム -->
             <div class="border rounded-3 p-3" style="background-color:#fff; border:1px solid #65b844;">
@@ -145,7 +164,7 @@
                     <div class="mb-3">
                       <%= f.label :goal_point, "目標ポイント", style:"color:#65b844;" %>
                       <%= f.number_field :goal_point,
-                        style:"width:100%; border:1px solid #65b844; padding:6px;" %>
+                            style:"width:100%; border:1px solid #65b844; padding:6px;" %>
                     </div>
                   </div>
 
@@ -161,7 +180,7 @@
 
                 <%= f.submit "更新する",
                   style: "
-                    width: 100%;
+                    width: 20%;
                     padding: 10px 0;
                     background-color: #65b844;
                     color: #fff;
