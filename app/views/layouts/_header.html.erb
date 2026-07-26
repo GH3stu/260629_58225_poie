@@ -1,33 +1,82 @@
-<header style="height: 90px; border-bottom: 1px solid #F7FBEF; background-color: #F7FBEF;">
-  <style>
-    .header-dropdown-menu {
-      display: none;
-      position: absolute;
-      top: 52px;
-      right: 0;
-      min-width: 170px;
-      background: #fff;
-      border: 1px solid #d9d9d9;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-      padding: 10px 12px;
-      z-index: 1200;
-    }
+<style>
 
-    .header-dropdown-menu.open {
-      display: block;
-    }
+/* ヘッダー全体 */
+header {
+  padding: 20px 0;
+  background-color: #F7FBEF;
+  border-bottom: 1px solid #F7FBEF;
+}
 
-    .header-dropdown-menu li {
-      margin: 8px 0;
-    }
-  </style>
+/* スマホ */
+@media (max-width: 768px) {
+  header {
+    padding: 10px 0;
+  }
+}
+
+/* 左側（ロゴ＋検索） */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+@media (max-width: 768px) {
+  .header-left {
+    gap: 20px;
+  }
+}
+
+/* ロゴ */
+.header-logo {
+  height: 90px;
+}
+
+@media (max-width: 768px) {
+  .header-logo {
+    height: 50px;
+  }
+}
+
+/* 検索窓 */
+.search-input {
+  width: 200px;
+}
+
+@media (max-width: 768px) {
+  .search-input {
+    width: 140px;
+  }
+}
+
+/* アイコン */
+.header-icon {
+  width: 50px;
+  height: auto;
+}
+
+@media (max-width: 992px) {
+  .header-icon {
+    width: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-icon {
+    width: 28px;
+  }
+}
+
+</style>
+
+<header>
 
   <div style="height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 40px;">
 
     <!-- 左：ロゴ＋検索窓 -->
-    <div style="display: flex; align-items: center; gap: 80px;">
+    <div class="header-left">
       <%= link_to about_path do %>
-        <%= image_tag "poie_logo.png", alt: "Poie", style: "height: 80px;" %>
+        <%= image_tag "poie_logo.png", alt: "Poie", class: "header-logo" %>
       <% end %>
 
       <!-- ★ ロゴ右の検索窓 -->
@@ -37,7 +86,7 @@
         <%= f.text_field :keyword,
               placeholder: "投稿を検索",
               class: "search-input",
-              style: "padding: 5px 10px; width: 200px; border: 2px solid #65b844; color: #65b844;" %>
+              style: "padding: 5px 10px; border: 2px solid #65b844; color: #65b844;" %>
 
         <style>
           input::placeholder { color: #808080; }
@@ -77,16 +126,17 @@
           <%= link_to image_tag(
                 "post_new.png",
                 alt: "新規投稿",
-                class: "header-icon",
-                style: "width: 30px; height: auto; margin-right: 10px;"
+                class: "header-icon icon-post",
+                style: "margin-right: 10px;"
               ), new_user_post_path %>
 
-          <!-- トップへ戻る -->
+
+                    <!-- トップへ戻る -->
           <%= link_to image_tag(
                 "home_top.png",
                 alt: "トップへ戻る",
-                class: "header-icon",
-                style: "width: 40px; height: auto; margin-right: 30px;"
+                class: "header-icon icon-home",
+                style: "margin-right: 30px;"
               ), root_path %>
 
           <!-- ハンバーガーアイコン（親の中に入れる） -->
@@ -129,7 +179,14 @@
         <!-- ユーザーログイン時：右側メニューはハンバーガーに統合済み -->
 
       <% else %>
-        <!-- 非ログイン時 -->
+        <!-- 非ログイン時：トップへ戻るアイコンも表示 -->
+        <%= link_to image_tag(
+              "home_top.png",
+              alt: "トップへ戻る",
+              class: "header-icon icon-home",
+              style: "margin-right: 30px;"
+            ), root_path %>
+
         <%= link_to "ログイン", login_path, style: "color: #65b844;" %>
         <%= link_to "新規登録", new_user_path, style: "color: #65b844;" %>
       <% end %>
