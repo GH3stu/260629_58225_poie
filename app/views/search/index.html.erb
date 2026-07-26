@@ -1,34 +1,85 @@
-<h2>検索結果</h2>
+<h3 style="color: #65b844;">検索結果</h3>
 
-<p>検索ワード：<%= @keyword %></p>
-<p>検索対象：<%= @target == "users" ? "ユーザー" : "投稿" %></p>
+<br>
 
-<hr>
+<p style="color: #65b844;">検索ワード：<%= @keyword %></p>
+
+<hr style="border-color: #65b844;">
 
 <% if @results.present? %>
-  <% @results.each do |item| %>
 
-    <% if @target == "users" %>
-      <!-- ユーザー検索結果 -->
-      <div style="margin-bottom: 20px;">
-        <p>ユーザー名：<%= item.name %></p>
-        <%= link_to "ユーザー詳細", user_user_path(item) %>
-      </div>
+  <% if @target == "users" %>
 
-    <% else %>
-      <!-- 投稿検索結果 -->
-      <div style="margin-bottom: 20px;">
-        <p>タイトル：<%= item.title %></p>
-        <p><%= truncate(item.body, length: 100) %></p>
-        <%= link_to "投稿詳細", user_post_path(item) %>
-      </div>
+    <!-- ユーザー検索結果 -->
+    <table style="width:100%; border-collapse: collapse; color: #65b844; margin-top:20px;">
+      <thead>
+        <tr style="border-bottom:2px solid #65b844;">
+          <th>ユーザー名</th>
+          <th>詳細</th>
+        </tr>
+      </thead>
 
-    <% end %>
+      <tbody>
+        <% @results.each do |item| %>
+          <tr style="border-bottom:1px solid #65b844;">
+            <td><%= item.name %></td>
+            <td style="text-align:right;">
+              <%= link_to "ユーザー詳細", user_user_path(item),
+                style:"
+                  display:inline-block;
+                  padding:6px 12px;
+                  background-color: #65b844;
+                  color: #fff;
+                  border-radius:999px;
+                  text-decoration:none;
+                " %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-    <hr>
+  <% else %>
+
+    <!-- 投稿検索結果 -->
+    <table style="width:40%; border-collapse: collapse; color: #65b844; margin-top:20px;">
+      <thead>
+        <tr style="border-bottom:2px solid #65b844;">
+          <th>日時</th>
+          <th>タイトル</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @results.each do |item| %>
+          <tr style="border-bottom:1px solid #65b844;">
+            <td><%= item.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+            <td><%= item.title %></td>
+
+            <td style="text-align:right;">
+              <%= link_to "投稿詳細", user_post_path(item),
+                style:"
+                  display:inline-block;
+                  padding:6px 12px;
+                  background-color: #65b844;
+                  color: #fff;
+                  border-radius:999px;
+                  text-decoration:none;
+                " %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
   <% end %>
+
 <% else %>
-  <p>該当する結果はありません。</p>
+
+  <p style="color: #65b844;">該当する結果はありません。</p>
+
 <% end %>
 
+<br>
+
+<%= link_to "トップへ戻る", root_path, style:"color: #65b844;" %>
