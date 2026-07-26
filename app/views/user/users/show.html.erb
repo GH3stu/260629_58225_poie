@@ -76,7 +76,7 @@
               <div class="col-md-4">
                 <div class="border rounded-3 p-3 h-100" style="background-color:#fff; border:1px solid #65b844;">
                   <h5 class="mb-3" style="color:#65b844;">目標</h5>
-                  <p class="fs-4 fw-bold mb-0" style="color:#65b844;"><%= number_with_delimiter(@user.goal) %> pt</p>
+                  <p class="fs-4 fw-bold mb-0" style="color:#65b844;"><%= number_with_delimiter(@user.goal_point) %> pt</p>
                 </div>
               </div>
 
@@ -143,8 +143,8 @@
 
                   <div class="col-md-6">
                     <div class="mb-3">
-                      <%= f.label :goal, "目標ポイント", style:"color:#65b844;" %>
-                      <%= f.number_field :goal,
+                      <%= f.label :goal_point, "目標ポイント", style:"color:#65b844;" %>
+                      <%= f.number_field :goal_point,
                         style:"width:100%; border:1px solid #65b844; padding:6px;" %>
                     </div>
                   </div>
