@@ -1,39 +1,66 @@
-<h1>管理者投稿詳細</h1>
+<h1 style="color: #65b844;">管理者投稿詳細</h1>
 
-<p>ID：<%= @post.id %></p>
-<p>タイトル：<%= @post.title %></p>
-<p>本文：<%= simple_format(h(@post.body)) %></p>
-<p>獲得できるポイント：<%= @post.category.name %></p>
-<p>投稿者：<%= @post.author_name %></p>
-<p>日時：<%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+<br>
 
-<p>お気に入り数：<%= @post.favorites.count %></p>
+<div style="color: #65b844;">
 
-<hr>
+  <p>ID：<%= @post.id %></p>
+  <p>タイトル：<%= @post.title %></p>
+  <p>本文：<%= simple_format(h(@post.body)) %></p>
+  <p>獲得できるポイント：<%= @post.category.name %></p>
+  <p>投稿者：<%= @post.author_name %></p>
+  <p>日時：<%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
 
-<h2>管理者コメント一覧</h2>
-<% @post.comments.where.not(admin_id: nil).each do |comment| %>
-  <p><%= comment.body %></p>
-  <p><%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
-  <hr>
-<% end %>
+  <p>お気に入り数：<%= @post.favorites.count %></p>
 
-<h2>管理者コメントを書く</h2>
-<%= form_with model: [:admin, @post, Comment.new], local: true do |f| %>
-  <%= f.text_area :body, rows: 3 %>
-  <%= f.submit "コメントする" %>
-<% end %>
+  <hr style="border-color: #65b844;">
 
-<hr>
+  <h2 style="color: #65b844;">管理者コメント一覧</h2>
 
-<%= link_to "編集する", edit_admin_post_path(@post) %>
-<br><br>
+  <% @post.comments.where.not(admin_id: nil).each do |comment| %>
+    <p><%= comment.body %></p>
+    <p><%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+    <hr style="border-color: #65b844;">
+  <% end %>
 
-<%= link_to "削除する", admin_post_path(@post),
-    data: { turbo_method: :delete, confirm: "削除しますか？" } %>
+  <h2 style="color: #65b844;">管理者コメントを書く</h2>
 
-<br><br>
+  <%= form_with model: [:admin, @post, Comment.new], local: true do |f| %>
+    <%= f.text_area :body, rows: 3,
+        style:"width:100%; border:1px solid #65b844; color:#65b844;" %>
 
-<%= link_to "投稿一覧へ戻る", admin_posts_path %>
-<br><br>
-<%= link_to "管理者マイページへ戻る", admin_root_path %>
+    <%= f.submit "コメントする",
+        style:"
+          margin-top:10px;
+          width:100%;
+          padding:10px 0;
+          background-color: #65b844;
+          color: #fff;
+          border:none;
+          border-radius:999px;
+          cursor:pointer;
+        " %>
+  <% end %>
+
+  <hr style="border-color: #65b844;">
+
+  <%= link_to "編集する", edit_admin_post_path(@post),
+      style:"color: #65b844; text-decoration:none;" %>
+
+  <br><br>
+
+  <%= link_to "削除する", admin_post_path(@post),
+      data:{ turbo_method: :delete, confirm:"削除しますか？" },
+      style:"color: #65b844; text-decoration:none;" %>
+
+  <br><br>
+
+  <%= link_to "投稿一覧へ戻る", admin_posts_path,
+      style:"color: #65b844; text-decoration:none;" %>
+
+  <br><br>
+
+  <%= link_to "管理者マイページへ戻る", admin_root_path,
+      style:"color: #65b844; text-decoration:none;" %>
+
+</div>

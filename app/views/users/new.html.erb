@@ -2,7 +2,6 @@
 
 <br>
 
-<!-- ★ 左端に配置する入力ボックス（統一レイアウト） -->
 <div style="width: 30%; height: 60vh; border: 1px solid #FFF; padding: 30px; background-color: #F7FBEF;">
 
   <%= form_with model: @user, local: true do |f| %>
@@ -51,7 +50,19 @@
 
     <br>
 
-    <%= f.submit "新規登録", style: "padding: 8px 20px;" %>
+  <%= f.submit "新規登録",
+    style: "
+      width: 100%;
+      padding: 10px 0;
+      background-color: #65b844;
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-size: 18px;
+      text-align: center;
+      cursor: pointer;
+    "
+  %>
 
   <% end %>
 
@@ -60,4 +71,3 @@
 <br>
 
 <%= link_to "トップページへ戻る", root_path %>
-

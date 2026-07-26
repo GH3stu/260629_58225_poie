@@ -1,30 +1,89 @@
-<h2><%= @purpose.name %> の投稿一覧</h2>
+<h2 style="color: #65b844;"><%= @purpose.name %> の投稿一覧</h2>
 
 <% if @posts.any? %>
-  <ul style="margin-top: 20px;">
-    <% @posts.each do |post| %>
-      <li style="margin-bottom: 20px;">
 
-        <!-- タイトルリンク（ログイン状態で分岐） -->
-        <% if logged_in? %>
-          <!-- ログイン後：ユーザー投稿 or 管理者投稿に応じてリンクを分岐 -->
-          <% if post.user_id.present? %>
-            <strong><%= link_to post.title, user_post_path(post) %></strong>
-          <% else %>
-            <strong><%= link_to post.title, admin_post_path(post) %></strong>
-          <% end %>
-        <% else %>
-          <!-- 非ログイン時：管理者投稿のみ表示されているので admin_post_path -->
-          <strong><%= link_to post.title, admin_post_path(post) %></strong>
-        <% end %>
+  <table style="width:100%; border-collapse: collapse; color: #65b844; margin-top:20px;">
+    <thead>
+      <tr style="border-bottom: 2px solid #65b844;">
+        <th>タイトル</th>
+        <th>カテゴリ</th>
+        <th>投稿者</th>
+        <th>日時</th>
+        <th>詳細</th>
+      </tr>
+    </thead>
 
-        <br>
-        <span>カテゴリ：<%= post.category.name %></span><br>
-        <span>投稿者：<%= post.user&.name || post.admin&.name %></span><br>
-        <span>投稿日時：<%= l(post.created_at, format: :long) %></span>
-      </li>
-    <% end %>
-  </ul>
+    <tbody>
+      <% @posts.each do |post| %>
+        <tr style="border-bottom: 1px solid #65b844;">
+
+          <!-- タイトル（ログイン状態で分岐） -->
+          <td>
+            <% if logged_in? %>
+              <% if post.user_id.present? %>
+                <%= link_to post.title, user_post_path(post),
+                  style:"color: #65b844; text-decoration:none;" %>
+              <% else %>
+                <%= link_to post.title, admin_post_path(post),
+                  style:"color: #65b844; text-decoration:none;" %>
+              <% end %>
+            <% else %>
+              <%= link_to post.title, admin_post_path(post),
+                style:"color: #65b844; text-decoration:none;" %>
+            <% end %>
+          </td>
+
+          <!-- カテゴリ -->
+          <td><%= post.category.name %></td>
+
+          <!-- 投稿者 -->
+          <td><%= post.user&.name || post.admin&.name %></td>
+
+          <!-- 日時 -->
+          <td><%= l(post.created_at, format: :long) %></td>
+
+          <!-- 詳細ボタン -->
+          <td>
+            <% if logged_in? %>
+              <% if post.user_id.present? %>
+                <%= link_to "詳細", user_post_path(post),
+                  style:"
+                    display:inline-block;
+                    padding:6px 12px;
+                    background-color: #65b844;
+                    color: #fff;
+                    border-radius:999px;
+                    text-decoration:none;
+                  " %>
+              <% else %>
+                <%= link_to "詳細", admin_post_path(post),
+                  style:"
+                    display:inline-block;
+                    padding:6px 12px;
+                    background-color: #65b844;
+                    color: #fff;
+                    border-radius:999px;
+                    text-decoration:none;
+                  " %>
+              <% end %>
+            <% else %>
+              <%= link_to "詳細", admin_post_path(post),
+                style:"
+                  display:inline-block;
+                  padding:6px 12px;
+                  background-color: #65b844;
+                  color: #fff;
+                  border-radius:999px;
+                  text-decoration:none;
+                " %>
+            <% end %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
 <% else %>
-  <p>投稿はまだありません。</p>
+  <p style="color:#65b844;">投稿はまだありません。</p>
 <% end %>

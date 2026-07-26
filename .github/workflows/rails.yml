@@ -24,7 +24,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_NAME} '
             export RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
 
-            cd ~/260629_58225_poie
+            cd 260629_58225_poie
 
             git pull origin main
 

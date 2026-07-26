@@ -1,8 +1,40 @@
-<h2><%= @sub_category.name %> の投稿一覧</h2>
+<h3 style="color: #65b844;"><%= @sub_category.name %> の投稿一覧</h3>
 
-<% @posts.each do |post| %>
-  <div style="margin-bottom: 20px;">
-    <h3><%= link_to post.title, user_post_path(post) %></h3>
-    <p><%= simple_format(post.body) %></p>
-  </div>
-<% end %>
+<br>
+
+<table style="width:100%; border-collapse: collapse; color: #65b844; margin-top:20px;">
+  <thead>
+    <tr style="border-bottom: 2px solid #65b844;">
+      <th>タイトル</th>
+      <th>本文</th>
+      <th>詳細</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr style="border-bottom: 1px solid #65b844;">
+
+        <!-- タイトル -->
+        <td><%= post.title %></td>
+
+        <!-- 本文 -->
+        <td><%= simple_format(post.body) %></td>
+
+        <!-- 詳細ボタン -->
+        <td>
+          <%= link_to "詳細", user_post_path(post),
+            style: "
+              display:inline-block;
+              padding:6px 12px;
+              background-color: #65b844;
+              color: #fff;
+              border-radius:999px;
+              text-decoration:none;
+            " %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -2,7 +2,6 @@
 
 <br>
 
-<!-- ★ 左端に配置する入力ボックス（統一レイアウト） -->
 <div style="width: 30%; height: 60vh; border: 1px solid #FFF; padding: 30px; background-color: #F7FBEF;">
 
   <%= form_with url: login_path, local: true do |f| %>
@@ -22,12 +21,25 @@
       <%= f.label :password, "パスワード" %><br>
       <%= f.password_field :password, style: "width: 100%;" %>
     </div>
-    
+
     <br>
     <%= link_to "パスワードを忘れた場合はこちら", new_password_reset_path %>
     <br><br>
 
-    <%= f.submit "ログイン", style: "padding: 8px 20px;" %>
+  <%= f.submit "ログイン",
+    style: "
+      width: 100%;
+      padding: 10px 0;
+      background-color: #65b844;
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-size: 18px;
+      text-align: center;
+      cursor: pointer;
+    "
+  %>
+
 
   <% end %>
 

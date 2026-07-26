@@ -1,107 +1,152 @@
-<h2>投稿編集</h2>
+<h2 style="color: #65b844;">投稿編集</h2>
 
 <br>
 
-<div style="width: 60%; height: 70vh; border: 1px solid #FFF; padding: 30px; background-color: #F7FBEF;">
+<%= form_with model: @post, url: user_post_path(@post), method: :patch, local: true do |f| %>
 
-  <%= form_with model: @post, url: user_post_path(@post), method: :patch, local: true do |f| %>
+<div style="display:flex; gap:30px;">
 
-    <% if @post.errors.any? %>
-      <ul>
-        <% @post.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    <% end %>
+  <!-- 左側：フォーム -->
+  <div style="
+    flex:0 0 45%;
+    height: 70vh;
+    padding: 30px;
+    background-color: #F7FBEF;
+    color: #65b844;
+    overflow-y:auto;
+  ">
 
-    <div>
-      <%= f.label :title, "タイトル" %><br>
-      <%= f.text_field :title, style: "width: 100%;" %>
-    </div>
-
-    <br>
-
-    <div>
-      <%= f.label :body, "本文" %><br>
-      <%= f.text_area :body, style: "width: 100%; height: 120px;" %>
-    </div>
-
-    <br>
-
-    <div>
-      <%= f.label :purpose_id, "目的" %><br>
-      <%= f.collection_select :purpose_id,
-            Purpose.all, :id, :name,
-            prompt: "目的を選択してください",
-            style: "width: 100%;" %>
-    </div>
-
-    <br>
-
-    <div>
-      <%= f.label :category_id, "獲得できるポイント" %><br>
-      <%= f.collection_select :category_id,
-            Category.for_post_select, :id, :name,
-            prompt: "選択してください",
-            style: "width: 100%;" %>
-    </div>
-
-    <br>
-
-    <div id="sub_category_area" style="<%= @post.category.name == 'その他ポイント' ? '' : 'display:none;' %>">
-      <%= f.label :sub_category_id, "サブカテゴリ" %><br>
-      <%= f.collection_select :sub_category_id,
-            SubCategory.all, :id, :name,
-            prompt: "選択してください",
-            style: "width: 100%;" %>
-    </div>
-
-    <script>
-      document.addEventListener("input", function() {
-        const categorySelect = document.getElementById("post_category_id");
-        const area = document.getElementById("sub_category_area");
-
-        if (categorySelect.selectedOptions[0].text === "その他ポイント") {
-          area.style.display = "block";
-        } else {
-          area.style.display = "none";
-        }
-      });
-    </script>
-
-    <br>
-
-    <!-- ここからタグ編集欄 -->
-    <div>
-      <%= f.label :tag_ids, "タグを選択（複数選択可）" %><br>
-
-      <% Tag.all.each do |tag| %>
-        <label style="display: block;">
-          <%= check_box_tag "post[tag_ids][]", tag.id, @post.tags.include?(tag) %>
-          <%= tag.name %>
-        </label>
+      <% if @post.errors.any? %>
+        <ul style="color:red;">
+          <% @post.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
       <% end %>
-    </div>
 
-    <br>
+      <!-- タイトル -->
+      <div>
+        <%= f.label :title, "タイトル", style:"color: #65b844;" %><br>
+        <%= f.text_field :title,
+              style:"width:100%; border:1px solid #65b844; padding:6px;" %>
+      </div>
 
+      <br>
+
+      <!-- 本文 -->
+      <div>
+        <%= f.label :body, "本文", style:"color: #65b844;" %><br>
+        <%= f.text_area :body,
+              style:"width:100%; height:120px; border:1px solid #65b844; padding:6px;" %>
+      </div>
+
+      <br>
+
+      <!-- 目的 -->
+      <div>
+        <%= f.label :purpose_id, "目的", style:"color: #65b844;" %><br>
+        <%= f.collection_select :purpose_id,
+              Purpose.all, :id, :name,
+              prompt:"目的を選択してください",
+              style:"width:100%; border:1px solid #65b844; padding:6px;" %>
+      </div>
+
+      <br>
+
+      <!-- 獲得できるポイント -->
+      <div>
+        <%= f.label :category_id, "獲得できるポイント", style:"color: #65b844;" %><br>
+        <%= f.collection_select :category_id,
+              Category.for_post_select, :id, :name,
+              prompt:"選択してください",
+              style:"width:100%; border:1px solid #65b844; padding:6px;" %>
+      </div>
+
+      <br>
+
+      <!-- サブカテゴリ -->
+      <div id="sub_category_area"
+           style="<%= @post.category.name == 'その他ポイント' ? '' : 'display:none;' %>">
+        <%= f.label :sub_category_id, "サブカテゴリ", style:"color: #65b844;" %><br>
+        <%= f.collection_select :sub_category_id,
+              SubCategory.all, :id, :name,
+              prompt:"選択してください",
+              style:"width:100%; border:1px solid #65b844; padding:6px;" %>
+      </div>
+
+      <script>
+        document.addEventListener("input", function() {
+          const categorySelect = document.getElementById("post_category_id");
+          const area = document.getElementById("sub_category_area");
+
+          if (categorySelect.selectedOptions[0].text === "その他ポイント") {
+            area.style.display = "block";
+          } else {
+            area.style.display = "none";
+          }
+        });
+      </script>
+
+      <br>
+
+      <!-- タグ追加（テキスト） -->
+      <div>
+        <%= f.label :tag_names, "タグを追加（カンマ区切り）", style:"color: #65b844;" %><br>
+        <%= f.text_field :tag_names,
+              style:"width:100%; border:1px solid #65b844; padding:6px;" %>
+        <p style="font-size:12px; color: #65b844;">
+          ※「#」は自動で付与されます。
+        </p>
+      </div>
+
+      <br>
+
+      <%= f.submit "更新する",
+        style:"
+          width:100%;
+          padding:10px 0;
+          background-color: #65b844;
+          color:#fff;
+          border:none;
+          border-radius:999px;
+          font-size:16px;
+          cursor:pointer;
+        "
+      %>
+  </div>
+
+  <!-- 右側：タグ一覧 -->
+  <div style="flex:0 0 55%;">
     <div>
-      <%= f.label :tag_names, "タグを追加（カンマ区切り）" %><br>
-      <%= f.text_field :tag_names, style: "width: 100%;" %>
-      <p style="font-size: 12px; color: #555;">
-        ※「#」は自動で付与されます。例：ポイント交換 → #ポイント交換
-      </p>
+      <span style="color:#65b844;">タグを選択（複数選択可）</span><br>
+
+      <div class="row" style="margin-top:10px;">
+        <% Tag.all.each do |tag| %>
+          <div class="col-4 mb-2">
+            <label style="
+              display:flex;
+              align-items:center;
+              background:#F7FBEF;
+              border:none;
+              padding:8px;
+              border-radius:6px;
+              color:#65b844;
+            ">
+              <%= check_box_tag "post[tag_ids][]", tag.id, @post.tags.include?(tag) %>
+              <span style="margin-left:8px; color:#65b844;"><%= tag.name %></span>
+            </label>
+          </div>
+        <% end %>
+      </div>
     </div>
-    <!-- タグ編集欄ここまで -->
-
-    <br>
-
-    <%= f.submit "更新する", style: "padding: 8px 20px;" %>
-
-  <% end %>
+  </div>
 
 </div>
 
+<% end %>
+
 <br>
 
-<%= link_to "マイページへ戻る", user_user_path(current_user) %>
+<%= link_to "マイページへ戻る",
+      user_user_path(current_user),
+      style:"color: #65b844;" %>

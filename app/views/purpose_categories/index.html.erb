@@ -1,9 +1,30 @@
-<h2><%= @purpose.name %></h2>
+<h3 style="color: #65b844;"><%= @purpose.name %></h3>
 
-<ul style="margin-top: 20px;">
-  <% @categories.each do |category| %>
-    <li style="margin-bottom: 10px;">
-      <%= link_to category.name, category_posts_path(category) %>
-    </li>
-  <% end %>
-</ul>
+<table style="width:100%; border-collapse: collapse; color: #65b844; margin-top:20px;">
+  <thead>
+    <tr style="border-bottom: 2px solid #65b844;">
+      <th>カテゴリ名</th>
+      <th>投稿一覧へ</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr style="border-bottom: 1px solid #65b844;">
+        <td><%= category.name %></td>
+
+        <td>
+          <%= link_to "見る", category_posts_path(category),
+            style: "
+              display:inline-block;
+              padding:6px 12px;
+              background-color: #65b844;
+              color: #fff;
+              border-radius:999px;
+              text-decoration:none;
+            " %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

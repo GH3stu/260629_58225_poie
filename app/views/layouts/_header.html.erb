@@ -1,57 +1,79 @@
 <header style="height: 90px; border-bottom: 1px solid #F7FBEF; background-color: #F7FBEF;">
+  <style>
+    .header-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 52px;
+      right: 0;
+      min-width: 170px;
+      background: #fff;
+      border: 1px solid #d9d9d9;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      padding: 10px 12px;
+      z-index: 1200;
+    }
+
+    .header-dropdown-menu.open {
+      display: block;
+    }
+
+    .header-dropdown-menu li {
+      margin: 8px 0;
+    }
+  </style>
+
   <div style="height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 40px;">
 
-    <!-- 左：ロゴ -->
+    <!-- 左：ロゴ＋検索窓 -->
     <div style="display: flex; align-items: center; gap: 80px;">
       <%= link_to about_path do %>
         <%= image_tag "poie_logo.png", alt: "Poie", style: "height: 80px;" %>
       <% end %>
 
-      <!-- ★ ロゴ右の検索窓（簡素化版） -->
+      <!-- ★ ロゴ右の検索窓 -->
       <%= form_with url: search_path, method: :get, local: true,
         style: "display: flex; align-items: center; gap: 10px;" do |f| %>
 
-      <!-- ★ 検索窓（枠色 #65b844、placeholder色 ） -->
         <%= f.text_field :keyword,
               placeholder: "投稿を検索",
-              class: "search-input", 
+              class: "search-input",
               style: "padding: 5px 10px; width: 200px; border: 2px solid #65b844; color: #65b844;" %>
 
-        <!-- ★ placeholder の色を変えるための CSS -->
         <style>
-          input::placeholder {
-            color: #808080;
-          }
+          input::placeholder { color: #808080; }
         </style>
 
-        <!-- ★ 検索ボタンをアイコン化 -->
         <%= button_tag type: "submit",
               style: "background: none; border: none; padding: 0; cursor: pointer;" do %>
-          <%= image_tag "search.png", alt: "検索", class: "header-icon", style: "width: 30px; height: auto; margin-left: 10px;" %>
+          <%= image_tag "search.png", alt: "検索", class: "header-icon",
+                style: "width: 30px; height: auto; margin-left: 10px;" %>
         <% end %>
 
       <% end %>
     </div>
 
+    <!-- 中央ナビ（今は空） -->
     <nav style="display: flex; gap: 25px; font-size: 16px; align-items: center;">
     </nav>
 
-    <!-- 右：ハンバーガーメニュー + ログイン前後切替 -->
-    <div style="display: flex; align-items: center; gap: 20px;">
+    <!-- 右：カテゴリハンバーガー＋ユーザーメニュー -->
+        <div data-controller="hamburger"
+          style="display: flex; align-items: center; gap: 20px;">
 
       <% if logged_in? && !(defined?(current_admin) && current_admin.present?) %>
 
-          <!-- ★ カテゴリ用ハンバーガー（sidebar toggle） -->
-          <div class="sidebar-toggle-icon" data-action="click->hamburger#toggleSidebar">
-            <%= image_tag "hamburger_left.png",
-                alt: "カテゴリ",
-                class: "header-icon",
-                style: "width: 30px; height: auto;" %>
-          </div>
+        <!-- ★ 左側カテゴリハンバーガー -->
+        <div class="sidebar-toggle-icon" data-action="click->hamburger#toggleSidebar">
+          <%= image_tag "hamburger_left.png",
+              alt: "カテゴリ",
+              class: "header-icon",
+              style: "width: 30px; height: auto;" %>
+        </div>
 
-        <!-- ★ ユーザーメニュー（右上ハンバーガー） -->
-        <div data-controller="hamburger" style="display: flex; align-items: center; gap: 20px;">
+        <!-- ★ 右上ユーザーメニュー（アイコン＋メニュー本体を完全に内側へ統合） -->
+        <div style="display: flex; align-items: center; gap: 20px; position: relative;">
 
+          <!-- 新規投稿 -->
           <%= link_to image_tag(
                 "post_new.png",
                 alt: "新規投稿",
@@ -59,6 +81,7 @@
                 style: "width: 30px; height: auto; margin-right: 10px;"
               ), new_user_post_path %>
 
+          <!-- トップへ戻る -->
           <%= link_to image_tag(
                 "home_top.png",
                 alt: "トップへ戻る",
@@ -66,7 +89,11 @@
                 style: "width: 40px; height: auto; margin-right: 30px;"
               ), root_path %>
 
-          <div class="hamburger-icon" data-action="click->hamburger#toggle" role="button" aria-label="メニュー">
+          <!-- ハンバーガーアイコン（親の中に入れる） -->
+          <div class="hamburger-icon"
+               data-action="click->hamburger#toggle"
+               role="button"
+               aria-label="メニュー">
             <%= image_tag(
                   "hamburger.png",
                   alt: "メニュー",
@@ -75,30 +102,36 @@
                 ) %>
           </div>
 
-          <div class="hamburger-menu" data-hamburger-target="menu">
-            <ul>
+          <!-- ★ メニュー本体（必ず同じ div の中に入れる） -->
+          <div class="header-dropdown-menu"
+            data-hamburger-target="menu">
+
+            <ul style="list-style: none; padding: 0; margin: 0;">
               <li><%= link_to "マイページ", user_user_path(current_user), style: "color: #65b844;" %></li>
               <li><%= link_to "プロフィール", edit_user_user_path(current_user), style: "color: #65b844;" %></li>
               <li><%= link_to "ログアウト", logout_path, data: { turbo_method: :delete }, style: "color: #65b844;" %></li>
-              <li><%= link_to "退会", user_user_path(current_user), data: { turbo_method: :delete, confirm: "本当に退会しますか？" }, style: "color: #65b844;" %></li>
+              <li><%= link_to "退会", user_user_path(current_user),
+                      data: { turbo_method: :delete, turbo_confirm: "本当に退会しますか？" },
+                      style: "color: #65b844;" %></li>
             </ul>
+
           </div>
+
         </div>
+
       <% end %>
 
       <% if defined?(current_admin) && current_admin.present? %>
-        <!-- ★ 管理者ログイン時 -->
         <%= link_to "管理者マイページ", admin_root_path, style: "color: #65b844;" %>
         <%= link_to "ログアウト", admin_logout_path, data: { turbo_method: :delete }, style: "color: #65b844;" %>
 
       <% elsif logged_in? %>
-    <!-- ★ ユーザーログイン時（ハンバーガーで表示するのでここは空でOK） -->
-    <!-- 右側の通常メニューは非表示のままでOK -->
+        <!-- ユーザーログイン時：右側メニューはハンバーガーに統合済み -->
+
       <% else %>
-    <!-- ★ 非ログイン時（ここが復活する） -->
+        <!-- 非ログイン時 -->
         <%= link_to "ログイン", login_path, style: "color: #65b844;" %>
         <%= link_to "新規登録", new_user_path, style: "color: #65b844;" %>
-
       <% end %>
 
     </div>

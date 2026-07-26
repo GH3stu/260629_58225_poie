@@ -5,6 +5,7 @@ class User::PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @tags = Tag.all 
   end
 
   def create
@@ -27,6 +28,7 @@ class User::PostsController < ApplicationController
   end
 
   def edit
+    @tags = Tag.all
   end
 
   def update
@@ -60,11 +62,10 @@ class User::PostsController < ApplicationController
   # タグ保存処理（チェックボックス + 自由入力）
   # -----------------------------
   def save_tags(post)
-    if params[:post][:tag_ids].present?
-      post.tag_ids = params[:post][:tag_ids]
-    end
+    selected_tag_ids = Array(params.dig(:post, :tag_ids)).reject(&:blank?)
+    post.tag_ids = selected_tag_ids
 
-    if params[:post][:tag_names].present?
+    if params.dig(:post, :tag_names).present?
       tag_names = params[:post][:tag_names].split(",").map(&:strip).reject(&:empty?)
 
       tag_names.each do |name|
