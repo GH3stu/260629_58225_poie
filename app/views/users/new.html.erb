@@ -1,4 +1,4 @@
-<h2>poieユーザー 新規登録</h2>
+<h2 style="color: #65b844;">poieユーザー 新規登録</h2>
 
 <br>
 
@@ -23,32 +23,48 @@
     <% end %>
 
     <div>
-      <%= f.label :name, "ユーザー名" %><br>
-      <%= f.text_field :name, style: "width: 100%;" %>
+      <%= f.label :name, "ユーザー名",
+            style:"color:#65b844;" %><br>
+      <%= f.text_field :name,
+            style:"width:100%; color:#65b844; border:1px solid #65b844;" %>
     </div>
 
     <br>
 
     <div>
-      <%= f.label :email, "メールアドレス" %><br>
-      <%= f.email_field :email, style: "width: 100%;" %>
+      <%= f.label :email, "メールアドレス",
+            style:"color:#65b844;" %><br>
+      <%= f.email_field :email,
+            style:"width:100%; color:#65b844; border:1px solid #65b844;" %>
     </div>
 
     <br>
 
     <div>
-      <%= f.label :password, "パスワード" %><br>
-      <%= f.password_field :password, style: "width: 100%;" %>
+      <%= f.label :password, "パスワード",
+            style:"color:#65b844;" %><br>
+      <%= f.password_field :password,
+            style:"width:100%; color:#65b844; border:1px solid #65b844;" %>
     </div>
 
     <br>
 
     <div>
-      <%= f.label :password_confirmation, "パスワード確認" %><br>
-      <%= f.password_field :password_confirmation, style: "width: 100%;" %>
+      <%= f.label :password_confirmation, "パスワード確認",
+            style:"color:#65b844;" %><br>
+      <%= f.password_field :password_confirmation,
+            style:"width:100%; color:#65b844; border:1px solid #65b844;" %>
     </div>
 
     <br>
+
+    <div>
+      <%= f.label :goal_point, "目標ポイント数（任意）", style:"color:#65b844;" %><br>
+      <%= f.number_field :goal_point,
+            style:"width:100%; color:#65b844; border:1px solid #65b844;" %>
+    </div>
+
+    <br><br>
 
   <%= f.submit "新規登録",
     style: "
@@ -70,4 +86,4 @@
 
 <br>
 
-<%= link_to "トップページへ戻る", root_path %>
+<%= link_to "トップへ戻る", root_path, style:"color: #65b844;" %>
