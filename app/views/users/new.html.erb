@@ -1,8 +1,17 @@
-<h2 style="color: #65b844;">poieユーザー 新規登録</h2>
+<h2 style="color: #65b844; text-align: center;">
+  poieユーザー 新規登録
+</h2>
 
-<br>
+<br><br>
 
-<div style="width: 30%; height: 60vh; border: 1px solid #FFF; padding: 30px; background-color: #F7FBEF;">
+<div style="
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #F7FBEF;
+  border: 1px solid #FFF;
+  padding: 30px;
+  border-radius: 8px;
+">
 
   <%= form_with model: @user, local: true do |f| %>
 
@@ -83,7 +92,3 @@
   <% end %>
 
 </div>
-
-<br>
-
-<%= link_to "トップへ戻る", root_path, style:"color: #65b844;" %>
