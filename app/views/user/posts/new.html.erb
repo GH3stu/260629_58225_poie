@@ -62,9 +62,10 @@
       <div id="sub_category_area" style="display:none;">
         <%= f.label :sub_category_id, "サブカテゴリ", style: "color: #65b844;" %><br>
 
-        <% other_category = Category.find_by(name: "その他ポイント") %>
+        <% other_category = Category.find_by(name: "その他ポイント") || Category.find_by(name: "その他カテゴリ") %>
+        <% sub_categories = other_category ? SubCategory.where(category_id: other_category.id) : SubCategory.none %>
         <%= f.collection_select :sub_category_id,
-              SubCategory.where(category_id: other_category.id),
+              sub_categories,
               :id, :name,
               prompt: "選択してください",
               style: "width: 100%; color: #65b844; border:1px solid #65b844; appearance:none; -webkit-appearance:none;" %>
@@ -129,14 +130,14 @@
 <%= link_to "マイページへ戻る", user_user_path(current_user), style:"color: #65b844;" %>
 
 <!-- ★ サブカテゴリ表示制御 -->
-<% other_category = Category.find_by(name: "その他ポイント") %>
+<% other_category = Category.find_by(name: "その他ポイント") || Category.find_by(name: "その他カテゴリ") %>
 
 <script>
   document.addEventListener("input", function() {
     const categorySelect = document.getElementById("post_category_id");
     const area = document.getElementById("sub_category_area");
 
-    if (categorySelect.value === "<%= other_category.id %>") {
+    if (categorySelect.value === "<%= other_category&.id %>") {
       area.style.display = "block";
     } else {
       area.style.display = "none";

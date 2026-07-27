@@ -5,10 +5,11 @@ class Admin::SessionsController < Admin::BaseController
   end
 
   def create
-    admin = Admin.find_by(email_address: params[:email])   # email_address → email に変更
-    # ここに追加
+    email = params[:email].presence || params.dig(:admin, :email).presence
+    admin = Admin.find_by(email: email) || Admin.find_by(email_address: email)
+    password = params[:password].presence || params.dig(:admin, :password)
 
-    if admin&.authenticate(params[:password])
+    if admin&.authenticate(password)
       session[:admin_id] = admin.id
       redirect_to admin_root_path
     else
