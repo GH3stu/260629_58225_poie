@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
   let(:user) { User.create!(name: "Test", email: "test@example.com", password: "password") }
-  let(:post_record) { Post.create!(title: "タイトル", body: "本文", user: user) }
+  let!(:category) { Category.create!(name: "テストカテゴリ") }
+  let(:post_record) { Post.create!(title: "タイトル", body: "本文", user: user, category: category) }
 
   it "post があれば有効" do
     comment = Comment.new(body: "コメント", post: post_record, user: user)
