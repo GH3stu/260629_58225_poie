@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Posts", type: :request do
   let(:user) { User.create!(name: "Test", email: "test@example.com", password: "password") }
-  let(:post_record) { Post.create!(title: "タイトル", body: "本文", user: user) }
+  let!(:category) { Category.create!(name: "テストカテゴリ") }
+  let(:post_record) { Post.create!(title: "タイトル", body: "本文", user: user, category: category) }
 
   before do
     post login_path, params: { email: user.email, password: "password" }

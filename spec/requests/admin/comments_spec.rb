@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe "Admin::Comments", type: :request do
   let(:admin) { Admin.create!(email: "admin@example.com", password: "password") }
   let(:user)  { User.create!(name: "Test", email: "test@example.com", password: "password") }
-  let(:post_record) { Post.create!(title: "タイトル", body: "本文", user: user) }
+  let!(:category) { Category.create!(name: "テストカテゴリ") }
+  let(:post_record) { Post.create!(title: "タイトル", body: "本文", user: user, category: category) }
   let(:comment) { Comment.create!(body: "コメント", user: user, post: post_record) }
 
   before do

@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "PostFlow", type: :system do
   let(:user) { User.create!(name: "Test", email: "test@example.com", password: "password") }
+    let!(:other_category) { Category.create!(name: "その他カテゴリ") }
+    let!(:sub_category) { SubCategory.create!(name: "サブカテゴリ", category: other_category) }
 
   before do
     driven_by(:rack_test)

@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Admin::Posts", type: :request do
   let(:admin) { Admin.create!(email: "admin@example.com", password: "password") }
-  let(:post_record) { Post.create!(title: "タイトル", body: "本文", admin: admin) }
+  let(:category) { Category.create!(name: "テストカテゴリ") }
+  let(:post_record) { Post.create!(title: "タイトル", body: "本文", admin: admin, category: category) }
 
   before do
     post admin_login_path, params: { email: admin.email, password: "password" }
