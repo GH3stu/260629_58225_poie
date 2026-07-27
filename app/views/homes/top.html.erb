@@ -1,14 +1,13 @@
-<h5 style="color: #65b844;">poieへようこそ!</h5>
+<h5 class="top-welcome">poieへようこそ!</h5>
 
 <br>
 
-<h3 style="color: #008000;">目的から探す</h3>
+<h3 class="top-purpose-title">目的から探す</h3>
 
 <br>
 
-<div style="border: 0px solid #CCFFCC; background-color: #FFF; padding: 30px; width: 100%; margin: 0 auto;">
-
-  <div style="display: flex; justify-content: center; gap: 80px;">
+<div class="top-purpose-card">
+  <div class="top-purpose-list">
 
     <% @purposes.each do |purpose| %>
 
@@ -33,10 +32,10 @@
         end
       %>
 
-      <%= link_to purpose_posts_path(purpose), style: "text-decoration: none;" do %>
-        <div style="text-align: center;">
-          <%= image_tag image_name, style: "width: 100px; height: 100px;" %>
-          <div style="margin-top: 10px; font-size: 14px; color:#333;">
+      <%= link_to purpose_posts_path(purpose), class: "top-purpose-link" do %>
+        <div class="top-purpose-item">
+          <%= image_tag image_name, class: "top-purpose-icon", alt: purpose.name %>
+          <div class="top-purpose-name">
             <%= purpose.name %>
           </div>
         </div>
@@ -49,21 +48,22 @@
 
 <br><br>
 
-<h5 style="color: #65b844;">最新の投稿</h5>
+<h5 class="top-latest-title">最新の投稿</h5>
 
-<table style="width:100%; border-collapse: collapse; color: #65b844; margin-top:20px;">
-  <thead>
-    <tr style="border-bottom: 2px solid #65b844;">
-      <th>日時</th>
-      <th>タイトル</th>
-      <th>投稿者</th>
-      <th>詳細</th>
-    </tr>
-  </thead>
+<div class="top-posts-table-wrap">
+  <table class="top-posts-table">
+    <thead>
+      <tr>
+        <th>日時</th>
+        <th>タイトル</th>
+        <th>投稿者</th>
+        <th>詳細</th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <% @admin_posts.each do |post| %>
-      <tr style="border-bottom: 1px solid #65b844;">
+    <tbody>
+      <% @admin_posts.each do |post| %>
+        <tr>
         
         <!-- 日時 -->
         <td><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></td>
@@ -81,34 +81,19 @@
         </td>
 
         <!-- 詳細リンク（ログイン状態で分岐） -->
-        <td>
-          <% if current_user.present? %>
-            <%= link_to "詳細", user_post_path(post),
-              style: "
-                display:inline-block;
-                padding:6px 12px;
-                background-color: #65b844;
-                color:#fff;
-                border-radius:999px;
-                text-decoration:none;
-              " %>
-          <% else %>
-            <%= link_to "詳細", login_path,
-              style: "
-                display:inline-block;
-                padding:6px 12px;
-                background-color: #65b844;
-                color:#fff;
-                border-radius:999px;
-                text-decoration:none;
-              " %>
-          <% end %>
-        </td>
+          <td>
+            <% if current_user.present? %>
+              <%= link_to "詳細", user_post_path(post), class: "top-post-detail-btn" %>
+            <% else %>
+              <%= link_to "詳細", login_path, class: "top-post-detail-btn" %>
+            <% end %>
+          </td>
 
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <br>
 
