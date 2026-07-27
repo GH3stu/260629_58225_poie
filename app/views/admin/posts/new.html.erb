@@ -22,9 +22,10 @@
   <div id="sub_category_area" style="display:none;">
     <%= f.label :sub_category_id, "サブカテゴリ" %>
 
-    <% other_category = Category.find_by(name: "その他ポイント") %>
+      <% other_category = Category.find_by(name: "その他ポイント") || Category.find_by(name: "その他カテゴリ") %>
+      <% sub_categories = other_category ? SubCategory.where(category_id: other_category.id, purpose_id: nil) : SubCategory.none %>
     <%= f.collection_select :sub_category_id,
-          SubCategory.where(category_id: other_category.id, purpose_id: nil),
+        sub_categories,
           :id, :name,
           prompt: "選択してください" %>
   </div>
@@ -34,7 +35,7 @@
       const categorySelect = document.getElementById("post_category_id");
       const area = document.getElementById("sub_category_area");
 
-      if (categorySelect.selectedOptions[0].text === "その他ポイント") {
+      if (["その他ポイント", "その他カテゴリ"].includes(categorySelect.selectedOptions[0].text)) {
         area.style.display = "block";
       } else {
         area.style.display = "none";

@@ -49,9 +49,17 @@
 
   <br><br>
 
-  <%= link_to "削除する", admin_post_path(@post),
-      data:{ turbo_method: :delete, confirm:"削除しますか？" },
-      style:"color: #65b844; text-decoration:none;" %>
+  <%= button_to "削除", admin_post_path(@post),
+      method: :delete,
+      form: { data: { turbo_confirm: "削除しますか？" }, style: "display:inline;" },
+      style: "
+        padding:10px 20px;
+        background:#65b844;
+        color:#fff;
+        border:none;
+        border-radius:999px;
+        cursor:pointer;
+      " %>
 
   <br><br>
 
