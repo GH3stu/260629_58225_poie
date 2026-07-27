@@ -20,7 +20,9 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body style="min-height: 100vh; display: flex; flex-direction: column; margin: 0;">
+  <body
+    class="<%= 'post-form-page' if controller_path == 'user/posts' && %w[new edit].include?(action_name) %>"
+    style="min-height: 100vh; display: flex; flex-direction: column; margin: 0;">
 
     <% unless controller_name == "homes" && action_name == "about" %>
       <%= render "layouts/header" %>

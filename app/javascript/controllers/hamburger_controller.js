@@ -18,14 +18,4 @@ export default class extends Controller {
     const trigger = this.element.querySelector(".hamburger-icon[aria-controls='header-user-menu']")
     if (trigger) trigger.setAttribute("aria-expanded", "false")
   }
-
-  toggleSidebar() {
-    const sidebar = document.getElementById("sidebar")
-    if (!sidebar) return
-
-    // スマホ時だけ動作
-    if (window.innerWidth <= 767) {
-      sidebar.style.display = (sidebar.style.display === "block") ? "none" : "block"
-    }
-  }
 }

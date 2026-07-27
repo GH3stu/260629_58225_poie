@@ -34,13 +34,6 @@
 
       <% if logged_in? && !(defined?(current_admin) && current_admin.present?) %>
 
-        <!-- ★ 左側カテゴリハンバーガー -->
-        <div class="sidebar-toggle-icon" data-action="click->hamburger#toggleSidebar">
-          <%= image_tag "hamburger_left.png",
-              alt: "カテゴリ",
-              class: "header-icon header-icon-md" %>
-        </div>
-
         <!-- ★ 右上ユーザーメニュー（アイコン＋メニュー本体を完全に内側へ統合） -->
         <div class="site-user-actions">
 
