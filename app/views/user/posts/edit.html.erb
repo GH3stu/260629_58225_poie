@@ -4,17 +4,10 @@
 
 <%= form_with model: @post, url: user_post_path(@post), method: :patch, local: true do |f| %>
 
-<div style="display:flex; gap:30px;">
+<div class="post-editor-layout">
 
   <!-- 左側：フォーム -->
-  <div style="
-    flex:0 0 45%;
-    height: 70vh;
-    padding: 30px;
-    background-color: #F7FBEF;
-    color: #65b844;
-    overflow-y:auto;
-  ">
+  <div class="post-editor-panel">
 
       <% if @post.errors.any? %>
         <ul style="color:red;">
@@ -116,7 +109,7 @@
   </div>
 
   <!-- 右側：タグ一覧 -->
-  <div style="flex:0 0 55%;">
+  <div class="post-tag-panel">
     <div>
       <span style="color:#65b844;">タグを選択（複数選択可）</span><br>
 
