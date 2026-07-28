@@ -20,15 +20,17 @@
     <% end %>
 
     <div>
-      <%= f.label :email, "メールアドレス" %><br>
-      <%= f.email_field :email, style: "width: 100%;" %>
+      <%= f.label :email, "メールアドレス", style: "color: #65b844;" %>
+      <%= f.email_field :email,
+      style:"width:100%; color:#65b844; border:1px solid #65b844;" %>
     </div>
 
     <br>
 
     <div>
-      <%= f.label :password, "パスワード" %><br>
-      <%= f.password_field :password, style: "width: 100%;" %>
+      <%= f.label :password, "パスワード", style: "color: #65b844;" %><br>
+      <%= f.password_field :password,
+      style:"width:100%; color:#65b844; border:1px solid #65b844;" %>
     </div>
 
     <br>

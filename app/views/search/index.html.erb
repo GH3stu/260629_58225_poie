@@ -11,66 +11,73 @@
   <% if @target == "users" %>
 
     <!-- ユーザー検索結果 -->
-    <table style="width:100%; border-collapse: collapse; color: #65b844; margin-top:20px;">
-      <thead>
-        <tr style="border-bottom:2px solid #65b844;">
+    <div class="search-users-table-wrap">
+      <table class="search-users-table">
+        <thead>
+          <tr>
           <th>ユーザー名</th>
           <th>詳細</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @results.each do |item| %>
-          <tr style="border-bottom:1px solid #65b844;">
-            <td><%= item.name %></td>
-            <td style="text-align:right;">
-              <%= link_to "ユーザー詳細", user_user_path(item),
-                style:"
-                  display:inline-block;
-                  padding:6px 12px;
-                  background-color: #65b844;
-                  color: #fff;
-                  border-radius:999px;
-                  text-decoration:none;
-                " %>
-            </td>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          <% @results.each do |item| %>
+            <tr>
+            <td><%= item.name %></td>
+            <td class="list-action-cell">
+              <%= link_to "ユーザー詳細", user_user_path(item),
+                class: "list-detail-btn" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
   <% else %>
 
     <!-- 投稿検索結果 -->
-    <table style="width:40%; border-collapse: collapse; color: #65b844; margin-top:20px;">
-      <thead>
-        <tr style="border-bottom:2px solid #65b844;">
-          <th>日時</th>
-          <th>タイトル</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @results.each do |item| %>
-          <tr style="border-bottom:1px solid #65b844;">
-            <td><%= item.created_at.strftime("%Y-%m-%d %H:%M") %></td>
-            <td><%= item.title %></td>
-
-            <td style="text-align:right;">
-              <%= link_to "投稿詳細", user_post_path(item),
-                style:"
-                  display:inline-block;
-                  padding:6px 12px;
-                  background-color: #65b844;
-                  color: #fff;
-                  border-radius:999px;
-                  text-decoration:none;
-                " %>
-            </td>
+    <div class="search-posts-table-wrap">
+      <table class="search-posts-table">
+        <thead>
+          <tr>
+            <th>日時</th>
+            <th>投稿タイトル</th>
+            <th>投稿者</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          <% @results.each do |item| %>
+            <tr>
+
+              <!-- 日時 -->
+              <td><%= item.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+
+              <!-- タイトル -->
+              <td><%= item.title %></td>
+
+              <!-- 投稿者（共通ロジック） -->
+              <td>
+                <% if item.user.present? %>
+                  <%= item.user.name %>
+                <% else %>
+                  poier
+                <% end %>
+              </td>
+
+              <!-- 詳細 -->
+              <td class="list-action-cell">
+                <%= link_to "投稿詳細", user_post_path(item),
+                  class: "list-detail-btn" %>
+              </td>
+
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
 
   <% end %>
 

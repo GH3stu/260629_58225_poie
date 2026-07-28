@@ -1,11 +1,13 @@
 module ApplicationHelper
-  # URL を自動リンク化するメソッド
   def url_to_link(text)
     return "" if text.blank?
 
-    text.gsub(URI.regexp(%w[http https])) do |url|
-      # ここに追加
-      link_to(url, url, target: "_blank", rel: "noopener")
-    end.html_safe
+    # URL をリンク化（target="_blank" 付き）
+    linked = text.gsub(%r{(https?://[^\s]+)}) do |url|
+      "<a href='#{url}' target='_blank' rel='noopener'>#{url}</a>"
+    end
+
+    # simple_format の sanitize を OFF にする
+    simple_format(linked, {}, sanitize: false)
   end
 end

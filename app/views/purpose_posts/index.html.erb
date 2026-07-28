@@ -5,10 +5,10 @@
   <table style="width:100%; border-collapse: collapse; color: #65b844; margin-top:20px;">
     <thead>
       <tr style="border-bottom: 2px solid #65b844;">
+        <th>日時</th>
         <th>タイトル</th>
         <th>カテゴリ</th>
         <th>投稿者</th>
-        <th>日時</th>
         <th>詳細</th>
       </tr>
     </thead>
@@ -16,6 +16,9 @@
     <tbody>
       <% @posts.each do |post| %>
         <tr style="border-bottom: 1px solid #65b844;">
+
+          <!-- 日時 -->
+          <td><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></td>
 
           <!-- タイトル（ログイン状態で分岐） -->
           <td>
@@ -38,9 +41,6 @@
 
           <!-- 投稿者 -->
           <td><%= post.user&.name || post.admin&.name %></td>
-
-          <!-- 日時 -->
-          <td><%= l(post.created_at, format: :long) %></td>
 
           <!-- 詳細ボタン -->
           <td>

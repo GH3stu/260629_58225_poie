@@ -6,52 +6,47 @@
 
   <h4 style="color: #65b844;">サブカテゴリ一覧</h4>
 
-  <table style="width:30%; border-collapse: collapse; color: #65b844; margin-top:20px;">
-    <thead>
-      <tr style="border-bottom: 2px solid #65b844;">
+  <div class="category-sub-table-wrap">
+    <table class="category-sub-table">
+      <thead>
+        <tr>
         <th>サブカテゴリ名</th>
-      </tr>
-    </thead>
+        </tr>
+      </thead>
 
-    <tbody>
-      <% if @sub_categories.present? %>
-        <% @sub_categories.each do |sc| %>
-          <tr style="border-bottom: 1px solid #65b844;">
+      <tbody>
+        <% if @sub_categories.present? %>
+          <% @sub_categories.each do |sc| %>
+            <tr>
             <td><%= sc.name %></td>
 
-            <td style="text-align:right;">
+            <td class="list-action-cell">
               <%= link_to "投稿一覧", sub_category_posts_path(sc.id),
-                style: "
-                  display:inline-block;
-                  padding:6px 12px;
-                  background-color: #65b844;
-                  color:#fff;
-                  border-radius:999px;
-                  text-decoration:none;
-                " %>
-            </td>
+                class: "list-detail-btn" %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="2">サブカテゴリはありません</td>
           </tr>
         <% end %>
-      <% else %>
-        <tr>
-          <td colspan="2">サブカテゴリはありません</td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 <% else %>
-  <table style="width:100%; border-collapse: collapse; color: #65b844; margin-top:20px;">
-    <thead>
-      <tr style="border-bottom: 2px solid #65b844;">
+  <div class="category-posts-table-wrap">
+    <table class="category-posts-table">
+      <thead>
+        <tr>
         <th>日時</th>
         <th>投稿タイトル</th>
         <th>投稿者</th>
-        <th>詳細</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @posts.each do |post| %>
-        <tr style="border-bottom: 1px solid #65b844;">
+        </tr>
+      </thead>
+      <tbody>
+        <% @posts.each do |post| %>
+          <tr>
           <td><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></td>
           <td><%= post.title %></td>
 
@@ -59,36 +54,23 @@
             <% if post.user.present? %>
               <%= post.user.name %>
             <% else %>
-              管理者：<%= post.admin.name %>
+              poier
             <% end %>
           </td>
 
           <td>
             <% if current_user.present? %>
               <%= link_to "詳細", user_post_path(post),
-                style: "
-                  display:inline-block;
-                  padding:6px 12px;
-                  background-color: #65b844;
-                  color:#fff;
-                  border-radius:999px;
-                  text-decoration:none;
-                " %>
+                class: "list-detail-btn" %>
             <% else %>
               <%= link_to "詳細", login_path,
-                style: "
-                  display:inline-block;
-                  padding:6px 12px;
-                  background-color: #65b844;
-                  color:#fff;
-                  border-radius:999px;
-                  text-decoration:none;
-                " %>
+                class: "list-detail-btn" %>
             <% end %>
           </td>
 
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% end %>
