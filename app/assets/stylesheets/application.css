@@ -373,6 +373,14 @@ div.tag-list {
   object-fit: contain;
 }
 
+.top-purpose-icon:hover {
+  transform: scale(1.15);
+}
+
+.top-purpose-icon:active {
+  transform: scale(0.9);
+}
+
 .top-purpose-name {
   margin-top: 10px;
   font-size: 18px;
@@ -701,4 +709,22 @@ table td:nth-child(1) {
   cursor: pointer;
   text-decoration: none;
   margin: 5px;
+}
+
+.home-bounce {
+  animation: bounce 3s infinite;
+}
+
+@keyframes bounce {
+  0%   { transform: translateY(0); }
+  10%  { transform: translateY(-10px); }
+  20%  { transform: translateY(0); }
+  30%  { transform: translateY(-5px); }
+  40%  { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+
+.admin-body-field {
+  width: 80%;
+  min-height: 200px; /* 必要なら高さも調整可能 */
 }
