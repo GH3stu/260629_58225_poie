@@ -57,7 +57,6 @@
         <th>日時</th>
         <th>タイトル</th>
         <th>投稿者</th>
-        <th>詳細</th>
       </tr>
     </thead>
 
@@ -76,7 +75,7 @@
           <% if post.user.present? %>
             <%= post.user.name %>
           <% else %>
-            管理者：<%= post.admin.name %>
+            poier
           <% end %>
         </td>
 
@@ -97,4 +96,6 @@
 
 <br>
 
-<%= paginate @admin_posts %>
+<div class="top-pagination">
+  <%= paginate @admin_posts %>
+</div>
