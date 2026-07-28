@@ -305,6 +305,11 @@ div.tag-list {
     gap: 16px;
   }
 
+  .site-search-form {
+    display: none;
+  }
+}
+
   .post-editor-panel,
   .post-tag-panel {
     flex: none;
