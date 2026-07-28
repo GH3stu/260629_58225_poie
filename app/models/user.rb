@@ -16,6 +16,20 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :favorite_posts, through: :favorites, source: :post
 
+  def follow(other_user)
+    return if other_user == self || following?(other_user)
+
+    active_relationships.create(followed: other_user)
+  end
+
+  def unfollow(other_user)
+    active_relationships.find_by(followed: other_user)&.destroy
+  end
+
+  def following?(other_user)
+    following.include?(other_user)
+  end
+
   validates :name, presence: { message: "を入力してください" }
   validates :email, presence: { message: "を入力してください" },
                     uniqueness: { message: "は既に使用されています" }

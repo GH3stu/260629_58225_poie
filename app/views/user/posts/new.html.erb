@@ -1,17 +1,17 @@
-<h2 style="color:#65b844;">新規投稿</h2>
+<h2 style="color: #65b844;">新規投稿</h2>
 
 <br>
 
 <%= form_with model: @post, url: user_posts_path, local: true do |f| %>
 
 <!-- ★ 左右レイアウト化 -->
-<div style="display:flex; gap:30px;">
+<div class="post-editor-layout">
 
   <!-- ★ 左側：投稿フォーム（比率：45%） -->
-  <div style="flex:0 0 45%; height: 70vh; border: 1px solid #FFF; padding: 30px; background-color: #F7FBEF; overflow-y:auto;">
+  <div class="post-editor-panel">
 
       <% if @post.errors.any? %>
-        <ul style="color:#65b844;">
+        <ul style="color: #65b844;">
           <% @post.errors.full_messages.each do |msg| %>
             <li><%= msg %></li>
           <% end %>
@@ -20,63 +20,64 @@
 
       <!-- タイトル -->
       <div>
-        <%= f.label :title, "タイトル", style: "color:#65b844;" %><br>
+        <%= f.label :title, "タイトル", style: "color: #65b844;" %><br>
         <%= f.text_field :title,
-          style: "width: 100%; color:#65b844; border:1px solid #65b844;" %>
+          style: "width: 100%; color: #65b844; border:1px solid #65b844;" %>
       </div>
 
       <br>
 
       <!-- 本文 -->
       <div>
-        <%= f.label :body, "本文", style: "color:#65b844;" %><br>
+        <%= f.label :body, "本文", style: "color: #65b844;" %><br>
         <%= f.text_area :body,
-          style: "width: 100%; height: 120px; color:#65b844; border:1px solid #65b844;" %>
+          style: "width: 100%; height: 120px; color: #65b844; border:1px solid #65b844;" %>
       </div>
 
       <br>
 
       <!-- 目的 -->
       <div>
-        <%= f.label :purpose_id, "目的", style: "color:#65b844;" %><br>
+        <%= f.label :purpose_id, "目的", style: "color: #65b844;" %><br>
         <%= f.collection_select :purpose_id,
           Purpose.all, :id, :name,
           prompt: "目的を選択してください",
-          style: "width: 100%; color:#65b844; border:1px solid #65b844; appearance:none; -webkit-appearance:none;" %>
+          style: "width: 100%; color: #65b844; border:1px solid #65b844; appearance:none; -webkit-appearance:none;" %>
       </div>
 
       <br>
 
       <!-- 獲得できるポイント -->
       <div>
-        <%= f.label :category_id, "獲得できるポイント", style: "color:#65b844;" %><br>
+        <%= f.label :category_id, "獲得できるポイント", style: "color: #65b844;" %><br>
         <%= f.collection_select :category_id,
           Category.for_post_select, :id, :name,
           prompt: "選択してください",
-          style: "width: 100%; color:#65b844; border:1px solid #65b844; appearance:none; -webkit-appearance:none;" %>
+          style: "width: 100%; color: #65b844; border:1px solid #65b844; appearance:none; -webkit-appearance:none;" %>
       </div>
 
       <br>
 
       <!-- サブカテゴリ -->
       <div id="sub_category_area" style="display:none;">
-        <%= f.label :sub_category_id, "サブカテゴリ", style: "color:#65b844;" %><br>
+        <%= f.label :sub_category_id, "サブカテゴリ", style: "color: #65b844;" %><br>
 
-        <% other_category = Category.find_by(name: "その他ポイント") %>
+        <% other_category = Category.find_by(name: "その他ポイント") || Category.find_by(name: "その他カテゴリ") %>
+        <% sub_categories = other_category ? SubCategory.where(category_id: other_category.id) : SubCategory.none %>
         <%= f.collection_select :sub_category_id,
-              SubCategory.where(category_id: other_category.id),
+              sub_categories,
               :id, :name,
               prompt: "選択してください",
-              style: "width: 100%; color:#65b844; border:1px solid #65b844; appearance:none; -webkit-appearance:none;" %>
+              style: "width: 100%; color: #65b844; border:1px solid #65b844; appearance:none; -webkit-appearance:none;" %>
       </div>
 
       <br>
 
       <!-- タグ（カンマ区切り） -->
       <div>
-        <%= f.label :tag_names, "タグ（カンマ区切り）", style: "color:#65b844;" %><br>
+        <%= f.label :tag_names, "タグ（カンマ区切り）", style: "color: #65b844;" %><br>
         <%= f.text_field :tag_names,
-          style: "width: 100%; color:#65b844; border:1px solid #65b844;" %>
+          style: "width: 100%; color: #65b844; border:1px solid #65b844;" %>
       </div>
 
       <br>
@@ -99,21 +100,21 @@
   </div>
 
   <!-- ★ 右側：タグ専用BOX（比率：55%） -->
-  <div style="flex:0 0 55%;">
+  <div class="post-tag-panel">
     <div class="row">
       <% @tags.each do |tag| %>
         <div class="col-4 mb-2">
           <label style="
             display:flex;
             align-items:center;
-            background:#F7FBEF;
+            background: #F7FBEF;
             border:none;
             padding:8px;
             border-radius:6px;
-            color:#65b844;
+            color: #65b844;
            ">
             <%= check_box_tag "post[tag_ids][]", tag.id, @post.tags.include?(tag) %>
-            <span style="margin-left:8px; color:#65b844;"><%= tag.name %></span>
+            <span style="margin-left:8px; color: #65b844;"><%= tag.name %></span>
           </label>
         </div>
       <% end %>
@@ -129,14 +130,14 @@
 <%= link_to "マイページへ戻る", user_user_path(current_user), style:"color: #65b844;" %>
 
 <!-- ★ サブカテゴリ表示制御 -->
-<% other_category = Category.find_by(name: "その他ポイント") %>
+<% other_category = Category.find_by(name: "その他ポイント") || Category.find_by(name: "その他カテゴリ") %>
 
 <script>
   document.addEventListener("input", function() {
     const categorySelect = document.getElementById("post_category_id");
     const area = document.getElementById("sub_category_area");
 
-    if (categorySelect.value === "<%= other_category.id %>") {
+    if (categorySelect.value === "<%= other_category&.id %>") {
       area.style.display = "block";
     } else {
       area.style.display = "none";

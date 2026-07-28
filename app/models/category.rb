@@ -16,6 +16,7 @@ class Category < ApplicationRecord
     "ANAマイル",
     "モッピーポイント",
     "その他ポイント",
+    "その他カテゴリ",
     "ポイント運用"
   ]
 
