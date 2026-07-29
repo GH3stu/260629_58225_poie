@@ -4,7 +4,7 @@
 
 <%= form_with model: @post, url: user_post_path(@post), method: :patch, local: true do |f| %>
 
-<div class="post-editor-layout">
+<div class="post-editor-layout post-editor-layout--split">
 
   <!-- 左側：フォーム -->
   <div class="post-editor-panel">
@@ -113,7 +113,7 @@
     <div>
       <span style="color:#65b844;">タグを選択（複数選択可）</span><br>
 
-      <div class="row" style="margin-top:10px;">
+      <div class="row post-tag-grid" style="margin-top:10px;">
         <% Tag.all.each do |tag| %>
           <div class="col-4 mb-2">
             <label style="
