@@ -188,6 +188,12 @@ div.tag-list {
   align-items: flex-start;
 }
 
+.post-editor-layout--split {
+  width: 100%;
+  max-width: 100%;
+  gap: 24px;
+}
+
 .post-editor-panel {
   flex: 0 0 45%;
   max-height: 70vh;
@@ -205,6 +211,21 @@ div.tag-list {
   padding-right: 8px;
 }
 
+@media (min-width: 769px) {
+  .post-editor-layout--split > .post-editor-panel,
+  .post-editor-layout--split > .post-tag-panel {
+    box-sizing: border-box;
+    min-width: 0;
+    flex: 0 0 calc((100% - 24px) / 2);
+    width: calc((100% - 24px) / 2);
+  }
+
+  .post-editor-layout--split .post-tag-grid {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 .user-edit-form-panel {
   width: 40%;
   min-width: 480px;
@@ -215,7 +236,60 @@ div.tag-list {
   color: #65b844;
 }
 
-/* トップページ */
+@media (max-width: 1020px) {
+  body.post-form-page .sidebar {
+    display: none !important;
+  }
+
+  body.post-form-page .main-content {
+    padding: 28px 24px !important;
+  }
+
+  .user-edit-form-panel {
+    width: min(80%, 680px);
+    min-width: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .post-editor-layout {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .site-search-form {
+    display: none;
+  }
+
+  .post-editor-panel,
+  .post-tag-panel {
+    flex: none;
+    width: 100%;
+    max-height: 45vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .post-editor-panel {
+    padding: 20px;
+  }
+
+  .post-tag-panel {
+    padding-right: 0;
+  }
+
+  .user-edit-form-panel {
+    width: 100%;
+    min-height: auto;
+    padding: 20px;
+  }
+
+  .post-editor-layout--split .post-tag-grid {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 .top-welcome,
 .top-latest-title {
   color: #65b844;
