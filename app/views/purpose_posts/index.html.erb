@@ -31,7 +31,7 @@
                   style:"color: #65b844; text-decoration:none;" %>
               <% end %>
             <% else %>
-              <%= link_to post.title, admin_post_path(post),
+              <%= link_to post.title, login_path,
                 style:"color: #65b844; text-decoration:none;" %>
             <% end %>
           </td>
@@ -67,7 +67,7 @@
                   " %>
               <% end %>
             <% else %>
-              <%= link_to "詳細", admin_post_path(post),
+              <%= link_to "詳細", login_path,
                 style:"
                   display:inline-block;
                   padding:6px 12px;
