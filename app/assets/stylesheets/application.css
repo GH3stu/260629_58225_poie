@@ -12,94 +12,24 @@
 @import "hamburger.css";
 @import "tags.css";
 
-@media (max-width: 767px) {
-  .header-icons {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-}
+/* ===============================
+   PC / Base Styles
+   =============================== */
 
-@media (max-width: 767px) {
-  .sidebar {
-    display: none;
-  }
-}
-
-@media (max-width: 767px) {
-  .main-content {
-    padding: 10px 15px !important;
-  }
-}
-
-/* PC（1024px〜） */
+/* 検索・サイドバー・メインレイアウト */
 .search-input {
   width: 300px !important;
 }
 
-/* タブレット（768〜1023px） */
-@media (max-width: 1023px) {
-  .search-input {
-    width: 220px !important;
-  }
-}
-
-/* スマホ（〜767px） */
-@media (max-width: 767px) {
-  .search-input {
-    width: 140px !important;
-  }
-}
-
-/* PC（1024px〜） → 現状維持 */
 .sidebar {
   width: 200px !important;
 }
 
-/* タブレット（768〜1023px） → 幅を縮小 */
-@media (max-width: 1023px) and (min-width: 768px) {
-  .sidebar {
-    width: 150px !important;
-    padding: 15px !important; /* 少し縮めると綺麗 */
-  }
-
-  .sidebar h2 {
-    font-size: 20px !important;
-  }
-
-  .sidebar li {
-    margin-bottom: 10px !important;
-  }
-}
-
-/* スマホ（〜767px） → 非表示（Step2で実装済） */
-@media (max-width: 767px) {
-  .sidebar {
-    display: none;
-  }
-}
-
-/* PC（1024px〜） */
 .main-content {
   font-size: 16px;
 }
 
-/* タブレット（768〜1023px） */
-@media (max-width: 1023px) and (min-width: 768px) {
-  .main-content {
-    font-size: 15px;
-  }
-}
-
-/* スマホ（〜767px） */
-@media (max-width: 767px) {
-  .main-content {
-    font-size: 14px;
-    line-height: 1.6; /* スマホ時は行間を少し広げると読みやすい */
-  }
-}
-
-/* 認証ボタン共通 */
+/* 認証ボタン */
 .auth-btn {
   display: inline-block;
   width: 100%;
@@ -113,16 +43,15 @@
   cursor: pointer;
 }
 
-/* 新規登録ボタン：文字色 #65b844 */
 .auth-btn--signup {
   color: #65b844;
 }
 
-/* ログインボタン：文字色 #fff */
 .auth-btn--login {
   color: #fff;
 }
 
+/* タグ一覧 */
 div.tag-list label.tag-item {
   display: flex !important;
   align-items: center;
@@ -141,6 +70,7 @@ div.tag-list {
   margin-top: 12px;
 }
 
+/* ヘッダー */
 .site-header {
   min-height: 120px;
   display: flex;          /* ← 親をflexにする */
@@ -251,10 +181,17 @@ div.tag-list {
   margin: 8px 0;
 }
 
+/* 投稿編集・プロフィール編集 */
 .post-editor-layout {
   display: flex;
   gap: 30px;
   align-items: flex-start;
+}
+
+.post-editor-layout--split {
+  width: 100%;
+  max-width: 100%;
+  gap: 24px;
 }
 
 .post-editor-panel {
@@ -272,6 +209,21 @@ div.tag-list {
   max-height: 70vh;
   overflow-y: auto;
   padding-right: 8px;
+}
+
+@media (min-width: 769px) {
+  .post-editor-layout--split > .post-editor-panel,
+  .post-editor-layout--split > .post-tag-panel {
+    box-sizing: border-box;
+    min-width: 0;
+    flex: 0 0 calc((100% - 24px) / 2);
+    width: calc((100% - 24px) / 2);
+  }
+
+  .post-editor-layout--split .post-tag-grid {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 .user-edit-form-panel {
@@ -308,7 +260,6 @@ div.tag-list {
   .site-search-form {
     display: none;
   }
-}
 
   .post-editor-panel,
   .post-tag-panel {
@@ -331,6 +282,11 @@ div.tag-list {
     width: 100%;
     min-height: auto;
     padding: 20px;
+  }
+
+  .post-editor-layout--split .post-tag-grid {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
@@ -435,134 +391,7 @@ table td:nth-child(1) {
   white-space: nowrap;
 }
 
-@media (max-width: 1023px) {
-  .site-header-inner {
-    padding: 0 20px;
-    gap: 16px;
-  }
-
-  .site-header-left {
-    gap: 20px;
-  }
-
-  .site-header-logo {
-    height: 82px;
-    margin-left: 0;
-  }
-
-  .site-user-actions {
-    gap: 12px;
-  }
-}
-
-@media (max-width: 1020px) and (min-width: 768px) {
-  .top-purpose-list {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-
-  .top-purpose-link {
-    flex: 0 0 calc((100% - 160px) / 3);
-    max-width: calc((100% - 160px) / 3);
-  }
-
-  .top-purpose-icon {
-    width: min(100%, 180px);
-  }
-
-  .top-purpose-name {
-    font-size: 17px;
-  }
-}
-
-@media (max-width: 767px) {
-  .site-header {
-    min-height: auto;
-  }
-
-  .site-header-inner {
-    padding: 10px 14px;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .site-header-left {
-    width: 100%;
-    justify-content: space-between;
-    gap: 10px;
-  }
-
-  .site-header-logo {
-    height: 62px;
-  }
-
-  .site-search-form {
-    flex: 1;
-    min-width: 0;
-    justify-content: flex-end;
-  }
-
-  .site-header-actions {
-    width: 100%;
-    justify-content: flex-end;
-    gap: 14px;
-  }
-
-  .site-user-actions {
-    gap: 8px;
-  }
-
-  .top-welcome {
-    display: none;
-  }
-
-  .top-purpose-title {
-    text-align: center;
-  }
-
-  .top-purpose-card {
-    padding: 18px 12px;
-  }
-
-  .top-purpose-list {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .top-purpose-link {
-    width: calc((100% - 16px) / 2);
-    flex: 0 0 calc((100% - 16px) / 2);
-    max-width: calc((100% - 16px) / 2);
-  }
-
-  .top-purpose-item {
-    width: 100%;
-  }
-
-  .top-purpose-icon {
-    width: min(100%, 160px);
-  }
-
-  .top-purpose-name {
-    font-size: 16px;
-  }
-
-  .top-posts-table {
-    margin-top: 14px;
-    min-width: 560px;
-  }
-
-  .top-posts-table th,
-  .top-posts-table td {
-    padding: 7px 8px;
-    font-size: 13px;
-  }
-}
-
+/* 一覧テーブル（カテゴリ・検索） */
 .category-sub-table-wrap,
 .category-posts-table-wrap,
 .search-users-table-wrap,
@@ -626,64 +455,7 @@ table td:nth-child(1) {
   white-space: nowrap;
 }
 
-@media (max-width: 1023px) and (min-width: 768px) {
-  .category-sub-table,
-  .category-posts-table,
-  .search-users-table,
-  .search-posts-table {
-    margin-top: 16px;
-  }
-
-  .category-sub-table th,
-  .category-sub-table td,
-  .category-posts-table th,
-  .category-posts-table td,
-  .search-users-table th,
-  .search-users-table td,
-  .search-posts-table th,
-  .search-posts-table td {
-    padding: 7px 8px;
-    font-size: 14px;
-  }
-
-  .list-detail-btn {
-    padding: 5px 10px;
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 767px) {
-  .category-sub-table,
-  .category-posts-table,
-  .search-users-table,
-  .search-posts-table {
-    margin-top: 12px;
-  }
-
-  .category-posts-table,
-  .search-posts-table {
-    min-width: 520px;
-  }
-
-  .category-sub-table th,
-  .category-sub-table td,
-  .category-posts-table th,
-  .category-posts-table td,
-  .search-users-table th,
-  .search-users-table td,
-  .search-posts-table th,
-  .search-posts-table td {
-    padding: 6px 7px;
-    font-size: 12px;
-  }
-
-  .list-detail-btn {
-    padding: 5px 9px;
-    font-size: 12px;
-  }
-}
-
- /* ここから編集開始 */
+/* アニメーション・装飾 */
 .poie-press {
   animation: poiePress 0.45s ease-out; /* ← 1回だけ */
 }
@@ -694,7 +466,7 @@ table td:nth-child(1) {
   60%  { transform: scale(1.06); } /* ← ぷるんと戻る */
   100% { transform: scale(1); }
 }
- /* ここから更新 */
+
 .site-header-logo:hover {
   filter: brightness(1.1) drop-shadow(0 0 8px rgba(101, 184, 68, 0.5));
   transition: filter 0.25s ease-out;
@@ -732,4 +504,331 @@ table td:nth-child(1) {
 .admin-body-field {
   width: 80%;
   min-height: 200px; /* 必要なら高さも調整可能 */
+}
+
+/* ===============================
+   Tablet Styles (max-width: 1023px)
+   =============================== */
+
+/* 検索・サイドバー・メイン */
+@media (max-width: 1023px) {
+  .search-input {
+    width: 220px !important;
+  }
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  .sidebar {
+    width: 150px !important;
+    padding: 15px !important; /* 少し縮めると綺麗 */
+  }
+
+  .sidebar h2 {
+    font-size: 20px !important;
+  }
+
+  .sidebar li {
+    margin-bottom: 10px !important;
+  }
+
+  .main-content {
+    font-size: 15px;
+  }
+}
+
+/* ヘッダー */
+@media (max-width: 1023px) {
+  .site-header-inner {
+    padding: 0 20px;
+    gap: 16px;
+  }
+
+  .site-header-left {
+    gap: 20px;
+  }
+
+  .site-header-logo {
+    height: 82px;
+    margin-left: 0;
+  }
+
+  .site-user-actions {
+    gap: 12px;
+  }
+}
+
+/* 投稿編集・プロフィール編集 */
+@media (max-width: 1020px) {
+  body.post-form-page .sidebar {
+    display: none !important;
+  }
+
+  body.post-form-page .main-content {
+    padding: 28px 24px !important;
+  }
+
+  .user-edit-form-panel {
+    width: min(80%, 680px);
+    min-width: 0;
+  }
+}
+
+/* トップページ */
+@media (max-width: 1020px) and (min-width: 768px) {
+  .top-purpose-list {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .top-purpose-link {
+    flex: 0 0 calc((100% - 160px) / 3);
+    max-width: calc((100% - 160px) / 3);
+  }
+
+  .top-purpose-icon {
+    width: min(100%, 180px);
+  }
+
+  .top-purpose-name {
+    font-size: 17px;
+  }
+}
+
+/* 一覧テーブル（カテゴリ・検索） */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .category-sub-table,
+  .category-posts-table,
+  .search-users-table,
+  .search-posts-table {
+    margin-top: 16px;
+  }
+
+  .category-sub-table th,
+  .category-sub-table td,
+  .category-posts-table th,
+  .category-posts-table td,
+  .search-users-table th,
+  .search-users-table td,
+  .search-posts-table th,
+  .search-posts-table td {
+    padding: 7px 8px;
+    font-size: 14px;
+  }
+
+  .list-detail-btn {
+    padding: 5px 10px;
+    font-size: 13px;
+  }
+}
+
+/* ===============================
+   Mobile Styles (max-width: 767px)
+   =============================== */
+
+/* 共通レイアウト */
+@media (max-width: 767px) {
+  .header-icons {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .main-content {
+    padding: 10px 15px !important;
+    font-size: 14px;
+    line-height: 1.6; /* スマホ時は行間を少し広げると読みやすい */
+  }
+
+  .search-input {
+    width: 140px !important;
+  }
+}
+
+/* 投稿編集・プロフィール編集（〜768px） */
+@media (max-width: 768px) {
+  .post-editor-layout {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .site-search-form {
+    display: none;
+  }
+
+  .post-editor-panel,
+  .post-tag-panel {
+    flex: none;
+    width: 100%;
+    max-height: 45vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .post-editor-panel {
+    padding: 20px;
+  }
+
+  .post-tag-panel {
+    padding-right: 0;
+  }
+
+  .user-edit-form-panel {
+    width: 100%;
+    min-height: auto;
+    padding: 20px;
+  }
+}
+
+/* ヘッダー・トップページ */
+@media (max-width: 768px) {
+  .site-header {
+    min-height: 98px;
+  }
+
+  .site-header-inner {
+    padding: 10px 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .site-header-left {
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .site-header-logo {
+    height: 74px;
+    margin-left: 8px;
+  }
+
+  .site-search-form {
+    display: none;
+  }
+
+  .site-header-actions {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .site-header-actions > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    padding: 6px 4px;
+  }
+
+  .site-header-actions > a .header-icon-lg {
+    width: 36px;
+  }
+
+  .site-user-actions {
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .site-user-actions .header-icon-md {
+    width: 34px;
+  }
+
+  .site-user-actions .header-icon-lg {
+    width: 38px;
+  }
+
+  .site-user-actions .hamburger-icon {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .top-welcome {
+    display: none;
+  }
+
+  .top-purpose-title {
+    text-align: center;
+  }
+
+  .top-purpose-card {
+    padding: 18px 12px;
+  }
+
+  .top-purpose-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .top-purpose-link {
+    width: calc((100% - 16px) / 2);
+    flex: 0 0 calc((100% - 16px) / 2);
+    max-width: calc((100% - 16px) / 2);
+  }
+
+  .top-purpose-item {
+    width: 100%;
+  }
+
+  .top-purpose-icon {
+    width: min(100%, 160px);
+  }
+
+  .top-purpose-name {
+    font-size: 16px;
+  }
+
+  .top-posts-table {
+    margin-top: 14px;
+    min-width: 560px;
+  }
+
+  .top-posts-table th,
+  .top-posts-table td {
+    padding: 7px 8px;
+    font-size: 13px;
+  }
+}
+
+/* 一覧テーブル（カテゴリ・検索） */
+@media (max-width: 767px) {
+  .category-sub-table,
+  .category-posts-table,
+  .search-users-table,
+  .search-posts-table {
+    margin-top: 12px;
+  }
+
+  .category-posts-table,
+  .search-posts-table {
+    min-width: 520px;
+  }
+
+  .category-sub-table th,
+  .category-sub-table td,
+  .category-posts-table th,
+  .category-posts-table td,
+  .search-users-table th,
+  .search-users-table td,
+  .search-posts-table th,
+  .search-posts-table td {
+    padding: 6px 7px;
+    font-size: 12px;
+  }
+
+  .list-detail-btn {
+    padding: 5px 9px;
+    font-size: 12px;
+  }
 }

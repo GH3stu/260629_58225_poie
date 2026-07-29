@@ -5,7 +5,7 @@
 <%= form_with model: @post, url: user_posts_path, local: true do |f| %>
 
 <!-- ★ 左右レイアウト化 -->
-<div class="post-editor-layout">
+<div class="post-editor-layout post-editor-layout--split">
 
   <!-- ★ 左側：投稿フォーム（比率：45%） -->
   <div class="post-editor-panel">
@@ -101,7 +101,7 @@
 
   <!-- ★ 右側：タグ専用BOX（比率：55%） -->
   <div class="post-tag-panel">
-    <div class="row">
+    <div class="row post-tag-grid">
       <% @tags.each do |tag| %>
         <div class="col-4 mb-2">
           <label style="
