@@ -27,7 +27,7 @@
                 <%= link_to post.title, user_post_path(post),
                   style:"color: #65b844; text-decoration:none;" %>
               <% else %>
-                <%= link_to post.title, admin_post_path(post),
+                <%= link_to post.title, user_post_path(post),
                   style:"color: #65b844; text-decoration:none;" %>
               <% end %>
             <% else %>
@@ -56,7 +56,7 @@
                     text-decoration:none;
                   " %>
               <% else %>
-                <%= link_to "詳細", admin_post_path(post),
+                <%= link_to "詳細", user_post_path(post),
                   style:"
                     display:inline-block;
                     padding:6px 12px;
