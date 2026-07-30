@@ -3,26 +3,33 @@
 
     <!-- 左：ロゴ＋検索窓 -->
     <div class="site-header-left">
-      <%= link_to about_path do %>
+      <% if defined?(current_admin) && current_admin.present? %>
         <%= image_tag "poie_logo.png", alt: "Poie", class: "site-header-logo" %>
-      <% end %>
-
-      <!-- ★ ロゴ右の検索窓 -->
-      <%= form_with url: search_path, method: :get, local: true,
-        class: "site-search-form" do |f| %>
-
-        <%= f.text_field :keyword,
-              placeholder: "投稿を検索",
-              class: "search-input",
-            style: "padding: 5px 10px; border: 2px solid #65b844; color: #65b844;" %>
-
-        <%= button_tag type: "submit",
-              class: "site-search-button" do %>
-          <%= image_tag "search.png", alt: "検索", class: "header-icon",
-                style: "margin-left: 10px;" %>
+      <% else %>
+        <%= link_to about_path do %>
+          <%= image_tag "poie_logo.png", alt: "Poie", class: "site-header-logo" %>
         <% end %>
-
       <% end %>
+
+      <!-- ★ ロゴ右の検索窓（管理者は非表示） -->
+      <% unless defined?(current_admin) && current_admin.present? %>
+        <%= form_with url: search_path, method: :get, local: true,
+          class: "site-search-form" do |f| %>
+
+          <%= f.text_field :keyword,
+                placeholder: "投稿を検索",
+                class: "search-input",
+                style: "padding: 5px 10px; border: 2px solid #65b844; color: #65b844;" %>
+
+          <%= button_tag type: "submit",
+                class: "site-search-button" do %>
+            <%= image_tag "search.png", alt: "検索", class: "header-icon",
+                  style: "margin-left: 10px;" %>
+          <% end %>
+
+        <% end %>
+      <% end %>
+
     </div>
 
     <!-- 中央ナビ（今は空） -->

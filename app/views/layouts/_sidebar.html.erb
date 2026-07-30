@@ -77,11 +77,21 @@
       <li>
 
         <% if category.name == "ポイント運用" %>
-          <%= link_to image_tag("investment.png",
-                alt: "ポイント運用",
-                class: "sidebar-icon"), category_posts_path(category) %>
+          <% if defined?(current_admin) && current_admin.present? %>
+            <%= image_tag("investment.png",
+                  alt: "ポイント運用",
+                  class: "sidebar-icon") %>
+          <% else %>
+            <%= link_to image_tag("investment.png",
+                  alt: "ポイント運用",
+                  class: "sidebar-icon"), category_posts_path(category) %>
+          <% end %>
         <% else %>
-          <%= link_to category.name, category_posts_path(category), style: "color: #65b844;" %>
+          <% if defined?(current_admin) && current_admin.present? %>
+            <span style="color: #65b844;"><%= category.name %></span>
+          <% else %>
+            <%= link_to category.name, category_posts_path(category), style: "color: #65b844;" %>
+          <% end %>
         <% end %>
 
       </li>

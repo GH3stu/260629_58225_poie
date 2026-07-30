@@ -1,4 +1,4 @@
-class Admin::TagsController < ApplicationController
+class Admin::TagsController < Admin::BaseController
   before_action :require_admin_login
 
   def index
