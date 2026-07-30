@@ -40,7 +40,13 @@
           <td><%= post.category.name %></td>
 
           <!-- 投稿者 -->
-          <td><%= post.user&.name || post.admin&.name %></td>
+          <td>
+            <% if post.user.present? %>
+              <%= post.user.name %>
+            <% else %>
+              poier
+            <% end %>
+          </td>
 
           <!-- 詳細ボタン -->
           <td>
