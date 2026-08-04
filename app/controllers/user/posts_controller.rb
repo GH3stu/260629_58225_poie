@@ -11,6 +11,8 @@ class User::PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
 
+    @post.score = LanguageService.get_score(@post.body) #  AIスコア付与
+
     if @post.save
       save_tags(@post)
       redirect_to user_post_path(@post), notice: "投稿しました"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_26_115547) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_04_154033) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -83,6 +83,15 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_26_115547) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "lists", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "score"
+  end
+
   create_table "post_tags", force: :cascade do |t|
     t.integer "post_id", null: false
     t.integer "tag_id", null: false
@@ -102,6 +111,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_26_115547) do
     t.integer "category_id"
     t.integer "sub_category_id"
     t.integer "purpose_id"
+    t.float "score"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -139,6 +149,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_26_115547) do
 
   create_table "tags", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "todolists", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.float "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
